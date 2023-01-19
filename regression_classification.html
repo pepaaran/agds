@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Regression and classification | Applied Geodata Science</title>
+  <meta name="description" content="This course prepares you to benefit from the general data richness in environmental and geo-sciences." />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Regression and classification | Applied Geodata Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This course prepares you to benefit from the general data richness in environmental and geo-sciences." />
+  <meta name="github-repo" content="stineb/agsd" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Regression and classification | Applied Geodata Science" />
+  
+  <meta name="twitter:description" content="This course prepares you to benefit from the general data richness in environmental and geo-sciences." />
+  
+
+<meta name="author" content="Benjamin Stocker (lead), Koen Hufkens (contributing), Pepa Aran (contributing), Pascal Schneider (contributing)" />
+
+
+<meta name="date" content="2023-01-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="open_science.html"/>
+<link rel="next" href="supervised_ml.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Applied Geodata Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this book</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#target-readers-of-this-book"><i class="fa fa-check"></i><b>0.1</b> Target readers of this book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="0.2" data-path="introduction.html"><a href="introduction.html#what-is-applied-geodata-science"><i class="fa fa-check"></i><b>0.2</b> What is Applied Geodata Science?</a></li>
+<li class="chapter" data-level="0.3" data-path="introduction.html"><a href="introduction.html#data-science-workflow"><i class="fa fa-check"></i><b>0.3</b> The (data) science workflow</a></li>
+<li class="chapter" data-level="0.4" data-path="introduction.html"><a href="introduction.html#data-rich-era"><i class="fa fa-check"></i><b>0.4</b> Why now?</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="getting_started.html"><a href="getting_started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="getting_started.html"><a href="getting_started.html#learning-objectives"><i class="fa fa-check"></i><b>1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="1.2" data-path="getting_started.html"><a href="getting_started.html#tutorial"><i class="fa fa-check"></i><b>1.2</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="getting_started.html"><a href="getting_started.html#working-with-r-and-rstudio"><i class="fa fa-check"></i><b>1.2.1</b> Working with R and RStudio</a></li>
+<li class="chapter" data-level="1.2.2" data-path="getting_started.html"><a href="getting_started.html#r-objects"><i class="fa fa-check"></i><b>1.2.2</b> R objects</a></li>
+<li class="chapter" data-level="1.2.3" data-path="getting_started.html"><a href="getting_started.html#r-scripts"><i class="fa fa-check"></i><b>1.2.3</b> R scripts</a></li>
+<li class="chapter" data-level="1.2.4" data-path="getting_started.html"><a href="getting_started.html#workspace-management"><i class="fa fa-check"></i><b>1.2.4</b> Workspace management</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="getting_started.html"><a href="getting_started.html#exercises"><i class="fa fa-check"></i><b>1.3</b> Exercises</a></li>
+<li class="chapter" data-level="1.4" data-path="getting_started.html"><a href="getting_started.html#solutions"><i class="fa fa-check"></i><b>1.4</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="programming_primers.html"><a href="programming_primers.html"><i class="fa fa-check"></i><b>2</b> Programming primers</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="programming_primers.html"><a href="programming_primers.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="programming_primers.html"><a href="programming_primers.html#tutorial-1"><i class="fa fa-check"></i><b>2.2</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="programming_primers.html"><a href="programming_primers.html#libraries"><i class="fa fa-check"></i><b>2.2.1</b> Libraries</a></li>
+<li class="chapter" data-level="2.2.2" data-path="programming_primers.html"><a href="programming_primers.html#programming-basics"><i class="fa fa-check"></i><b>2.2.2</b> Programming basics</a></li>
+<li class="chapter" data-level="2.2.3" data-path="programming_primers.html"><a href="programming_primers.html#working-with-data-frames"><i class="fa fa-check"></i><b>2.2.3</b> Working with data frames</a></li>
+<li class="chapter" data-level="2.2.4" data-path="programming_primers.html"><a href="programming_primers.html#where-to-find-help"><i class="fa fa-check"></i><b>2.2.4</b> Where to find help</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="programming_primers.html"><a href="programming_primers.html#exercises-1"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="programming_primers.html"><a href="programming_primers.html#solutions-1"><i class="fa fa-check"></i><b>2.4</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data_wrangling.html"><a href="data_wrangling.html"><i class="fa fa-check"></i><b>3</b> Data wrangling</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data_wrangling.html"><a href="data_wrangling.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="data_wrangling.html"><a href="data_wrangling.html#tutorial-2"><i class="fa fa-check"></i><b>3.2</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="data_wrangling.html"><a href="data_wrangling.html#example-data"><i class="fa fa-check"></i><b>3.2.1</b> Example data</a></li>
+<li class="chapter" data-level="3.2.2" data-path="data_wrangling.html"><a href="data_wrangling.html#required-libraries"><i class="fa fa-check"></i><b>3.2.2</b> Required libraries</a></li>
+<li class="chapter" data-level="3.2.3" data-path="data_wrangling.html"><a href="data_wrangling.html#tidyverse"><i class="fa fa-check"></i><b>3.2.3</b> Tidyverse</a></li>
+<li class="chapter" data-level="3.2.4" data-path="data_wrangling.html"><a href="data_wrangling.html#tabular-data"><i class="fa fa-check"></i><b>3.2.4</b> Tabular data</a></li>
+<li class="chapter" data-level="3.2.5" data-path="data_wrangling.html"><a href="data_wrangling.html#variable-selection"><i class="fa fa-check"></i><b>3.2.5</b> Variable selection</a></li>
+<li class="chapter" data-level="3.2.6" data-path="data_wrangling.html"><a href="data_wrangling.html#time-objects"><i class="fa fa-check"></i><b>3.2.6</b> Time objects</a></li>
+<li class="chapter" data-level="3.2.7" data-path="data_wrangling.html"><a href="data_wrangling.html#variable-re--definition"><i class="fa fa-check"></i><b>3.2.7</b> Variable (re-) definition</a></li>
+<li class="chapter" data-level="3.2.8" data-path="data_wrangling.html"><a href="data_wrangling.html#axes-of-variation"><i class="fa fa-check"></i><b>3.2.8</b> Axes of variation</a></li>
+<li class="chapter" data-level="3.2.9" data-path="data_wrangling.html"><a href="data_wrangling.html#tidy-data"><i class="fa fa-check"></i><b>3.2.9</b> Tidy data</a></li>
+<li class="chapter" data-level="3.2.10" data-path="data_wrangling.html"><a href="data_wrangling.html#aggregating-data"><i class="fa fa-check"></i><b>3.2.10</b> Aggregating data</a></li>
+<li class="chapter" data-level="3.2.11" data-path="data_wrangling.html"><a href="data_wrangling.html#data-cleaning"><i class="fa fa-check"></i><b>3.2.11</b> Data cleaning</a></li>
+<li class="chapter" data-level="3.2.12" data-path="data_wrangling.html"><a href="data_wrangling.html#combining-relational-data"><i class="fa fa-check"></i><b>3.2.12</b> Combining relational data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data_wrangling.html"><a href="data_wrangling.html#extra-material"><i class="fa fa-check"></i><b>3.3</b> Extra material</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="data_wrangling.html"><a href="data_wrangling.html#functional-programming-i"><i class="fa fa-check"></i><b>3.3.1</b> Functional programming I</a></li>
+<li class="chapter" data-level="3.3.2" data-path="data_wrangling.html"><a href="data_wrangling.html#strings"><i class="fa fa-check"></i><b>3.3.2</b> Strings</a></li>
+<li class="chapter" data-level="3.3.3" data-path="data_wrangling.html"><a href="data_wrangling.html#functional-programming-ii"><i class="fa fa-check"></i><b>3.3.3</b> Functional programming II</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data_wrangling.html"><a href="data_wrangling.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+<li class="chapter" data-level="3.5" data-path="data_wrangling.html"><a href="data_wrangling.html#solutions-2"><i class="fa fa-check"></i><b>3.5</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data_vis.html"><a href="data_vis.html"><i class="fa fa-check"></i><b>4</b> Data visualisation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data_vis.html"><a href="data_vis.html#learning-objectives-3"><i class="fa fa-check"></i><b>4.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="4.2" data-path="data_vis.html"><a href="data_vis.html#required-packages"><i class="fa fa-check"></i><b>4.2</b> Required packages</a></li>
+<li class="chapter" data-level="4.3" data-path="data_vis.html"><a href="data_vis.html#tutorial-3"><i class="fa fa-check"></i><b>4.3</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="data_vis.html"><a href="data_vis.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>4.3.1</b> The grammar of graphics</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data_vis.html"><a href="data_vis.html#every-data-has-its-representation"><i class="fa fa-check"></i><b>4.3.2</b> Every data has its representation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data_vis.html"><a href="data_vis.html#exercises-3"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="data_vis.html"><a href="data_vis.html#solutions-3"><i class="fa fa-check"></i><b>4.5</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data_variety.html"><a href="data_variety.html"><i class="fa fa-check"></i><b>5</b> Data variety</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data_variety.html"><a href="data_variety.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="data_variety.html"><a href="data_variety.html#tutorial-4"><i class="fa fa-check"></i><b>5.2</b> Tutorial</a></li>
+<li class="chapter" data-level="5.3" data-path="data_variety.html"><a href="data_variety.html#files-and-file-formats"><i class="fa fa-check"></i><b>5.3</b> Files and file formats</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="data_variety.html"><a href="data_variety.html#file-extensions"><i class="fa fa-check"></i><b>5.3.1</b> File extensions</a></li>
+<li class="chapter" data-level="5.3.2" data-path="data_variety.html"><a href="data_variety.html#file-formats"><i class="fa fa-check"></i><b>5.3.2</b> File formats</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="data_variety.html"><a href="data_variety.html#meta-data"><i class="fa fa-check"></i><b>5.4</b> Meta-data</a></li>
+<li class="chapter" data-level="5.5" data-path="data_variety.html"><a href="data_variety.html#spatial-data-representation"><i class="fa fa-check"></i><b>5.5</b> Spatial data representation</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="data_variety.html"><a href="data_variety.html#raster-data-model"><i class="fa fa-check"></i><b>5.5.1</b> Raster data model</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data_variety.html"><a href="data_variety.html#vector-data-model"><i class="fa fa-check"></i><b>5.5.2</b> Vector data model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="data_variety.html"><a href="data_variety.html#data-sources"><i class="fa fa-check"></i><b>5.6</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="data_variety.html"><a href="data_variety.html#direct-downloads"><i class="fa fa-check"></i><b>5.6.1</b> Direct downloads</a></li>
+<li class="chapter" data-level="5.6.2" data-path="data_variety.html"><a href="data_variety.html#apis"><i class="fa fa-check"></i><b>5.6.2</b> APIs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="data_variety.html"><a href="data_variety.html#exercises-4"><i class="fa fa-check"></i><b>5.7</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="data_variety.html"><a href="data_variety.html#files-and-file-formats-1"><i class="fa fa-check"></i><b>5.7.1</b> Files and file formats</a></li>
+<li class="chapter" data-level="5.7.2" data-path="data_variety.html"><a href="data_variety.html#api-use"><i class="fa fa-check"></i><b>5.7.2</b> API use</a></li>
+<li class="chapter" data-level="5.7.3" data-path="data_variety.html"><a href="data_variety.html#get-1"><i class="fa fa-check"></i><b>5.7.3</b> GET</a></li>
+<li class="chapter" data-level="5.7.4" data-path="data_variety.html"><a href="data_variety.html#dedicated-library"><i class="fa fa-check"></i><b>5.7.4</b> Dedicated library</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="data_variety.html"><a href="data_variety.html#solutions-4"><i class="fa fa-check"></i><b>5.8</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="code_mgmt.html"><a href="code_mgmt.html"><i class="fa fa-check"></i><b>6</b> Code management</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="code_mgmt.html"><a href="code_mgmt.html#learning-objectives-4"><i class="fa fa-check"></i><b>6.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.2" data-path="code_mgmt.html"><a href="code_mgmt.html#introduction-2"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+<li class="chapter" data-level="6.3" data-path="code_mgmt.html"><a href="code_mgmt.html#tutorial-5"><i class="fa fa-check"></i><b>6.3</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="code_mgmt.html"><a href="code_mgmt.html#version-control-git"><i class="fa fa-check"></i><b>6.3.1</b> Version control &amp; Git</a></li>
+<li class="chapter" data-level="6.3.2" data-path="code_mgmt.html"><a href="code_mgmt.html#git-add"><i class="fa fa-check"></i><b>6.3.2</b> git add</a></li>
+<li class="chapter" data-level="6.3.3" data-path="code_mgmt.html"><a href="code_mgmt.html#git-commit"><i class="fa fa-check"></i><b>6.3.3</b> git commit</a></li>
+<li class="chapter" data-level="6.3.4" data-path="code_mgmt.html"><a href="code_mgmt.html#git-push"><i class="fa fa-check"></i><b>6.3.4</b> git push</a></li>
+<li class="chapter" data-level="6.3.5" data-path="code_mgmt.html"><a href="code_mgmt.html#git-clone"><i class="fa fa-check"></i><b>6.3.5</b> git clone</a></li>
+<li class="chapter" data-level="6.3.6" data-path="code_mgmt.html"><a href="code_mgmt.html#git-pull"><i class="fa fa-check"></i><b>6.3.6</b> git pull</a></li>
+<li class="chapter" data-level="6.3.7" data-path="code_mgmt.html"><a href="code_mgmt.html#git-merge"><i class="fa fa-check"></i><b>6.3.7</b> git merge</a></li>
+<li class="chapter" data-level="6.3.8" data-path="code_mgmt.html"><a href="code_mgmt.html#location-based-code-management---templates"><i class="fa fa-check"></i><b>6.3.8</b> Location based code management - templates</a></li>
+<li class="chapter" data-level="6.3.9" data-path="code_mgmt.html"><a href="code_mgmt.html#section"><i class="fa fa-check"></i><b>6.3.9</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="code_mgmt.html"><a href="code_mgmt.html#exercises-5"><i class="fa fa-check"></i><b>6.4</b> Exercises</a></li>
+<li class="chapter" data-level="6.5" data-path="code_mgmt.html"><a href="code_mgmt.html#solutions-5"><i class="fa fa-check"></i><b>6.5</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="open_science.html"><a href="open_science.html"><i class="fa fa-check"></i><b>7</b> Open science practices</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="open_science.html"><a href="open_science.html#introduction-3"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="open_science.html"><a href="open_science.html#tutorial-6"><i class="fa fa-check"></i><b>7.2</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="open_science.html"><a href="open_science.html#project-structure"><i class="fa fa-check"></i><b>7.2.1</b> Project structure</a></li>
+<li class="chapter" data-level="7.2.2" data-path="open_science.html"><a href="open_science.html#managing-workflows"><i class="fa fa-check"></i><b>7.2.2</b> Managing workflows</a></li>
+<li class="chapter" data-level="7.2.3" data-path="open_science.html"><a href="open_science.html#capturing-your-session-state"><i class="fa fa-check"></i><b>7.2.3</b> Capturing your session state</a></li>
+<li class="chapter" data-level="7.2.4" data-path="open_science.html"><a href="open_science.html#capturing-a-system-state"><i class="fa fa-check"></i><b>7.2.4</b> Capturing a system state</a></li>
+<li class="chapter" data-level="7.2.5" data-path="open_science.html"><a href="open_science.html#readable-reporting-using-rmarkdown"><i class="fa fa-check"></i><b>7.2.5</b> Readable reporting using Rmarkdown</a></li>
+<li class="chapter" data-level="7.2.6" data-path="open_science.html"><a href="open_science.html#data-retention"><i class="fa fa-check"></i><b>7.2.6</b> Data retention</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="open_science.html"><a href="open_science.html#exercises-6"><i class="fa fa-check"></i><b>7.3</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="open_science.html"><a href="open_science.html#data-and-code-management"><i class="fa fa-check"></i><b>7.3.1</b> Data and code management</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="open_science.html"><a href="open_science.html#references"><i class="fa fa-check"></i><b>7.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regression_classification.html"><a href="regression_classification.html"><i class="fa fa-check"></i><b>8</b> Regression and classification</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="regression_classification.html"><a href="regression_classification.html#learning-objectives-5"><i class="fa fa-check"></i><b>8.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="regression_classification.html"><a href="regression_classification.html#tutorial-7"><i class="fa fa-check"></i><b>8.2</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="regression_classification.html"><a href="regression_classification.html#types-of-models"><i class="fa fa-check"></i><b>8.2.1</b> Types of models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="regression_classification.html"><a href="regression_classification.html#regression"><i class="fa fa-check"></i><b>8.2.2</b> Regression</a></li>
+<li class="chapter" data-level="8.2.3" data-path="regression_classification.html"><a href="regression_classification.html#classification"><i class="fa fa-check"></i><b>8.2.3</b> Classification</a></li>
+<li class="chapter" data-level="8.2.4" data-path="regression_classification.html"><a href="regression_classification.html#model-comparison"><i class="fa fa-check"></i><b>8.2.4</b> Model comparison</a></li>
+<li class="chapter" data-level="8.2.5" data-path="regression_classification.html"><a href="regression_classification.html#section-2"><i class="fa fa-check"></i><b>8.2.5</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="regression_classification.html"><a href="regression_classification.html#exercises-7"><i class="fa fa-check"></i><b>8.3</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="regression_classification.html"><a href="regression_classification.html#solutions-6"><i class="fa fa-check"></i><b>8.4</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised_ml.html"><a href="supervised_ml.html"><i class="fa fa-check"></i><b>9</b> Supervised machine learning</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="supervised_ml.html"><a href="supervised_ml.html#learning-objectives-6"><i class="fa fa-check"></i><b>9.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="supervised_ml.html"><a href="supervised_ml.html#tutorial-8"><i class="fa fa-check"></i><b>9.2</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="supervised_ml.html"><a href="supervised_ml.html#required-packages-1"><i class="fa fa-check"></i><b>9.2.1</b> Required packages</a></li>
+<li class="chapter" data-level="9.2.2" data-path="supervised_ml.html"><a href="supervised_ml.html#overfitting"><i class="fa fa-check"></i><b>9.2.2</b> Overfitting</a></li>
+<li class="chapter" data-level="9.2.3" data-path="supervised_ml.html"><a href="supervised_ml.html#data-and-the-modelling-challenge"><i class="fa fa-check"></i><b>9.2.3</b> Data and the modelling challenge</a></li>
+<li class="chapter" data-level="9.2.4" data-path="supervised_ml.html"><a href="supervised_ml.html#k-nearest-neighbours"><i class="fa fa-check"></i><b>9.2.4</b> K-nearest neighbours</a></li>
+<li class="chapter" data-level="9.2.5" data-path="supervised_ml.html"><a href="supervised_ml.html#model-formulation"><i class="fa fa-check"></i><b>9.2.5</b> Model formulation</a></li>
+<li class="chapter" data-level="9.2.6" data-path="supervised_ml.html"><a href="supervised_ml.html#data-splitting"><i class="fa fa-check"></i><b>9.2.6</b> Data splitting</a></li>
+<li class="chapter" data-level="9.2.7" data-path="supervised_ml.html"><a href="supervised_ml.html#preprocessing"><i class="fa fa-check"></i><b>9.2.7</b> Pre-processing</a></li>
+<li class="chapter" data-level="9.2.8" data-path="supervised_ml.html"><a href="supervised_ml.html#putting-it-all-together-half-way"><i class="fa fa-check"></i><b>9.2.8</b> Putting it all together (half-way)</a></li>
+<li class="chapter" data-level="9.2.9" data-path="supervised_ml.html"><a href="supervised_ml.html#training"><i class="fa fa-check"></i><b>9.2.9</b> Model training</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="supervised_ml.html"><a href="supervised_ml.html#exercises-8"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
+<li class="chapter" data-level="9.4" data-path="supervised_ml.html"><a href="supervised_ml.html#solutions-7"><i class="fa fa-check"></i><b>9.4</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="random_forest.html"><a href="random_forest.html"><i class="fa fa-check"></i><b>10</b> Random forest</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="random_forest.html"><a href="random_forest.html#learning-objectives-7"><i class="fa fa-check"></i><b>10.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="10.2" data-path="random_forest.html"><a href="random_forest.html#tutorial-9"><i class="fa fa-check"></i><b>10.2</b> Tutorial</a></li>
+<li class="chapter" data-level="10.3" data-path="random_forest.html"><a href="random_forest.html#exercises-9"><i class="fa fa-check"></i><b>10.3</b> Exercises</a></li>
+<li class="chapter" data-level="10.4" data-path="random_forest.html"><a href="random_forest.html#solutions-8"><i class="fa fa-check"></i><b>10.4</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="neural_nets.html"><a href="neural_nets.html"><i class="fa fa-check"></i><b>11</b> Neural networks</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="neural_nets.html"><a href="neural_nets.html#learning-objectives-8"><i class="fa fa-check"></i><b>11.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="11.2" data-path="neural_nets.html"><a href="neural_nets.html#tutorial-10"><i class="fa fa-check"></i><b>11.2</b> Tutorial</a></li>
+<li class="chapter" data-level="11.3" data-path="neural_nets.html"><a href="neural_nets.html#exercises-10"><i class="fa fa-check"></i><b>11.3</b> Exercises</a></li>
+<li class="chapter" data-level="11.4" data-path="neural_nets.html"><a href="neural_nets.html#solutions-9"><i class="fa fa-check"></i><b>11.4</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="interpretable_ml.html"><a href="interpretable_ml.html"><i class="fa fa-check"></i><b>12</b> Interpretable machine learning</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="interpretable_ml.html"><a href="interpretable_ml.html#learning-objectives-9"><i class="fa fa-check"></i><b>12.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="12.2" data-path="interpretable_ml.html"><a href="interpretable_ml.html#tutorial-11"><i class="fa fa-check"></i><b>12.2</b> Tutorial</a></li>
+<li class="chapter" data-level="12.3" data-path="interpretable_ml.html"><a href="interpretable_ml.html#exercises-11"><i class="fa fa-check"></i><b>12.3</b> Exercises</a></li>
+<li class="chapter" data-level="12.4" data-path="interpretable_ml.html"><a href="interpretable_ml.html#solutions-10"><i class="fa fa-check"></i><b>12.4</b> Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Geodata Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regression_classification" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Regression and classification<a href="regression_classification.html#regression_classification" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Chapter lead author: Pepa Aran</strong></p>
+<p>Contents:</p>
+<ul>
+<li>Difference between regression and classification</li>
+<li><a href="https://github.com/stineb/esds_book-gitlab/blob/e27fbc390fa302bc99be3d1796c4e75dc6ee1c41/06_supervised_ml_1.Rmd#L84">Linear regression</a></li>
+<li>Logistic regression</li>
+<li><a href="https://github.com/stineb/esds_book-gitlab/blob/e27fbc390fa302bc99be3d1796c4e75dc6ee1c41/07_supervised_ml_2.Rmd#L236">Regression metrics</a></li>
+<li><a href="https://github.com/stineb/esds_book-gitlab/blob/e27fbc390fa302bc99be3d1796c4e75dc6ee1c41/07_supervised_ml_2.Rmd#L345">Classification metrics</a>, <a href="https://bookdown.org/max/FES/measuring-performance.html#class-metrics">another link</a></li>
+<li>Comparing models (AIC, …)</li>
+<li>Detecting outliers: identification via distributions [hist(), boxplot(), qqnorm()], multivariate (Cook’s Distance to get influential values)</li>
+<li>Feature selection, <a href="https://github.com/stineb/esds_book-gitlab/blob/master/08_variable_selection.Rmd">stepwise regression</a>, multi-colinearity (<a href="http://www.sthda.com/english/articles/39-regression-model-diagnostics/160-multicollinearity-essentials-and-vif-in-r/">vif</a>)</li>
+<li>Performance assessment: Exercise for stepwise regression <a href="https://stineb.github.io/esds_book/ch-08.html">link</a>, <a href="https://github.com/stineb/esds_book-gitlab/blob/master/08_variable_selection.Rmd">link</a></li>
+</ul>
+<div id="learning-objectives-5" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Learning objectives<a href="regression_classification.html#learning-objectives-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>After completing this tutorial, you will be able to:</p>
+<ul>
+<li>Understand the difference between regression and classification</li>
+<li></li>
+</ul>
+</div>
+<div id="tutorial-7" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Tutorial<a href="regression_classification.html#tutorial-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First, let’s load some packages that we will use in this tutorial.</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="regression_classification.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb296-2"><a href="regression_classification.html#cb296-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb296-3"><a href="regression_classification.html#cb296-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
+<span id="cb296-4"><a href="regression_classification.html#cb296-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb296-5"><a href="regression_classification.html#cb296-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(yardstick)</span>
+<span id="cb296-6"><a href="regression_classification.html#cb296-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb296-7"><a href="regression_classification.html#cb296-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb296-8"><a href="regression_classification.html#cb296-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div>
+<div id="types-of-models" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Types of models<a href="regression_classification.html#types-of-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Models try to explain relationships between variables through a mathematical formulation, particularly to predict a given target variable using other variables. Generally, we say that the target variable <span class="math inline">\(Y\)</span> is a function (denoted <span class="math inline">\(f\)</span>) of a set of explanatory variables <span class="math inline">\(X_1, X_2, \dots, X_p\)</span> and some model parameters <span class="math inline">\(\beta\)</span>. Models can be represented as:
+<span class="math display">\[Y \sim f(X_1, X_2, \dots, X_p, \beta)\]</span></p>
+<p>This is a very general notation and depending on the structure of these components, we get to different modelling approaches.</p>
+<p>The first distinction comes from the type of target variable. Whenever <span class="math inline">\(Y\)</span> is a continuous variable, we are facing a <em>regression</em> problem. If <span class="math inline">\(Y\)</span> is categorical, we talk about <em>classification</em>.</p>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="28%" />
+<col width="45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Regression</th>
+<th>Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Target variable</td>
+<td>Continuous</td>
+<td>Categorical</td>
+</tr>
+<tr class="even">
+<td>Common models</td>
+<td>Linear regression, polynomial regression, kNN, tree-based regression</td>
+<td>Logistic regression, kNN, SVM, tree classifiers</td>
+</tr>
+<tr class="odd">
+<td>Metrics</td>
+<td>RMSE, <span class="math inline">\(R^2\)</span>, adjusted <span class="math inline">\(R^2\)</span>, AIC</td>
+<td>Accuracy, precision, AUC, F1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="regression" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Regression<a href="regression_classification.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this section, we will introduce some regression models, their advantages and disadvantages, and metrics to measure their performance.</p>
+<div id="linear-regression" class="section level4 hasAnchor" number="8.2.2.1">
+<h4><span class="header-section-number">8.2.2.1</span> Linear regression<a href="regression_classification.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Theory</strong></p>
+<p>Let’s start with the simplest model: linear regression. You probably have studied linear regression from a statistical perspective, here we will take a data-fitting approach.</p>
+<p>For example, we can try to explain the relationship between GPP and short wave radiation, like in the <a href="data_vis.html#data_vis">visualisation tutorial</a>. The figure below shows a cloud of data points, and a straight line predicting GPP based on observed shortwave radiation values.</p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="regression_classification.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read and format data from Ch 3</span></span>
+<span id="cb297-2"><a href="regression_classification.html#cb297-2" aria-hidden="true" tabindex="-1"></a>hhdf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./data/FLX_CH-Lae_FLUXNET2015_FULLSET_HH_2004-2006_CLEAN.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 52608 Columns: 20
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl  (18): TA_F, SW_IN_F, LW_IN_F, VPD_F, PA_F, P_F, WS_F, GPP_NT_VUT_REF, N...
+## dttm  (2): TIMESTAMP_START, TIMESTAMP_END
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="regression_classification.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb299-2"><a href="regression_classification.html#cb299-2" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> hhdf <span class="sc">|&gt;</span></span>
+<span id="cb299-3"><a href="regression_classification.html#cb299-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1000</span>) <span class="sc">|&gt;</span>  <span class="co"># to reduce the dataset</span></span>
+<span id="cb299-4"><a href="regression_classification.html#cb299-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
+<span id="cb299-5"><a href="regression_classification.html#cb299-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb299-6"><a href="regression_classification.html#cb299-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb299-7"><a href="regression_classification.html#cb299-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)), </span>
+<span id="cb299-8"><a href="regression_classification.html#cb299-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb299-9"><a href="regression_classification.html#cb299-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb299-10"><a href="regression_classification.html#cb299-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb299-11"><a href="regression_classification.html#cb299-11" aria-hidden="true" tabindex="-1"></a>segment_points <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x0 =</span> <span class="dv">332</span>, <span class="at">y0 =</span> <span class="fl">3.65</span>, <span class="at">y_regr =</span> <span class="fl">8.77</span>)</span>
+<span id="cb299-12"><a href="regression_classification.html#cb299-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb299-13"><a href="regression_classification.html#cb299-13" aria-hidden="true" tabindex="-1"></a>gg1 <span class="sc">+</span></span>
+<span id="cb299-14"><a href="regression_classification.html#cb299-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> x0, <span class="at">y =</span> y0, <span class="at">xend =</span> x0, <span class="at">yend =</span> y_regr), </span>
+<span id="cb299-15"><a href="regression_classification.html#cb299-15" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> segment_points,</span>
+<span id="cb299-16"><a href="regression_classification.html#cb299-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="fl">1.2</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
+<p>We want to find the best straight line that approximates a cloud of data points. For this, we assume a linear relationship between a single explanatory variable <span class="math inline">\(X\)</span> and our target <span class="math inline">\(Y\)</span>: <span class="math display">\[
+Y_i \sim \beta_0 + \beta_1 X_i, \;\;\; i = 1, 2, ...n \;,
+\]</span> where <span class="math inline">\(Y_i\)</span> is the i-th observation of the target variable, and <span class="math inline">\(X_i\)</span> is the i-th value of the (single) predictor variable. <span class="math inline">\(n\)</span> is the number of observations we have and <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are constant coefficients (model parameters). We call <span class="math inline">\(\beta_0\)</span> the intercept and <span class="math inline">\(\beta_1\)</span> the slope of the regression line. Generally, <span class="math inline">\(\hat{Y}\)</span> denotes the model prediction.</p>
+<p>Fitting a linear regression is finding the values for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> such that, on average over all points, the distance between the line at <span class="math inline">\(X_i\)</span>, that is <span class="math inline">\(\beta_0 + \beta_1 X_i\)</span> (in blue), and the observed value <span class="math inline">\(Y_i\)</span>, is as small as possible. Mathematically, this is minimizing the sum of the square errors, that is:
+<span class="math display">\[ \min_{\beta_0, \beta_1} \sum_i (Y_i - \beta_0 - \beta_1 X_i)^2 .\]</span></p>
+<p>This linear model can be used to make predictions on new data, which are obtained by <span class="math inline">\(\hat{Y}_\text{new} = \beta_0 + \beta_1 X_\text{new}\)</span>. When the new data comes from the same distribution as the data used to fit the regression line, this should be a good prediction.</p>
+<p>It’s not hard to imagine that the univariate linear regression can be generalized to a multivariate linear regression, where we assume that the target variable is a linear combination of <span class="math inline">\(p\)</span> predictor variables:
+<span class="math display">\[Y \sim \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \; ... \; + \beta_p X_p \;.\]</span>
+Note that here, <span class="math inline">\(X_1, \dots, X_p\)</span> and <span class="math inline">\(Y\)</span> are vectors of length corresponding to the number of observations in our data set (<span class="math inline">\(n\)</span> - as above). Analogously, calibrating the <span class="math inline">\(p+1\)</span> coefficients <span class="math inline">\(\beta_0, \beta_1, \beta_2, ..., \beta_p\)</span> is to minimize the sum of square errors
+<span class="math inline">\(\min_{\beta} \sum_i (Y_i - \hat{Y}_i)^2\)</span>.</p>
+<p>While the regression is a line in two-dimensional space for the univariate case, it is a plane in three-dimensional space for bi-variate regression, and hyperplanes in higher dimensions.</p>
+<p><strong>Implementation</strong></p>
+<p>To fit a univariate linear regression model in R, we can use the <code>lm()</code> function. Already in Chapter <a href="data_wrangling.html#data_wrangling">3</a>, we made linear models by doing:</p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="regression_classification.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numerical variables only, remove NA</span></span>
+<span id="cb301-2"><a href="regression_classification.html#cb301-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> hhdf <span class="sc">%&gt;%</span></span>
+<span id="cb301-3"><a href="regression_classification.html#cb301-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">&quot;TIMESTAMP&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb301-4"><a href="regression_classification.html#cb301-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb301-5"><a href="regression_classification.html#cb301-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-6"><a href="regression_classification.html#cb301-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fit univariate linear regression</span></span>
+<span id="cb301-7"><a href="regression_classification.html#cb301-7" aria-hidden="true" tabindex="-1"></a>linmod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F, <span class="at">data =</span> df)</span></code></pre></div>
+<p>Here, <code>GPP_NT_VUT_REF</code> is <span class="math inline">\(Y\)</span>, and <code>SW_IN_F</code> is <span class="math inline">\(X\)</span>. We can include multiple predictors for a multivariate regression, for example as:</p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="regression_classification.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit multivariate linear regression</span></span>
+<span id="cb302-2"><a href="regression_classification.html#cb302-2" aria-hidden="true" tabindex="-1"></a>linmod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F, <span class="at">data =</span> df)</span></code></pre></div>
+<p>or all available features in our data set (all columns other than <code>GPP_NT_VUT_REF</code> in <code>df</code>) as:</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="regression_classification.html#cb303-1" aria-hidden="true" tabindex="-1"></a>linmod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> ., <span class="at">data =</span> df)</span></code></pre></div>
+<p><code>linmod*</code> is now a model object of class <code>"lm"</code>. It is a list containing the following components:</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="regression_classification.html#cb304-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(linmod1)</span></code></pre></div>
+<pre><code>##  [1] &quot;assign&quot;        &quot;call&quot;          &quot;coefficients&quot;  &quot;df.residual&quot;  
+##  [5] &quot;effects&quot;       &quot;fitted.values&quot; &quot;model&quot;         &quot;qr&quot;           
+##  [9] &quot;rank&quot;          &quot;residuals&quot;     &quot;terms&quot;         &quot;xlevels&quot;</code></pre>
+<p>Enter <code>?lm</code> in the console for a complete documentation of these components and other details of the linear model implementation.</p>
+<p>R offers a set of generic functions that work with this type of object. The following returns a human-readable report of the fit. Here the <em>residuals</em> are the difference between the observed target values and the predicted values.</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="regression_classification.html#cb306-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linmod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = GPP_NT_VUT_REF ~ SW_IN_F, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -38.699  -2.092  -0.406   1.893  35.153 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.8732273  0.0285896   30.54   &lt;2e-16 ***
+## SW_IN_F     0.0255041  0.0001129  225.82   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.007 on 41299 degrees of freedom
+## Multiple R-squared:  0.5525, Adjusted R-squared:  0.5525 
+## F-statistic: 5.099e+04 on 1 and 41299 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We can also extract coefficients <span class="math inline">\(\beta\)</span> with</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="regression_classification.html#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(linmod1)</span></code></pre></div>
+<pre><code>## (Intercept)     SW_IN_F 
+##  0.87322728  0.02550413</code></pre>
+<p>and the residual sum of squares (which we wanted to minimize) with</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="regression_classification.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(linmod1)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1035309</code></pre>
+<p>Although <code>summary()</code> provides a nice, human-readable output, you may find it unpractical to work with. A set of relevant statistical quantities are returned in a tidy format using <code>tidy()</code> from the <code>broom</code> package:</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="regression_classification.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(linmod1)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 5
+##   term        estimate std.error statistic   p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)   0.873   0.0286        30.5 1.25e-202
+## 2 SW_IN_F       0.0255  0.000113     226.  0</code></pre>
+<p><strong>Model advantages and concerns</strong></p>
+<p>An advantage of linear regression is that the coefficients provide information that is straight-forward to interpret. We’ve seen above, that <code>GPP_NT_VUT_REF</code> increases by 0.0255 for a unit increase in <code>SW_IN_F</code>. Of course, the units of the coefficients depend on the units of <code>GPP_NT_VUT_REF</code> and <code>SW_IN_F</code>. This has the advantage that the data does not need to be normalised. That is, a linear regression model with the same predictive skills can be found, irrespective of whether <code>GPP_NT_VUT_REF</code> is given in g C m<span class="math inline">\(^{-2}\)</span>s<span class="math inline">\(^{-1}\)</span> or in kg C m<span class="math inline">\(^{-2}\)</span>s<span class="math inline">\(^{-1}\)</span>.</p>
+<p>Another advantage of linear regression is that it’s much less prone to overfit than other algorithms. But this can also be a disadvantage, since linear regression can be rather under-fitting. It’s not able to capture non-linearities in the observed relationship and, as we’ll see later in this chapter, it exhibits a poorer performance than more complex models (e.g. polynomial regression) also on the validation data set.</p>
+<p>A further limitation is that least squares regression requires <span class="math inline">\(n&gt;p\)</span>. In words: the number of observations must be greater than the number of predictors. If this is not given, one can resort to step-wise forward regression, where predictors are sequentially added based on which predictor adds the most additional information at each step. You’ll encounter stepwise regression in the Application session 8.</p>
+<p>When multiple predictors are linearly correlated, then linear regression cannot discern individual effects and individual predictors may appear statistically insignificant when they would be significant if covarying predictors were not included in the model. Such instability can get propagated to predictions. Again, stepwise regression can be used to remedy this problem. However, when one predictor covaries with multiple other predictors, this may not work. For many applications in environmental sciences, we deal with limited numbers of predictors. We can use our own knowledge to examine potentially problematic covariations and make an informed pre-selection rather than throwing all predictors we can possibly think of at our models. Such a pre-selection can be guided by the model performance on a validation data set (more on that below).</p>
+<p>An alternative strategy is to use <em>dimension reduction</em> methods. Principal Component regression reduces the data to capture only the complementary axes along which our data varies and therefore collapses covarying predictors into a single one that represents their common axis of variation. Partial Least Squares regression works similarly but modifies the principal components so that they are maximally correlated to the target variable. You can read more on their implementation in R <a href="https://bradleyboehmke.github.io/HOML/linear-regression.html#PCR">here</a>.</p>
+</div>
+<div id="regression-on-categorical-variables" class="section level4 hasAnchor" number="8.2.2.2">
+<h4><span class="header-section-number">8.2.2.2</span> Regression on categorical variables<a href="regression_classification.html#regression-on-categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In the <a href="data_vis.html#vis_regr_cat">regression within categories</a> section of <a href="data_vis.html#data_vis">Chapter 5</a>, we saw that when we separate the data into sub-plots, hidden patterns emerge. This information is very relevant for modeling, because it can be included in our regression model. It is crucial to spend enough time exploring the data before you start modeling, because it helps to understand the fit and output of the model, but also to create models that capture the relationships between variables better.</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="regression_classification.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create month category</span></span>
+<span id="cb314-2"><a href="regression_classification.html#cb314-2" aria-hidden="true" tabindex="-1"></a>df_cat <span class="ot">&lt;-</span> hhdf <span class="sc">|&gt;</span></span>
+<span id="cb314-3"><a href="regression_classification.html#cb314-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MONTH =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(TIMESTAMP_START)) <span class="sc">|&gt;</span></span>
+<span id="cb314-4"><a href="regression_classification.html#cb314-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(MONTH, GPP_NT_VUT_REF, SW_IN_F) <span class="sc">|&gt;</span></span>
+<span id="cb314-5"><a href="regression_classification.html#cb314-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<p>So far, we have only used continuous variables as explanatory variables in a linear regression. It is also possible to use categorical variables. To do this in R, such variables cannot be of class <code>numeric</code>, otherwise the <code>lm()</code> function treats them as continuous variables. For example, although the variable <code>NIGHT</code> is categorical with values <code>0</code> and <code>1</code>, the model <code>linmod3</code> treats it as a number. We must make sure that categorical variables have class <code>character</code> or, even better, <code>factor</code>.</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="regression_classification.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix class of categorical variables</span></span>
+<span id="cb315-2"><a href="regression_classification.html#cb315-2" aria-hidden="true" tabindex="-1"></a>df_cat <span class="ot">&lt;-</span> df_cat <span class="sc">|&gt;</span></span>
+<span id="cb315-3"><a href="regression_classification.html#cb315-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MONTH =</span> <span class="fu">as.factor</span>(MONTH))</span></code></pre></div>
+<p>Now we can fit the linear model again:</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="regression_classification.html#cb316-1" aria-hidden="true" tabindex="-1"></a>linmod_cat <span class="ot">&lt;-</span> <span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> MONTH <span class="sc">+</span> SW_IN_F, <span class="at">data =</span> df_cat)</span>
+<span id="cb316-2"><a href="regression_classification.html#cb316-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linmod_cat)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = GPP_NT_VUT_REF ~ MONTH + SW_IN_F, data = df_cat)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -35.699  -2.498  -0.184   2.339  35.042 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.0283687  0.0755333  13.615  &lt; 2e-16 ***
+## MONTH2      -1.5821354  0.1091151 -14.500  &lt; 2e-16 ***
+## MONTH3      -2.6167378  0.1069557 -24.466  &lt; 2e-16 ***
+## MONTH4      -1.7815484  0.1082820 -16.453  &lt; 2e-16 ***
+## MONTH5       0.5172215  0.1079058   4.793 1.65e-06 ***
+## MONTH6       1.1864061  0.1097907  10.806  &lt; 2e-16 ***
+## MONTH7       1.1230163  0.1086756  10.334  &lt; 2e-16 ***
+## MONTH8       1.9107279  0.1075407  17.767  &lt; 2e-16 ***
+## MONTH9       1.2430477  0.1080772  11.501  &lt; 2e-16 ***
+## MONTH10      0.1920413  0.1067188   1.800   0.0719 .  
+## MONTH11     -0.6988478  0.1074946  -6.501 8.04e-11 ***
+## MONTH12     -0.6464345  0.1066132  -6.063 1.34e-09 ***
+## SW_IN_F      0.0237132  0.0001044 227.077  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.036 on 52595 degrees of freedom
+## Multiple R-squared:  0.5591, Adjusted R-squared:  0.559 
+## F-statistic:  5558 on 12 and 52595 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>In the fit summary, you can observe that, there are <code>MONTH2</code> to <code>MONTH12</code> parameters. <code>MONTH</code> is a factor which can take 12 different values: <code>1</code> to <code>12</code>. <code>lm()</code> uses one of the factor level as the reference, in this case <code>1</code>, and fits an intercept for the other categories. The result is a set of parallel regression lines, one for each different month.</p>
+<p>In the grid image, we can observe that GPP does not increase with SW at the same rate every month. For example, the increase in GPP is less steep in February than in September. To model this, we should consider a variable slope parameter for each month or category. In R, this is implemented by including an <em>interaction</em> term <code>MONTH:SW_IN_F</code> in the regression formula, like this:</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="regression_classification.html#cb318-1" aria-hidden="true" tabindex="-1"></a>linmod_inter <span class="ot">&lt;-</span> <span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> MONTH <span class="sc">+</span> SW_IN_F <span class="sc">+</span> MONTH<span class="sc">:</span>SW_IN_F, <span class="at">data =</span> df_cat)</span>
+<span id="cb318-2"><a href="regression_classification.html#cb318-2" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently: lm(GPP_NT_VUT_REF ~ MONTH * SW_IN_F, data = df_cat)</span></span>
+<span id="cb318-3"><a href="regression_classification.html#cb318-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linmod_inter)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = GPP_NT_VUT_REF ~ MONTH + SW_IN_F + MONTH:SW_IN_F, 
+##     data = df_cat)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -36.958  -2.244  -0.393   2.054  34.996 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      1.4796629  0.0796985  18.566  &lt; 2e-16 ***
+## MONTH2          -1.0233714  0.1162585  -8.803  &lt; 2e-16 ***
+## MONTH3          -1.0263154  0.1159301  -8.853  &lt; 2e-16 ***
+## MONTH4          -0.4871627  0.1190763  -4.091 4.30e-05 ***
+## MONTH5          -0.2180547  0.1199229  -1.818 0.069025 .  
+## MONTH6          -0.5081368  0.1242615  -4.089 4.33e-05 ***
+## MONTH7          -0.1600367  0.1224707  -1.307 0.191308    
+## MONTH8           0.3850084  0.1185974   3.246 0.001170 ** 
+## MONTH9          -0.7754217  0.1184568  -6.546 5.96e-11 ***
+## MONTH10         -0.4338483  0.1145768  -3.787 0.000153 ***
+## MONTH11         -0.6471399  0.1140368  -5.675 1.40e-08 ***
+## MONTH12         -0.5071236  0.1117092  -4.540 5.65e-06 ***
+## SW_IN_F          0.0138844  0.0007851  17.685  &lt; 2e-16 ***
+## MONTH2:SW_IN_F  -0.0044533  0.0009713  -4.585 4.56e-06 ***
+## MONTH3:SW_IN_F  -0.0060223  0.0008597  -7.005 2.49e-12 ***
+## MONTH4:SW_IN_F  -0.0003715  0.0008399  -0.442 0.658232    
+## MONTH5:SW_IN_F   0.0112081  0.0008286  13.526  &lt; 2e-16 ***
+## MONTH6:SW_IN_F   0.0146098  0.0008207  17.801  &lt; 2e-16 ***
+## MONTH7:SW_IN_F   0.0131813  0.0008214  16.047  &lt; 2e-16 ***
+## MONTH8:SW_IN_F   0.0157491  0.0008350  18.862  &lt; 2e-16 ***
+## MONTH9:SW_IN_F   0.0200252  0.0008488  23.592  &lt; 2e-16 ***
+## MONTH10:SW_IN_F  0.0117033  0.0009028  12.963  &lt; 2e-16 ***
+## MONTH11:SW_IN_F  0.0008341  0.0010364   0.805 0.420974    
+## MONTH12:SW_IN_F -0.0079989  0.0012632  -6.332 2.43e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.749 on 52584 degrees of freedom
+## Multiple R-squared:  0.6081, Adjusted R-squared:  0.6079 
+## F-statistic:  3547 on 23 and 52584 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="regression_classification.html#cb320-1" aria-hidden="true" tabindex="-1"></a>df_cat <span class="sc">|&gt;</span></span>
+<span id="cb320-2"><a href="regression_classification.html#cb320-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MONTH_NAME =</span> <span class="fu">month</span>(<span class="fu">as.integer</span>(MONTH), <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb320-3"><a href="regression_classification.html#cb320-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
+<span id="cb320-4"><a href="regression_classification.html#cb320-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb320-5"><a href="regression_classification.html#cb320-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="dv">0</span>, <span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb320-6"><a href="regression_classification.html#cb320-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;SW&quot;</span>, <span class="at">y =</span> <span class="st">&quot;GPP&quot;</span>) <span class="sc">+</span></span>
+<span id="cb320-7"><a href="regression_classification.html#cb320-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>MONTH_NAME)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
+</div>
+<div id="polynomial-regression" class="section level4 hasAnchor" number="8.2.2.3">
+<h4><span class="header-section-number">8.2.2.3</span> Polynomial regression<a href="regression_classification.html#polynomial-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Furthermore, the relationships between variables may be non-linear. In the previous example, we see that the increase in GPP saturates as shortwave radiation grows, which suggests that the true relationship could be represented by a curve. There are many regression methods that fit this kind of relationship, like polynomial regression, <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/loess">LOESS</a> (local polynomial regression fitting), etc.</p>
+<p>Let’s fit a simple quadratic regression model, just for the month of August. For this we use the <code>poly()</code> function which constructs orthogonal polynomials of a given degree:</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="regression_classification.html#cb321-1" aria-hidden="true" tabindex="-1"></a>quadmod <span class="ot">&lt;-</span> <span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> <span class="fu">poly</span>(SW_IN_F, <span class="dv">2</span>), </span>
+<span id="cb321-2"><a href="regression_classification.html#cb321-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> df_cat <span class="sc">|&gt;</span></span>
+<span id="cb321-3"><a href="regression_classification.html#cb321-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">filter</span>(MONTH <span class="sc">==</span> <span class="dv">8</span>))</span>
+<span id="cb321-4"><a href="regression_classification.html#cb321-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadmod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = GPP_NT_VUT_REF ~ poly(SW_IN_F, 2), data = filter(df_cat, 
+##     MONTH == 8))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -26.510  -2.349  -0.297   2.181  32.422 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          7.24266    0.07553   95.89   &lt;2e-16 ***
+## poly(SW_IN_F, 2)1  495.11122    5.04626   98.11   &lt;2e-16 ***
+## poly(SW_IN_F, 2)2 -152.77737    5.04626  -30.27   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.046 on 4461 degrees of freedom
+## Multiple R-squared:  0.7027, Adjusted R-squared:  0.7025 
+## F-statistic:  5272 on 2 and 4461 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="metrics-for-regression" class="section level4 hasAnchor" number="8.2.2.4">
+<h4><span class="header-section-number">8.2.2.4</span> Metrics for regression<a href="regression_classification.html#metrics-for-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We have explored several regression models to predict GPP based on SW. Now you may wonder how to choose one of them as your final analysis. Overall, we want to find the simplest model that best explains the data. We seek to find a balance between fitting the data well and generalizing to new data, which can be accomplished by reducing the complexity (for now, the number of parameters) of the model.</p>
+<p>Visual inspection of the model fit is a good start, but can become uninformative when the number of explanatory variables grows. So how can we measure model quality? In this section, we present some commonly used <em>metrics</em> to assess and compare regression models.</p>
+<ul>
+<li><p><strong>MSE</strong>: The mean squared error is defined, as its name suggests, as:
+<span class="math display">\[
+\text{MSE} = \frac{1}{n} \sum_{i=1}^n (Y_i - \hat{Y_i})^2
+\]</span>
+It measures the magnitude of the errors, and is minimized to fit a linear regression or, as we will see in <a href="supervised_ml.html#supervised_ml">Chapter 9</a>, during model training when used as a loss function. Note that since it scales with the square of the errors, the MSE is particularly sensitive to large errors in single points (including outliers).</p></li>
+<li><p><strong>RMSE</strong>: The root mean squared error is, as its name suggests, the root of the MSE:
+<span class="math display">\[
+\text{RMSE} = \sqrt{\text{MSE}} = \sqrt{\frac{1}{n} \sum_{i=1}^n (Y_i - \hat{Y_i})^2}
+\]</span>
+Like the MSE, the RMSE also measures accuracy (the magnitude of the errors) and is minimized during model training. By taking the square root of mean square errors, the RMSE is in the same units as the data <span class="math inline">\(Y\)</span> and is less sensitive to outliers as the MSE.</p></li>
+<li><p><strong><span class="math inline">\(R^2\)</span></strong>, also called the <em>coefficient of determination</em>, describes the proportion of variation in <span class="math inline">\(Y\)</span> that is captured by modelled values <span class="math inline">\(\hat{Y}\)</span>. Note that the denominator in the formula below is the variance of <span class="math inline">\(Y\)</span>, which is actually the MSE of a model that just predicts the average of <span class="math inline">\(Y\)</span> (using no explanatory variable <span class="math inline">\(X\)</span>). So <span class="math inline">\(R^2\)</span> is basically measuring how much better than just taking the mean of <span class="math inline">\(Y\)</span> our model is. It is traditionally defined as:
+<span class="math display">\[
+R^2 = 1 - \frac{\sum_i (Y_i - \hat{Y}_i)^2}{\sum_i (Y_i - \bar{Y})^2}
+\]</span>
+In this case, the goal is to maximize the metric, thus trying the explain as much variation in <span class="math inline">\(Y\)</span> as possible. In contrast to the MSE and RMSE, <span class="math inline">\(R^2\)</span> measures goodness of fit and gives a quantity between 0 and 1 that takes into consideration how variable the target is. We can actually write <span class="math inline">\(R^2 = 1 - \frac{MSE}{\hat{Var}(Y)}\)</span>. A perfect fit is quantified by <span class="math inline">\(R^2 = 1\)</span> and uninformative models have an <span class="math inline">\(R^2\)</span> approaching zero. For some applications where the data is very noisy, an <span class="math inline">\(R^2\)</span> of 0.6 may already be considered good.</p></li>
+<li><p><strong>Pearson’s <span class="math inline">\(r^2\)</span></strong>: The linear association between two variables (here <span class="math inline">\(Y\)</span> and <span class="math inline">\(\hat{Y}\)</span>) is measured by the <em>Pearson’s correlation coefficient</em> <span class="math inline">\(r\)</span>. Its square is closely related to the coefficient of determination <span class="math inline">\(R^2\)</span>.
+<span class="math display">\[
+r = \frac{\sum_i (Y_i - \bar{Y}) (\hat{Y_i} - \hat{\bar{Y}}) }{\sqrt{ \sum_i(Y_i-\bar{Y})^2}\sqrt{ \sum_i(\hat{Y_i}-\hat{\bar{Y}})^2 } }
+\]</span></p></li>
+</ul>
+<p>The distinction between uppercase and lowercase nomenclature is often not consistent in the literature. The uppercase <span class="math inline">\(R^2\)</span> is commonly used as coefficient of determination, in the context of comparing observed and predicted values. When the <em>correlation</em> between two different variables in a sample is quantified, the lowercase <span class="math inline">\(r^2\)</span> is commonly used.</p>
+<p>Metrics for correlation should not be used as a loss function because they do not penalize biased models. This is illustrated also in the plots above.</p>
+<p>The square of the Pearson’s correlation coefficient, as defined above, is implemented by the {yardstick} function <code>rsq()</code>, and corresponds also to the value reported for <code>Multiple R-squared</code> by <code>summary()</code> on a linear model object, or simply to <code>cor(...)^2</code>. The {yardstick} library implements the definition of the coefficient of determination with its function <code>rsq_trad()</code>.</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="regression_classification.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="do">## generate random data </span></span>
+<span id="cb323-2"><a href="regression_classification.html#cb323-2" aria-hidden="true" tabindex="-1"></a>df_demo <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb323-3"><a href="regression_classification.html#cb323-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y_obs =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>),</span>
+<span id="cb323-4"><a href="regression_classification.html#cb323-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">y_pred =</span> x)</span>
+<span id="cb323-5"><a href="regression_classification.html#cb323-5" aria-hidden="true" tabindex="-1"></a><span class="do">## the equation given above for the coefficient of determination corresponds to &#39;rsq_trad()&#39;</span></span>
+<span id="cb323-6"><a href="regression_classification.html#cb323-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>((df_demo<span class="sc">$</span>y_pred <span class="sc">-</span> df_demo<span class="sc">$</span>y_obs)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">sum</span>((df_demo<span class="sc">$</span>y_obs <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_obs))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4235417</code></pre>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="regression_classification.html#cb325-1" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rsq_trad</span>(df_demo, y_obs, y_pred) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.estimate)</span></code></pre></div>
+<pre><code>## [1] 0.4235417</code></pre>
+<p>The square of the Pearson’s correlation coefficient, as defined above, is implemented by the {yardstick} function <code>rsq()</code>, and corresponds also to the value reported for <code>Multiple R-squared</code> by <code>summary()</code> on a linear model object, or simply to <code>cor(...)^2</code>.</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="regression_classification.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="do">## the equation given above for the squared Pearson&#39;s correlation coefficient corresponds to &#39;rsq()&#39;, &#39;cor()^2&#39;, and `summary()$r.squared</span></span>
+<span id="cb327-2"><a href="regression_classification.html#cb327-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sum</span>((df_demo<span class="sc">$</span>y_pred <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_pred))<span class="sc">*</span>(df_demo<span class="sc">$</span>y_obs <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_obs))))<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span></span>
+<span id="cb327-3"><a href="regression_classification.html#cb327-3" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">sum</span>((df_demo<span class="sc">$</span>y_obs <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_obs))<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">sum</span>((df_demo<span class="sc">$</span>y_pred <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_pred))<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 0.429184</code></pre>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="regression_classification.html#cb329-1" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rsq</span>(df_demo, y_obs, y_pred) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.estimate)</span></code></pre></div>
+<pre><code>## [1] 0.429184</code></pre>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="regression_classification.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y_obs <span class="sc">~</span> y_pred, <span class="at">data =</span> df_demo))<span class="sc">$</span>r.squared</span></code></pre></div>
+<pre><code>## [1] 0.429184</code></pre>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="regression_classification.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df_demo<span class="sc">$</span>y_obs, df_demo<span class="sc">$</span>y_pred)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 0.429184</code></pre>
+<p>The <span class="math inline">\(R^2\)</span> always increases when predictors are added to a model, even if predictors are not informative. This is particularly critical in the context of machine learning when we compare alternative models that differ by their number of predictors. In other words, the <span class="math inline">\(R^2\)</span> of a model with a large number of predictors tends to give an overconfident estimate of its predictive power. We have encountered cross-validation which yields good predictive power. This is the “gold-standard”. But when the number of data points is small, cross validation estimates may not be robust. Without resorting to cross validation, the effect of spuriously improving the evaluation metric by adding uninformative predictors can also be mitigated by penalizing the number of predictors <span class="math inline">\(p\)</span>. Different metrics are available.</p>
+<ul>
+<li><p><strong>Adjusted <span class="math inline">\(R^2\)</span></strong>: The adjusted <span class="math inline">\(R^2\)</span> discounts values by the number of predictors. It is defined as
+<span class="math display">\[
+{R}^2_{adj} = 1 - (1-R^2) \; \frac{n-1}{n-p-1} \;,
+\]</span>
+where <span class="math inline">\(n\)</span> (as before) is the number of observations, <span class="math inline">\(p\)</span> the number of predictors and <span class="math inline">\(R^2\)</span> the usual coefficient of determination. Same as for <span class="math inline">\(R^2\)</span>, the goal is to maximize <span class="math inline">\(R^2_{adj}\)</span>. For a fitted model in R <code>modl</code>, its value is returned by <code>summary(modl)$adj.r.squared</code>.</p></li>
+<li><p><strong>AIC</strong>: the Akaike’s Information Criterion is defined as
+<span class="math display">\[
+\text{AIC} = n \log \Big(\frac{\text{SSE}}{n}\Big) + 2(p+2)
+\]</span>
+where <span class="math inline">\(n\)</span> is the number of observations used for estimation, <span class="math inline">\(p\)</span> is the number of explanatory variables in the model and <span class="math inline">\(SSE\)</span> is the sum of squared errors (<span class="math inline">\(SSE= \sum_i (Y_i-\hat{Y_i})^2\)</span>). Also in this case we have to minimize it and the model with the minimum value of the AIC is often the best model for forecasting. Since it penalizes having many parameters, it will favor less complex models.</p></li>
+<li><p><strong>AIC<span class="math inline">\(_c\)</span></strong>: For small values of <span class="math inline">\(n\)</span> the AIC tends to select too many predictors. A bias-corrected version of the AIC is defined as:
+<span class="math display">\[
+\text{AIC}_c = \text{AIC} + \frac{2(p + 2)(p + 3)}{n-p-3}
+\]</span>
+Also AIC<span class="math inline">\(_c\)</span> is minimized for an optimal predictive model.</p></li>
+<li><p><strong>BIC</strong>: the Schwarz’s Bayesian Information Criterion is defined as
+<span class="math display">\[
+\text{BIC} = n \log \Big(\frac{\text{SSE}}{n}\Big) + (p+2)  \log(n)
+\]</span>
+Also in this case our goal is to minimize the BIC. This metric has the feature that if there is a true underlying model, the BIC will select that model given enough data. The BIC tends to select a model with fewer predictors than AIC.</p></li>
+</ul>
+</div>
+</div>
+<div id="classification" class="section level3 hasAnchor" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Classification<a href="regression_classification.html#classification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="logistic-regression" class="section level4 hasAnchor" number="8.2.3.1">
+<h4><span class="header-section-number">8.2.3.1</span> Logistic regression<a href="regression_classification.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="section-1" class="section level4" number="8.2.3.2">
+<h4><span class="header-section-number">8.2.3.2</span> </h4>
+</div>
+</div>
+<div id="model-comparison" class="section level3 hasAnchor" number="8.2.4">
+<h3><span class="header-section-number">8.2.4</span> Model comparison<a href="regression_classification.html#model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="section-2" class="section level3" number="8.2.5">
+<h3><span class="header-section-number">8.2.5</span> </h3>
+</div>
+</div>
+<div id="exercises-7" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Exercises<a href="regression_classification.html#exercises-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="solutions-6" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Solutions<a href="regression_classification.html#solutions-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="open_science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="supervised_ml.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/08-regression_classification.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

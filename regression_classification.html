@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Stocker (lead), Koen Hufkens (contributing), Pepa Aran (contributing), Pascal Schneider (contributing)" />
 
 
-<meta name="date" content="2023-01-20" />
+<meta name="date" content="2023-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -278,8 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.1" data-path="regression_classification.html"><a href="regression_classification.html#types-of-models"><i class="fa fa-check"></i><b>8.2.1</b> Types of models</a></li>
 <li class="chapter" data-level="8.2.2" data-path="regression_classification.html"><a href="regression_classification.html#regression"><i class="fa fa-check"></i><b>8.2.2</b> Regression</a></li>
 <li class="chapter" data-level="8.2.3" data-path="regression_classification.html"><a href="regression_classification.html#classification"><i class="fa fa-check"></i><b>8.2.3</b> Classification</a></li>
-<li class="chapter" data-level="8.2.4" data-path="regression_classification.html"><a href="regression_classification.html#model-comparison"><i class="fa fa-check"></i><b>8.2.4</b> Model comparison</a></li>
-<li class="chapter" data-level="8.2.5" data-path="regression_classification.html"><a href="regression_classification.html#section-1"><i class="fa fa-check"></i><b>8.2.5</b> </a></li>
+<li class="chapter" data-level="8.2.4" data-path="regression_classification.html"><a href="regression_classification.html#model-evaluation"><i class="fa fa-check"></i><b>8.2.4</b> Model evaluation</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="regression_classification.html"><a href="regression_classification.html#exercises-7"><i class="fa fa-check"></i><b>8.3</b> Exercises</a></li>
 <li class="chapter" data-level="8.4" data-path="regression_classification.html"><a href="regression_classification.html#solutions-6"><i class="fa fa-check"></i><b>8.4</b> Solutions</a></li>
@@ -410,7 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>Metrics</td>
-<td>RMSE, <span class="math inline">\(R^2\)</span>, adjusted <span class="math inline">\(R^2\)</span>, AIC</td>
+<td>RMSE, <span class="math inline">\(R^2\)</span>, adjusted <span class="math inline">\(R^2\)</span>, AIC, BIC</td>
 <td>Accuracy, precision, AUC, F1</td>
 </tr>
 </tbody>
@@ -418,7 +417,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="regression" class="section level3 hasAnchor" number="8.2.2">
 <h3><span class="header-section-number">8.2.2</span> Regression<a href="regression_classification.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In this section, we will introduce some regression models, their advantages and disadvantages, and metrics to measure their performance.</p>
+<p>In this section, we will introduce the most basic regression model: linear regression. Throughout this section, we will use the , their advantages and disadvantages, and metrics to measure their performance. CORRECT INTRO</p>
 <div id="linear-regression" class="section level4 hasAnchor" number="8.2.2.1">
 <h4><span class="header-section-number">8.2.2.1</span> Linear regression<a href="regression_classification.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Theory</strong></p>
@@ -463,7 +462,7 @@ Y_i \sim \beta_0 + \beta_1 X_i, \;\;\; i = 1, 2, ...n \;,
 Note that here, <span class="math inline">\(X_1, \dots, X_p\)</span> and <span class="math inline">\(Y\)</span> are vectors of length corresponding to the number of observations in our data set (<span class="math inline">\(n\)</span> - as above). Analogously, calibrating the <span class="math inline">\(p+1\)</span> coefficients <span class="math inline">\(\beta_0, \beta_1, \beta_2, ..., \beta_p\)</span> is to minimize the sum of square errors
 <span class="math inline">\(\min_{\beta} \sum_i (Y_i - \hat{Y}_i)^2\)</span>.</p>
 <p>While the regression is a line in two-dimensional space for the univariate case, it is a plane in three-dimensional space for bi-variate regression, and hyperplanes in higher dimensions.</p>
-<p><strong>Implementation</strong></p>
+<p><strong>Implementation in R</strong></p>
 <p>To fit a univariate linear regression model in R, we can use the <code>lm()</code> function. Already in Chapter <a href="data_wrangling.html#data_wrangling">3</a>, we made linear models by doing:</p>
 <div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="regression_classification.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="co"># numerical variables only, remove NA</span></span>
 <span id="cb303-2"><a href="regression_classification.html#cb303-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> hhdf <span class="sc">%&gt;%</span></span>
@@ -530,8 +529,8 @@ Note that here, <span class="math inline">\(X_1, \dots, X_p\)</span> and <span c
 <div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="regression_classification.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create month category</span></span>
 <span id="cb316-2"><a href="regression_classification.html#cb316-2" aria-hidden="true" tabindex="-1"></a>df_cat <span class="ot">&lt;-</span> hhdf <span class="sc">|&gt;</span></span>
 <span id="cb316-3"><a href="regression_classification.html#cb316-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MONTH =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(TIMESTAMP_START)) <span class="sc">|&gt;</span></span>
-<span id="cb316-4"><a href="regression_classification.html#cb316-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(MONTH, GPP_NT_VUT_REF, SW_IN_F) <span class="sc">|&gt;</span></span>
-<span id="cb316-5"><a href="regression_classification.html#cb316-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<span id="cb316-4"><a href="regression_classification.html#cb316-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb316-5"><a href="regression_classification.html#cb316-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(MONTH, GPP_NT_VUT_REF, SW_IN_F)</span></code></pre></div>
 <p>So far, we have only used continuous variables as explanatory variables in a linear regression. It is also possible to use categorical variables. To do this in R, such variables cannot be of class <code>numeric</code>, otherwise the <code>lm()</code> function treats them as continuous variables. For example, although the variable <code>NIGHT</code> is categorical with values <code>0</code> and <code>1</code>, the model <code>linmod3</code> treats it as a number. We must make sure that categorical variables have class <code>character</code> or, even better, <code>factor</code>.</p>
 <div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="regression_classification.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix class of categorical variables</span></span>
 <span id="cb317-2"><a href="regression_classification.html#cb317-2" aria-hidden="true" tabindex="-1"></a>df_cat <span class="ot">&lt;-</span> df_cat <span class="sc">|&gt;</span></span>
@@ -545,29 +544,29 @@ Note that here, <span class="math inline">\(X_1, \dots, X_p\)</span> and <span c
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -35.699  -2.498  -0.184   2.339  35.042 
+## -36.212  -2.346  -0.223   2.200  34.416 
 ## 
 ## Coefficients:
 ##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1.0283687  0.0755333  13.615  &lt; 2e-16 ***
-## MONTH2      -1.5821354  0.1091151 -14.500  &lt; 2e-16 ***
-## MONTH3      -2.6167378  0.1069557 -24.466  &lt; 2e-16 ***
-## MONTH4      -1.7815484  0.1082820 -16.453  &lt; 2e-16 ***
-## MONTH5       0.5172215  0.1079058   4.793 1.65e-06 ***
-## MONTH6       1.1864061  0.1097907  10.806  &lt; 2e-16 ***
-## MONTH7       1.1230163  0.1086756  10.334  &lt; 2e-16 ***
-## MONTH8       1.9107279  0.1075407  17.767  &lt; 2e-16 ***
-## MONTH9       1.2430477  0.1080772  11.501  &lt; 2e-16 ***
-## MONTH10      0.1920413  0.1067188   1.800   0.0719 .  
-## MONTH11     -0.6988478  0.1074946  -6.501 8.04e-11 ***
-## MONTH12     -0.6464345  0.1066132  -6.063 1.34e-09 ***
-## SW_IN_F      0.0237132  0.0001044 227.077  &lt; 2e-16 ***
+## (Intercept)  1.6146109  0.0893693  18.067  &lt; 2e-16 ***
+## MONTH2      -1.8105447  0.1294675 -13.985  &lt; 2e-16 ***
+## MONTH3      -2.8800172  0.1264177 -22.782  &lt; 2e-16 ***
+## MONTH4      -2.5667281  0.1278097 -20.082  &lt; 2e-16 ***
+## MONTH5      -0.0288745  0.1273491  -0.227 0.820631    
+## MONTH6       0.4614556  0.1298069   3.555 0.000378 ***
+## MONTH7       0.1697514  0.1283830   1.322 0.186100    
+## MONTH8       1.2942463  0.1231252  10.512  &lt; 2e-16 ***
+## MONTH9       0.5140562  0.1165474   4.411 1.03e-05 ***
+## MONTH10     -0.4807082  0.1152536  -4.171 3.04e-05 ***
+## MONTH11     -1.3370277  0.1159059 -11.535  &lt; 2e-16 ***
+## MONTH12     -1.2634451  0.1151530 -10.972  &lt; 2e-16 ***
+## SW_IN_F      0.0246420  0.0001169 210.810  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 5.036 on 52595 degrees of freedom
-## Multiple R-squared:  0.5591, Adjusted R-squared:  0.559 
-## F-statistic:  5558 on 12 and 52595 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 4.865 on 41288 degrees of freedom
+## Multiple R-squared:  0.5776, Adjusted R-squared:  0.5775 
+## F-statistic:  4704 on 12 and 41288 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>In the fit summary, you can observe that, there are <code>MONTH2</code> to <code>MONTH12</code> parameters. <code>MONTH</code> is a factor which can take 12 different values: <code>1</code> to <code>12</code>. <code>lm()</code> uses one of the factor level as the reference, in this case <code>1</code>, and fits an intercept for the other categories. The result is a set of parallel regression lines, one for each different month.</p>
 <p>In the grid image, we can observe that GPP does not increase with SW at the same rate every month. For example, the increase in GPP is less steep in February than in September. To model this, we should consider a variable slope parameter for each month or category. In R, this is implemented by including an <em>interaction</em> term <code>MONTH:SW_IN_F</code> in the regression formula, like this:</p>
 <div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="regression_classification.html#cb320-1" aria-hidden="true" tabindex="-1"></a>linmod_inter <span class="ot">&lt;-</span> <span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> MONTH <span class="sc">+</span> SW_IN_F <span class="sc">+</span> MONTH<span class="sc">:</span>SW_IN_F, <span class="at">data =</span> df_cat)</span>
@@ -580,45 +579,45 @@ Note that here, <span class="math inline">\(X_1, \dots, X_p\)</span> and <span c
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -36.958  -2.244  -0.393   2.054  34.996 
+## -28.891  -2.113  -0.420   1.892  34.029 
 ## 
 ## Coefficients:
 ##                   Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)      1.4796629  0.0796985  18.566  &lt; 2e-16 ***
-## MONTH2          -1.0233714  0.1162585  -8.803  &lt; 2e-16 ***
-## MONTH3          -1.0263154  0.1159301  -8.853  &lt; 2e-16 ***
-## MONTH4          -0.4871627  0.1190763  -4.091 4.30e-05 ***
-## MONTH5          -0.2180547  0.1199229  -1.818 0.069025 .  
-## MONTH6          -0.5081368  0.1242615  -4.089 4.33e-05 ***
-## MONTH7          -0.1600367  0.1224707  -1.307 0.191308    
-## MONTH8           0.3850084  0.1185974   3.246 0.001170 ** 
-## MONTH9          -0.7754217  0.1184568  -6.546 5.96e-11 ***
-## MONTH10         -0.4338483  0.1145768  -3.787 0.000153 ***
-## MONTH11         -0.6471399  0.1140368  -5.675 1.40e-08 ***
-## MONTH12         -0.5071236  0.1117092  -4.540 5.65e-06 ***
-## SW_IN_F          0.0138844  0.0007851  17.685  &lt; 2e-16 ***
-## MONTH2:SW_IN_F  -0.0044533  0.0009713  -4.585 4.56e-06 ***
-## MONTH3:SW_IN_F  -0.0060223  0.0008597  -7.005 2.49e-12 ***
-## MONTH4:SW_IN_F  -0.0003715  0.0008399  -0.442 0.658232    
-## MONTH5:SW_IN_F   0.0112081  0.0008286  13.526  &lt; 2e-16 ***
-## MONTH6:SW_IN_F   0.0146098  0.0008207  17.801  &lt; 2e-16 ***
-## MONTH7:SW_IN_F   0.0131813  0.0008214  16.047  &lt; 2e-16 ***
-## MONTH8:SW_IN_F   0.0157491  0.0008350  18.862  &lt; 2e-16 ***
-## MONTH9:SW_IN_F   0.0200252  0.0008488  23.592  &lt; 2e-16 ***
-## MONTH10:SW_IN_F  0.0117033  0.0009028  12.963  &lt; 2e-16 ***
-## MONTH11:SW_IN_F  0.0008341  0.0010364   0.805 0.420974    
-## MONTH12:SW_IN_F -0.0079989  0.0012632  -6.332 2.43e-10 ***
+## (Intercept)      2.0449603  0.0944991  21.640  &lt; 2e-16 ***
+## MONTH2          -1.5386938  0.1369424 -11.236  &lt; 2e-16 ***
+## MONTH3          -1.5249304  0.1365863 -11.165  &lt; 2e-16 ***
+## MONTH4          -1.0050639  0.1396023  -7.199 6.15e-13 ***
+## MONTH5          -0.4502367  0.1412720  -3.187  0.00144 ** 
+## MONTH6          -1.2559057  0.1474257  -8.519  &lt; 2e-16 ***
+## MONTH7          -0.8440097  0.1446838  -5.833 5.47e-09 ***
+## MONTH8          -0.2188300  0.1346734  -1.625  0.10419    
+## MONTH9          -1.3407190  0.1269387 -10.562  &lt; 2e-16 ***
+## MONTH10         -0.9991456  0.1235627  -8.086 6.32e-16 ***
+## MONTH11         -1.2124373  0.1230946  -9.850  &lt; 2e-16 ***
+## MONTH12         -1.0724209  0.1210819  -8.857  &lt; 2e-16 ***
+## SW_IN_F          0.0158600  0.0008758  18.110  &lt; 2e-16 ***
+## MONTH2:SW_IN_F  -0.0030373  0.0011518  -2.637  0.00837 ** 
+## MONTH3:SW_IN_F  -0.0058229  0.0009713  -5.995 2.05e-09 ***
+## MONTH4:SW_IN_F  -0.0038333  0.0009469  -4.048 5.17e-05 ***
+## MONTH5:SW_IN_F   0.0087370  0.0009305   9.389  &lt; 2e-16 ***
+## MONTH6:SW_IN_F   0.0135219  0.0009172  14.743  &lt; 2e-16 ***
+## MONTH7:SW_IN_F   0.0110791  0.0009182  12.066  &lt; 2e-16 ***
+## MONTH8:SW_IN_F   0.0151014  0.0009317  16.209  &lt; 2e-16 ***
+## MONTH9:SW_IN_F   0.0180496  0.0009297  19.415  &lt; 2e-16 ***
+## MONTH10:SW_IN_F  0.0097277  0.0009761   9.966  &lt; 2e-16 ***
+## MONTH11:SW_IN_F -0.0011415  0.0010932  -1.044  0.29640    
+## MONTH12:SW_IN_F -0.0099745  0.0012972  -7.689 1.52e-14 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 4.749 on 52584 degrees of freedom
-## Multiple R-squared:  0.6081, Adjusted R-squared:  0.6079 
-## F-statistic:  3547 on 23 and 52584 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 4.593 on 41277 degrees of freedom
+## Multiple R-squared:  0.6237, Adjusted R-squared:  0.6234 
+## F-statistic:  2974 on 23 and 41277 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="regression_classification.html#cb322-1" aria-hidden="true" tabindex="-1"></a>df_cat <span class="sc">|&gt;</span></span>
 <span id="cb322-2"><a href="regression_classification.html#cb322-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MONTH_NAME =</span> <span class="fu">month</span>(<span class="fu">as.integer</span>(MONTH), <span class="at">label =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb322-3"><a href="regression_classification.html#cb322-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
 <span id="cb322-4"><a href="regression_classification.html#cb322-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb322-5"><a href="regression_classification.html#cb322-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="dv">0</span>, <span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb322-5"><a href="regression_classification.html#cb322-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="dv">0</span>, <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb322-6"><a href="regression_classification.html#cb322-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;SW&quot;</span>, <span class="at">y =</span> <span class="st">&quot;GPP&quot;</span>) <span class="sc">+</span></span>
 <span id="cb322-7"><a href="regression_classification.html#cb322-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>MONTH_NAME)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
@@ -638,19 +637,19 @@ Note that here, <span class="math inline">\(X_1, \dots, X_p\)</span> and <span c
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -26.510  -2.349  -0.297   2.181  32.422 
+## -26.367  -2.055  -0.253   1.801  32.375 
 ## 
 ## Coefficients:
 ##                     Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)          7.24266    0.07553   95.89   &lt;2e-16 ***
-## poly(SW_IN_F, 2)1  495.11122    5.04626   98.11   &lt;2e-16 ***
-## poly(SW_IN_F, 2)2 -152.77737    5.04626  -30.27   &lt;2e-16 ***
+## (Intercept)          7.13084    0.07944   89.77   &lt;2e-16 ***
+## poly(SW_IN_F, 2)1  447.25113    4.61907   96.83   &lt;2e-16 ***
+## poly(SW_IN_F, 2)2 -151.08797    4.61907  -32.71   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 5.046 on 4461 degrees of freedom
-## Multiple R-squared:  0.7027, Adjusted R-squared:  0.7025 
-## F-statistic:  5272 on 2 and 4461 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 4.619 on 3378 degrees of freedom
+## Multiple R-squared:  0.7556, Adjusted R-squared:  0.7555 
+## F-statistic:  5223 on 2 and 3378 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div id="metrics-for-regression" class="section level4 hasAnchor" number="8.2.2.4">
 <h4><span class="header-section-number">8.2.2.4</span> Metrics for regression<a href="regression_classification.html#metrics-for-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -667,40 +666,14 @@ It measures the magnitude of the errors, and is minimized to fit a linear regres
 \text{RMSE} = \sqrt{\text{MSE}} = \sqrt{\frac{1}{n} \sum_{i=1}^n (Y_i - \hat{Y_i})^2}
 \]</span>
 Like the MSE, the RMSE also measures accuracy (the magnitude of the errors) and is minimized during model training. By taking the square root of mean square errors, the RMSE is in the same units as the data <span class="math inline">\(Y\)</span> and is less sensitive to outliers as the MSE.</p></li>
-<li><p><strong><span class="math inline">\(R^2\)</span></strong>, also called the <em>coefficient of determination</em>, describes the proportion of variation in <span class="math inline">\(Y\)</span> that is captured by modelled values <span class="math inline">\(\hat{Y}\)</span>. Note that the denominator in the formula below is the variance of <span class="math inline">\(Y\)</span>, which is actually the MSE of a model that just predicts the average of <span class="math inline">\(Y\)</span> (using no explanatory variable <span class="math inline">\(X\)</span>). So <span class="math inline">\(R^2\)</span> is basically measuring how much better than just taking the mean of <span class="math inline">\(Y\)</span> our model is. It is traditionally defined as:
+<li><p><strong><span class="math inline">\(R^2\)</span></strong>: The <em>coefficient of determination</em> measures how close the fitted values are to the true target, and describes the proportion of variation in <span class="math inline">\(Y\)</span> that is captured by modeled values <span class="math inline">\(\hat{Y}\)</span>. Note that the denominator in the formula below is the variance of <span class="math inline">\(Y\)</span>, which is actually the MSE of a model that just predicts the average of <span class="math inline">\(Y\)</span> (using no explanatory variable <span class="math inline">\(X\)</span>). So <span class="math inline">\(R^2\)</span> is basically measuring how much better than just taking the mean of <span class="math inline">\(Y\)</span> our model is. It is traditionally defined as:
 <span class="math display">\[
 R^2 = 1 - \frac{\sum_i (Y_i - \hat{Y}_i)^2}{\sum_i (Y_i - \bar{Y})^2}
 \]</span>
 In this case, the goal is to maximize the metric, thus trying the explain as much variation in <span class="math inline">\(Y\)</span> as possible. In contrast to the MSE and RMSE, <span class="math inline">\(R^2\)</span> measures goodness of fit and gives a quantity between 0 and 1 that takes into consideration how variable the target is. We can actually write <span class="math inline">\(R^2 = 1 - \frac{MSE}{\hat{Var}(Y)}\)</span>. A perfect fit is quantified by <span class="math inline">\(R^2 = 1\)</span> and uninformative models have an <span class="math inline">\(R^2\)</span> approaching zero. For some applications where the data is very noisy, an <span class="math inline">\(R^2\)</span> of 0.6 may already be considered good.</p></li>
-<li><p><strong>Pearson’s <span class="math inline">\(r^2\)</span></strong>: The linear association between two variables (here <span class="math inline">\(Y\)</span> and <span class="math inline">\(\hat{Y}\)</span>) is measured by the <em>Pearson’s correlation coefficient</em> <span class="math inline">\(r\)</span>. Its square is closely related to the coefficient of determination <span class="math inline">\(R^2\)</span>.
-<span class="math display">\[
-r = \frac{\sum_i (Y_i - \bar{Y}) (\hat{Y_i} - \hat{\bar{Y}}) }{\sqrt{ \sum_i(Y_i-\bar{Y})^2}\sqrt{ \sum_i(\hat{Y_i}-\hat{\bar{Y}})^2 } }
-\]</span></p></li>
 </ul>
-<p>The distinction between uppercase and lowercase nomenclature is often not consistent in the literature. The uppercase <span class="math inline">\(R^2\)</span> is commonly used as coefficient of determination, in the context of comparing observed and predicted values. When the <em>correlation</em> between two different variables in a sample is quantified, the lowercase <span class="math inline">\(r^2\)</span> is commonly used.</p>
-<p>Metrics for correlation should not be used as a loss function because they do not penalize biased models. This is illustrated also in the plots above.</p>
-<p>The square of the Pearson’s correlation coefficient, as defined above, is implemented by the {yardstick} function <code>rsq()</code>, and corresponds also to the value reported for <code>Multiple R-squared</code> by <code>summary()</code> on a linear model object, or simply to <code>cor(...)^2</code>. The {yardstick} library implements the definition of the coefficient of determination with its function <code>rsq_trad()</code>.</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="regression_classification.html#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="do">## generate random data </span></span>
-<span id="cb325-2"><a href="regression_classification.html#cb325-2" aria-hidden="true" tabindex="-1"></a>df_demo <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb325-3"><a href="regression_classification.html#cb325-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y_obs =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>),</span>
-<span id="cb325-4"><a href="regression_classification.html#cb325-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">y_pred =</span> x)</span>
-<span id="cb325-5"><a href="regression_classification.html#cb325-5" aria-hidden="true" tabindex="-1"></a><span class="do">## the equation given above for the coefficient of determination corresponds to &#39;rsq_trad()&#39;</span></span>
-<span id="cb325-6"><a href="regression_classification.html#cb325-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>((df_demo<span class="sc">$</span>y_pred <span class="sc">-</span> df_demo<span class="sc">$</span>y_obs)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">sum</span>((df_demo<span class="sc">$</span>y_obs <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_obs))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## [1] 0.4235417</code></pre>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="regression_classification.html#cb327-1" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rsq_trad</span>(df_demo, y_obs, y_pred) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.estimate)</span></code></pre></div>
-<pre><code>## [1] 0.4235417</code></pre>
-<p>The square of the Pearson’s correlation coefficient, as defined above, is implemented by the {yardstick} function <code>rsq()</code>, and corresponds also to the value reported for <code>Multiple R-squared</code> by <code>summary()</code> on a linear model object, or simply to <code>cor(...)^2</code>.</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="regression_classification.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="do">## the equation given above for the squared Pearson&#39;s correlation coefficient corresponds to &#39;rsq()&#39;, &#39;cor()^2&#39;, and `summary()$r.squared</span></span>
-<span id="cb329-2"><a href="regression_classification.html#cb329-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sum</span>((df_demo<span class="sc">$</span>y_pred <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_pred))<span class="sc">*</span>(df_demo<span class="sc">$</span>y_obs <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_obs))))<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span></span>
-<span id="cb329-3"><a href="regression_classification.html#cb329-3" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">sum</span>((df_demo<span class="sc">$</span>y_obs <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_obs))<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">sum</span>((df_demo<span class="sc">$</span>y_pred <span class="sc">-</span> <span class="fu">mean</span>(df_demo<span class="sc">$</span>y_pred))<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
-<pre><code>## [1] 0.429184</code></pre>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="regression_classification.html#cb331-1" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rsq</span>(df_demo, y_obs, y_pred) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.estimate)</span></code></pre></div>
-<pre><code>## [1] 0.429184</code></pre>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="regression_classification.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y_obs <span class="sc">~</span> y_pred, <span class="at">data =</span> df_demo))<span class="sc">$</span>r.squared</span></code></pre></div>
-<pre><code>## [1] 0.429184</code></pre>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="regression_classification.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df_demo<span class="sc">$</span>y_obs, df_demo<span class="sc">$</span>y_pred)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
-<pre><code>## [1] 0.429184</code></pre>
-<p>The <span class="math inline">\(R^2\)</span> always increases when predictors are added to a model, even if predictors are not informative. This is particularly critical in the context of machine learning when we compare alternative models that differ by their number of predictors. In other words, the <span class="math inline">\(R^2\)</span> of a model with a large number of predictors tends to give an overconfident estimate of its predictive power. We have encountered cross-validation which yields good predictive power. This is the “gold-standard”. But when the number of data points is small, cross validation estimates may not be robust. Without resorting to cross validation, the effect of spuriously improving the evaluation metric by adding uninformative predictors can also be mitigated by penalizing the number of predictors <span class="math inline">\(p\)</span>. Different metrics are available.</p>
+<p>Metrics for correlation like the ones above should not be used as a loss function because they do not penalize biased models. All of them keep improving as we include more variables, where they are actually informative or not.</p>
+<p>The <span class="math inline">\(R^2\)</span> always increases when predictors are added to a model. This is particularly critical in the context of machine learning when we compare alternative models that differ by their number of parameters. In other words, the <span class="math inline">\(R^2\)</span> of a model with a large number of predictors tends to give an overconfident estimate of its predictive power. We will introduce cross-validation in <a href="supervised_ml.html#supervised_ml">Chapter 9</a>, which yields good predictive power. This is the “gold-standard”. But when the number of data points is small, cross validation estimates may not be robust. Without resorting to cross validation, the effect of spuriously improving the evaluation metric by adding uninformative predictors can also be mitigated by penalizing the number of predictors <span class="math inline">\(p\)</span>. Different metrics are available:</p>
 <ul>
 <li><p><strong>Adjusted <span class="math inline">\(R^2\)</span></strong>: The adjusted <span class="math inline">\(R^2\)</span> discounts values by the number of predictors. It is defined as
 <span class="math display">\[
@@ -723,22 +696,218 @@ Also AIC<span class="math inline">\(_c\)</span> is minimized for an optimal pred
 \]</span>
 Also in this case our goal is to minimize the BIC. This metric has the feature that if there is a true underlying model, the BIC will select that model given enough data. The BIC tends to select a model with fewer predictors than AIC.</p></li>
 </ul>
+<p><strong>Implementation in R</strong></p>
+<p>Let’s calculate the metrics introduced above for a few of the fitted regression models. Some of these metrics, like <span class="math inline">\(R^2\)</span> and the adjusted <span class="math inline">\(R^2\)</span> are given by the <code>summary()</code> function. Alternatively, the {yardstick} package provides implementations for a few of these metrics, which we compute below:</p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="regression_classification.html#cb325-1" aria-hidden="true" tabindex="-1"></a>compute_regr_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(linmod){</span>
+<span id="cb325-2"><a href="regression_classification.html#cb325-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">mse =</span> <span class="fu">mean</span>(linmod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb325-3"><a href="regression_classification.html#cb325-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">rmse =</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(linmod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>)),</span>
+<span id="cb325-4"><a href="regression_classification.html#cb325-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">R2 =</span> <span class="fu">summary</span>(linmod)<span class="sc">$</span>r.squared,</span>
+<span id="cb325-5"><a href="regression_classification.html#cb325-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">R2_adj =</span> <span class="fu">summary</span>(linmod)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb325-6"><a href="regression_classification.html#cb325-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb325-7"><a href="regression_classification.html#cb325-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb325-8"><a href="regression_classification.html#cb325-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb325-9"><a href="regression_classification.html#cb325-9" aria-hidden="true" tabindex="-1"></a>metrics <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">list</span>(linmod1, linmod2, linmod_cat), compute_regr_metrics)</span>
+<span id="cb325-10"><a href="regression_classification.html#cb325-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(metrics) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;linear model&quot;</span>, <span class="st">&quot;linear model 2&quot;</span>, <span class="st">&quot;linear + categories&quot;</span>)</span>
+<span id="cb325-11"><a href="regression_classification.html#cb325-11" aria-hidden="true" tabindex="-1"></a>metrics</span></code></pre></div>
+<pre><code>##        linear model linear model 2 linear + categories
+## mse      25.0674110     24.7824870          23.6638468
+## rmse      5.0067366      4.9782012           4.8645500
+## R2        0.5525270      0.5576131           0.5775817
+## R2_adj    0.5525162      0.5575810           0.5774589</code></pre>
 </div>
 </div>
 <div id="classification" class="section level3 hasAnchor" number="8.2.3">
 <h3><span class="header-section-number">8.2.3</span> Classification<a href="regression_classification.html#classification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We will introduce a classification problem with a binary target, although it’s easy to generalize to categorical variables with more than two classes. As an example, we will try to classify whether it’s day or night (<code>NIGHT</code>) based on shortwave and longwave radiation measurements (<code>SW_IN_F</code> and <code>LW_IN_F</code>). Let’s look at the data first:</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="regression_classification.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb327-2"><a href="regression_classification.html#cb327-2" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> hhdf <span class="sc">|&gt;</span></span>
+<span id="cb327-3"><a href="regression_classification.html#cb327-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1000</span>) <span class="sc">|&gt;</span>  <span class="co"># to reduce the dataset </span></span>
+<span id="cb327-4"><a href="regression_classification.html#cb327-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> LW_IN_F, <span class="at">color =</span> <span class="fu">as.factor</span>(NIGHT))) <span class="sc">+</span></span>
+<span id="cb327-5"><a href="regression_classification.html#cb327-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb327-6"><a href="regression_classification.html#cb327-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)), </span>
+<span id="cb327-7"><a href="regression_classification.html#cb327-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Longwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb327-8"><a href="regression_classification.html#cb327-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb327-9"><a href="regression_classification.html#cb327-9" aria-hidden="true" tabindex="-1"></a>gg2</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<p>At first sight, it’s easy to see that the short wave radiation is close to zero in the night, while longwave radiation doesn’t seem to change strongly between daytime and nighttime.</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="regression_classification.html#cb328-1" aria-hidden="true" tabindex="-1"></a>hhdf <span class="sc">|&gt;</span></span>
+<span id="cb328-2"><a href="regression_classification.html#cb328-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(NIGHT<span class="sc">==</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb328-3"><a href="regression_classification.html#cb328-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(SW_IN_F) <span class="sc">|&gt;</span></span>
+<span id="cb328-4"><a href="regression_classification.html#cb328-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hist</span>(<span class="at">breaks=</span><span class="dv">30</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
 <div id="logistic-regression" class="section level4 hasAnchor" number="8.2.3.1">
 <h4><span class="header-section-number">8.2.3.1</span> Logistic regression<a href="regression_classification.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Theory</strong></p>
+<p>A classification problem is a bit more difficult to write mathematically than a regression problem. Before, the mathematical representation of <code>GPP_NT_VUT_REF ~ SW_IN_F</code> was <code>GPP_NT_VUT_REF</code><span class="math inline">\(\;=\; \beta_0 + \beta_1\)</span><code>SW_IN_F</code>. With the classification model <code>NIGHT ~ SW_IN_F</code>, we cannot just write <code>NIGHT</code><span class="math inline">\(\;=\; \beta_0 + \beta_1\)</span><code>SW_IN_F</code> because <code>NIGHT</code> is not a number. Hence, the categorical variable must be encoded, in this case <code>0</code> means “day” and <code>1</code> means “night”. We already loaded the data into R with this encoding.</p>
+<p>The next issue is that a linear model makes continuous predictions in the entire real numbers space <span class="math inline">\((-\inf, \inf)\)</span>, but we want the predictions to be in <span class="math inline">\(\{0, 1\}\)</span>. We can transform these values to be in <span class="math inline">\([0,1]\)</span> with a <em>link</em> function. For a binary response, it’s common to use a <em>logit</em> link function:
+<span class="math display">\[\text{logit}(z) = \frac{\exp(z)}{1+\exp(z)}\]</span></p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="regression_classification.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(x)), <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">ylab =</span> <span class="st">&quot;logit(x)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-168-1.png" width="672" /></p>
+<p>Combining a linear model (with any type of predictors, like for regression) and a logit link function, we arrive to a <strong>logistic regression</strong> model:
+<span class="math display">\[f(X, \beta) = \text{logit}(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p) = \frac{\exp(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)}{1 + \exp(\beta_0 + \beta_1 X_1 + ... + \beta_p X_p)}.\]</span>
+This predicted value can be understood as the probability of belonging to class 1 (in our example, nighttime). A classification rule is defined such that an observation <span class="math inline">\(X_{new}\)</span> with a predicted probability of belonging to class 1 higher than a given <em>threshold</em> <span class="math inline">\(\tau\)</span> (i.e. <span class="math inline">\(f(X_{new}, \beta) &gt; \tau\)</span>) will be classified as 1; and if the predicted probability is smaller than the threshold, it will be classified as 0.</p>
+<p>A logistic regression model results in a linear classification rule. This means that the <span class="math inline">\(p\)</span>-dimensional space will be divided in two by a hyperplane, and the points falling in each side of the hyperplane will be classified as 1 or 0. In the example above with shortwave and longwave radiation as predictors, the classification boundary would look something like this:</p>
+<p>Furthermore, to fit a logistic regression model means to calculate the maximum likelihood estimator with an iterative algorithm.</p>
+<p><strong>Implementation in R</strong></p>
+<p>To fit a logistic regression in R we can use the <code>glm()</code> function, which fits a generalized linear model, indicating that our target variable is binary and the link function is a logit function. Let’s see the model output:</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="regression_classification.html#cb330-1" aria-hidden="true" tabindex="-1"></a>logmod <span class="ot">&lt;-</span> <span class="fu">glm</span>(NIGHT <span class="sc">~</span> SW_IN_F <span class="sc">+</span> LW_IN_F,</span>
+<span id="cb330-2"><a href="regression_classification.html#cb330-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> logit),</span>
+<span id="cb330-3"><a href="regression_classification.html#cb330-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> hhdf)</span></code></pre></div>
+<pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="regression_classification.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logmod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = NIGHT ~ SW_IN_F + LW_IN_F, family = binomial(link = logit), 
+##     data = hhdf)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -3.3046   0.0000   0.0000   0.1853   8.4904  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  7.6170522  0.2326894   32.73   &lt;2e-16 ***
+## SW_IN_F     -1.1869830  0.0222507  -53.35   &lt;2e-16 ***
+## LW_IN_F     -0.0110463  0.0007195  -15.35   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 72825.2  on 52607  degrees of freedom
+## Residual deviance:  9728.7  on 52605  degrees of freedom
+## AIC: 9734.7
+## 
+## Number of Fisher Scoring iterations: 15</code></pre>
+<p>This model results in a linear classification boundary that splits the predictor variables space in two. You can see it plotted below:</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="regression_classification.html#cb334-1" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">coef</span>(logmod)</span>
+<span id="cb334-2"><a href="regression_classification.html#cb334-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb334-3"><a href="regression_classification.html#cb334-3" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> gg2 <span class="sc">+</span></span>
+<span id="cb334-4"><a href="regression_classification.html#cb334-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="sc">-</span>beta[<span class="dv">2</span>]<span class="sc">/</span>beta[<span class="dv">3</span>], <span class="at">intercept =</span> (<span class="fl">0.5</span><span class="sc">-</span>beta[<span class="dv">1</span>])<span class="sc">/</span>beta[<span class="dv">3</span>])</span>
+<span id="cb334-5"><a href="regression_classification.html#cb334-5" aria-hidden="true" tabindex="-1"></a>gg3</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
+<p>Most blue points fall to one side of the dashed classification line and most red points to the other side; this is what we wanted. The points that are in the wrong side of the line are misclassified by the logistic regression model, we’re trying to minimize that.</p>
+<p><strong>Model advantages and concerns</strong></p>
+<p>One advantage of logistic regression is simplicity. It’s part of the <em>generalized linear regression</em> family of models and the concept of a link function used to build such a model can also be used for various types of response variables (not only binary, but also count data…). You can find more details in this <a href="https://en.wikipedia.org/wiki/Generalized_linear_model">Wikipedia article</a>.</p>
+<p>Furthermore, logistic regression allows for an interesting interpretation of its model parameters: <em>log-odds</em> and <em>log-odds ratios</em>. Logg-odds ratios represent how much likely it is to find one class versus the other (e.g. class 1 is twice as likely than class 0 whenever we have probabilities <span class="math inline">\(66\%\)</span> vs <span class="math inline">\(33\%\)</span>). Increases in the values of the predictors affect the log-odds multiplicatively.</p>
+<p>It is easy to extend a logistic regression model to more than two classes by fitting models iteratively. For example, first you classify class 1 against classes 2 and 3; then another logistic regression classifies class 2 against 3.</p>
+<p>Nevertheless, logistic regression relies on statistical assumptions to fit the parameters and interpret the fitted parameters. So whenever these assumptions are not met, one must be careful with the conclusions drawn. Other machine learning methods, that will be covered in Chapters <a href="supervised_ml.html#supervised_ml">9</a> and <a href="random_forest.html#random_forest">10</a>, can also be used for classification tasks. These offer more flexibility than logistic regression (are not necessarily linear) and don’t need to satisfy strict statistical assumptions.</p>
 </div>
-<div id="section" class="section level4" number="8.2.3.2">
-<h4><span class="header-section-number">8.2.3.2</span> </h4>
+<div id="metrics-for-classification" class="section level4 hasAnchor" number="8.2.3.2">
+<h4><span class="header-section-number">8.2.3.2</span> Metrics for classification<a href="regression_classification.html#metrics-for-classification" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Measuring the quality of a classification model is based on counting how many observations were correctly classified, rather than the distance between the values predicted by a regression and the true observed values. These can be represented in a <em>confusion matrix</em>:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center"><span class="math inline">\(Y = 1\)</span></th>
+<th align="center"><span class="math inline">\(Y = 0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\hat{Y} = 1\)</span></td>
+<td align="center">True positives (TP)</td>
+<td align="center">False positives (FP)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat{Y} = 0\)</span></td>
+<td align="center">False negatives (FN)</td>
+<td align="center">True negatives (TN)</td>
+</tr>
+</tbody>
+</table>
+<p>In a confusion matrix, correctly classified observations are on the diagonal and off-diagonal values correspond to different types of errors. Some of these error types are more relevant for certain applications.</p>
+<p>Imagine that you want to classify whether the water of a river is safe to drink based on measurements of certain particles or chemicals in the water (Y=1 means safe, Y=0 means unsafe). It’s much worse to tag as “safe” a polluted river than to tag as “unsafe” a potable water source, one must be conservative. In this case, we would prioritize avoiding false positives and wouldn’t care so much about false negatives.</p>
+<p>The following metrics are widely used and highlight different aspects of our modeling goals.</p>
+<ul>
+<li><strong>Accuracy</strong> is simply the proportion of outputs that were correctly classified:
+<span class="math display">\[ \text{Accuracy}=\frac{\text{TP} + \text{TN}}{N},\]</span>
+where <span class="math inline">\(N\)</span> is the number of observations. This is a very common metric for training ML models and treats both classes as equally important. It’s naturally extended to multi-class classification and usually compared to the value <span class="math inline">\(\frac{1}{C}\)</span> where <span class="math inline">\(C\)</span> is the number of classes.</li>
+</ul>
+<p>Classification models are usually compared to randomness: how much better is our model compared to throwing a coin for classification? At random, we would assign each class <span class="math inline">\(50\%\)</span> of the time. So if we assume that both classes are as likely to appear, that is, they are <em>balanced</em>, the accuracy of a random guess would be around <span class="math inline">\(0.5\)</span>. Hence, we want the accuracy to be “better than random”. If there are <span class="math inline">\(C\)</span> different classes and the observations are balanced, we want the accuracy to be above <span class="math inline">\(\frac{1}{C}\times 100 \%\)</span>. Keep in mind that for a dataset where <span class="math inline">\(90\%\)</span> of the observations are from class 1 and <span class="math inline">\(10\%\)</span> from class 0, always predicting 1 would lead to a <span class="math inline">\(0.9\)</span> accuracy. This value may sound good, but that model is rubbish because it doesn’t use any information from predictors. Be careful when working with imbalanced classes and interpreting your results.</p>
+<ul>
+<li><p><strong>Precision</strong> measures how often our “positive” predictions are correct:
+<span class="math display">\[\text{precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}.\]</span></p></li>
+<li><p>The <strong>true positive rate</strong> (TPR), also called <strong>Recall</strong> or <strong>sensitivity</strong> measures the proportion of real “positives” (<span class="math inline">\(Y = 1\)</span>) we are able to capture:
+<span class="math display">\[ \text{TPR} = \frac{\text{TP}}{\text{TP}+\text{FN}}.\]</span></p></li>
+<li><p>The <strong>false positive rate</strong> (FPR) is defined by
+<span class="math display">\[\text{FPR} = \frac{\text{FP}}{\text{FP}+\text{TN}}.\]</span>
+and is related to another metric called <strong>specificity</strong> by <span class="math inline">\(\text{FPR} = 1 - \text{specificity}\)</span>.</p></li>
+<li><p><strong>ROC curve</strong>: To evaluate the performance of a binary classification model, it’s common to plot the <em>ROC curve</em>. The TPR is plotted against the FPR, for varying values of the threshold used in the classification rule. When we decrease the threshold, we get more positive values (more observations are classified as 1), increasing both the true positive and false positive rate. The following image describes clearly how to interpret a ROC curve plot:</p></li>
+</ul>
+<div class="figure">
+<img src="figures/Roc_curve.png" alt="" />
+<p class="caption">ROC curves and how they compare, from <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">Wikipedia</a>.</p>
+</div>
+<ul>
+<li><p><strong>AUC</strong>: The “area under the curve” is defined as the area left below the ROC curve. For a random classifier we would have AUC=0.5 and for the perfect classifier, AUC=1. It’s good to try to increase the AUC and it’s used often as a reporting metric. Nevertheless, a visual inspection of the ROC curve can say even more.</p></li>
+<li><p><strong>F1</strong>: The F1 score is a more sophisticated metric, defined as the harmonic mean of precision and sensitivity, or in terms of the confusion matrix values:
+<span class="math display">\[F1= 2 \times \frac{\text{prec} \times \text{recall}}{\text{prec} + \text{recall}} = \frac{2 \text{TP}}{2 \text{TP} + \text{FP} + \text{FN}}.\]</span>
+This metric provides good results for both balanced and imbalanced datasets and takes into account both the model’s ability to capture positive cases (recall) and be correct with the cases it does capture (precision). It takes values between 0 and 1, with 1 being the best and values of 0.5 and below being bad.</p></li>
+</ul>
+<p>These metrics can be used to compare the quality of different classifiers but also to understand the behaviour of a single classifier from different perspectives.</p>
+<p>This was an introduction of the most basic classification metrics. For a more information on the topic, check out <a href="https://bookdown.org/max/FES/measuring-performance.html#class-metrics">this book chapter</a>.</p>
+<p><strong>Implementation in R</strong></p>
+<p>Let’s take a look at the previous metrics for the logistic regression model we fitted before. The <code>confusionMatrix()</code> function from the {caret} library provides most of the statistics introduced above.</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="regression_classification.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make classification predictions</span></span>
+<span id="cb335-2"><a href="regression_classification.html#cb335-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(logmod<span class="sc">$</span>data<span class="sc">$</span>NIGHT)</span>
+<span id="cb335-3"><a href="regression_classification.html#cb335-3" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(logmod<span class="sc">$</span>fitted.values)) <span class="co"># Use 0.5 as threshold</span></span>
+<span id="cb335-4"><a href="regression_classification.html#cb335-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb335-5"><a href="regression_classification.html#cb335-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Change class names</span></span>
+<span id="cb335-6"><a href="regression_classification.html#cb335-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Y) <span class="ot">&lt;-</span> <span class="fu">levels</span>(Y_pred) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;DAY&quot;</span>, <span class="st">&quot;NIGHT&quot;</span>)</span>
+<span id="cb335-7"><a href="regression_classification.html#cb335-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb335-8"><a href="regression_classification.html#cb335-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot confusion matrix</span></span>
+<span id="cb335-9"><a href="regression_classification.html#cb335-9" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="ot">&lt;-</span> <span class="fu">confusionMatrix</span>(<span class="at">data =</span> Y_pred, <span class="at">reference =</span> Y)</span>
+<span id="cb335-10"><a href="regression_classification.html#cb335-10" aria-hidden="true" tabindex="-1"></a>conf_matrix</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   DAY NIGHT
+##      DAY   26218    19
+##      NIGHT  1261 25110
+##                                          
+##                Accuracy : 0.9757         
+##                  95% CI : (0.9743, 0.977)
+##     No Information Rate : 0.5223         
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16      
+##                                          
+##                   Kappa : 0.9513         
+##                                          
+##  Mcnemar&#39;s Test P-Value : &lt; 2.2e-16      
+##                                          
+##             Sensitivity : 0.9541         
+##             Specificity : 0.9992         
+##          Pos Pred Value : 0.9993         
+##          Neg Pred Value : 0.9522         
+##              Prevalence : 0.5223         
+##          Detection Rate : 0.4984         
+##    Detection Prevalence : 0.4987         
+##       Balanced Accuracy : 0.9767         
+##                                          
+##        &#39;Positive&#39; Class : DAY            
+## </code></pre>
+<p>Now we can visualize the confusion matrix as a mosaic plot. This is quite helpful when we work with many classes.</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="regression_classification.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(conf_matrix<span class="sc">$</span>table,</span>
+<span id="cb337-2"><a href="regression_classification.html#cb337-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">main =</span> <span class="st">&quot;Confusion matrix&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-172-1.png" width="672" /></p>
 </div>
 </div>
-<div id="model-comparison" class="section level3 hasAnchor" number="8.2.4">
-<h3><span class="header-section-number">8.2.4</span> Model comparison<a href="regression_classification.html#model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="model-evaluation" class="section level3 hasAnchor" number="8.2.4">
+<h3><span class="header-section-number">8.2.4</span> Model evaluation<a href="regression_classification.html#model-evaluation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Explain how the metrics from above can be used to find the best model. Increase complexity slowly, etc.</li>
+</ul>
+<div id="model-comparison" class="section level4 hasAnchor" number="8.2.4.1">
+<h4><span class="header-section-number">8.2.4.1</span> Model comparison<a href="regression_classification.html#model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 </div>
-<div id="section-1" class="section level3" number="8.2.5">
-<h3><span class="header-section-number">8.2.5</span> </h3>
+<div id="variable-selection-1" class="section level4 hasAnchor" number="8.2.4.2">
+<h4><span class="header-section-number">8.2.4.2</span> Variable selection<a href="regression_classification.html#variable-selection-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="outlier-detection" class="section level4 hasAnchor" number="8.2.4.3">
+<h4><span class="header-section-number">8.2.4.3</span> Outlier detection<a href="regression_classification.html#outlier-detection" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>identification via distributions [hist(), boxplot(), qqnorm()], multivariate (Cook’s Distance to get influential values)</p>
+</div>
 </div>
 </div>
 <div id="exercises-7" class="section level2 hasAnchor" number="8.3">

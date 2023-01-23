@@ -1,5 +1,5 @@
-tab:unnamed-chunk-179
-fig:unnamed-chunk-197
+tab:unnamed-chunk-185
+fig:unnamed-chunk-203
 target-readers-of-this-book
 what-is-applied-geodata-science
 data-science-workflow
@@ -172,9 +172,11 @@ polynomial-regression
 metrics-for-regression
 classification
 logistic-regression
-section
+metrics-for-classification
+model-evaluation
 model-comparison
-section-1
+variable-selection-1
+outlier-detection
 exercises-7
 solutions-6
 supervised_ml

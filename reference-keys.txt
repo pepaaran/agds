@@ -1,4 +1,3 @@
-tab:unnamed-chunk-185
 fig:unnamed-chunk-203
 target-readers-of-this-book
 what-is-applied-geodata-science
@@ -179,7 +178,7 @@ variable-selection-1
 outlier-detection
 exercises-7
 solutions-6
-supervised_ml
+supervised_ml_i
 learning-objectives-8
 tutorial-8
 required-packages-1
@@ -198,14 +197,14 @@ one-hot-encoding
 zero-variance-predictors
 target-engineering
 putting-it-all-together-half-way
+exercises-8
+solutions-7
+supervised_ml_ii
+learning-objectives-9
+tutorial-9
 training
 hyperparameter-tuning
 resampling
-exercises-8
-solutions-7
-random_forest
-learning-objectives-9
-tutorial-9
 exercises-9
 solutions-8
 neural_nets

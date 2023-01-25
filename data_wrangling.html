@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Stocker (lead), Koen Hufkens (contributing), Pepa Aran (contributing), Pascal Schneider (contributing)" />
 
 
-<meta name="date" content="2023-01-23" />
+<meta name="date" content="2023-01-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1044,7 +1044,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 FR-Pue &lt;tibble [5,479 × 20]&gt; &lt;lm&gt;   &lt;smmry.lm&gt; 0.377</code></pre>
 <p>This code is a demonstration of the power of tidy and nested data frames and for the clarity of the <em>tidyverse</em> syntax.</p>
 <p>Nesting is useful also for avoiding value duplication when joining relational data objects. Above, we nested time series data objects (where time steps and sites are both organised along rows) by sites and got a data frame where only sites are organised along rows, while time steps are nested inside the column <code>"data"</code>. This now fits the structure of a relational data object (<code>siteinfo_fluxnet2015</code>) containing site-specific meta information (also with only sites along rows).</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="data_wrangling.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/siteinfo_fluxnet2015.rda&quot;</span>)  <span class="co"># loads siteinfo_fluxnet2015</span></span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="data_wrangling.html#cb215-1" aria-hidden="true" tabindex="-1"></a>base<span class="sc">::</span><span class="fu">load</span>(<span class="st">&quot;data/siteinfo_fluxnet2015.rda&quot;</span>)  <span class="co"># loads siteinfo_fluxnet2015</span></span></code></pre></div>
 <p>Joining the nested data frame with site meta information results in a substantially smaller and much handier data frame compared to an alternative, where the site meta information is joined into the un-nested (daily) data frame, and therefore duplicated for each day within sites.</p>
 <div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="data_wrangling.html#cb216-1" aria-hidden="true" tabindex="-1"></a>ddf_allsites_nested_joined <span class="ot">&lt;-</span> siteinfo_fluxnet2015 <span class="sc">|&gt;</span></span>
 <span id="cb216-2"><a href="data_wrangling.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">siteid =</span> sitename) <span class="sc">|&gt;</span></span>

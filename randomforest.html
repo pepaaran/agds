@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Introduction | Applied Geodata Science</title>
+  <title>Chapter 11 Random Forest | Applied Geodata Science</title>
   <meta name="description" content="This course prepares you to benefit from the general data richness in environmental and geo-sciences." />
   <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Introduction | Applied Geodata Science" />
+  <meta property="og:title" content="Chapter 11 Random Forest | Applied Geodata Science" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This course prepares you to benefit from the general data richness in environmental and geo-sciences." />
   <meta name="github-repo" content="stineb/agsd" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Introduction | Applied Geodata Science" />
+  <meta name="twitter:title" content="Chapter 11 Random Forest | Applied Geodata Science" />
   
   <meta name="twitter:description" content="This course prepares you to benefit from the general data richness in environmental and geo-sciences." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="gettingstarted.html"/>
+<link rel="prev" href="supervisedmlii.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -352,72 +352,184 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1 unnumbered hasAnchor">
-<h1>Introduction<a href="introduction.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The sheer volume of data that is becoming available today bears a huge potential for answering long-standing questions in all fields of environmental and geo-sciences. This gives rise to a new set of tools that can be used and a new set of challenges when applying them.</p>
-<div id="what-is-applied-geodata-science" class="section level2 unnumbered hasAnchor">
-<h2>What is Applied Geodata Science?<a href="introduction.html#what-is-applied-geodata-science" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Data science is interdisciplinary by nature. It sits at the intersection between domain expertise, Statistics and Mathematics knowledge, and coding skills. Data science generates new insights for applications in different fields by combining these three realms (Fig. <a href="introduction.html#fig:datasciencevenn">0.2</a>). Combining only two of the three realms falls short of what data science is <a href="http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram">(Conway, 2013)</a>.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:datasciencevenn"></span>
-<img src="figures/data_science_venn_mine.png" alt="The Venn diagram of data science. Adapted from [Conway, 2013](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram)." width="50%" />
-<p class="caption">
-Figure 0.2: The Venn diagram of data science. Adapted from <a href="http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram">Conway, 2013</a>.
-</p>
-</div>
-<p>Dealing with data requires coding (but not a degree in computer science). Coding skills are essential for file and data manipulation and for thinking algorithmically.</p>
-<p>Basic knowledge in Statistics and Mathematics are needed for extracting insights from data and for applying appropriate statistical methods. An overview of methods, a general familiarity, and an intuitive understanding of the basics are more important for most data science projects than having a PhD in Statistics.</p>
-<p>Statistics plus data yields machine learning, but not “data science”. In data science, questions and hypotheses are motivated by the scientific endeavor in different domains or by applications in the public or private sectors. To emphasize the distinctively applied and domain-oriented approach to data science of this course, we call it <strong>Applied Geo</strong>data Science.</p>
-<p>Of course, empirical research has always relied on data. The essential ingredient of a course in (Applied Geo-) data science is that it emphasizes the methodological aspects that are unique and critical for data-intensive research in Geography and Environmental Sciences, and for putting Open Science into practice.</p>
-<p>This course is also supposed to teach you how to stay out of the “danger zone” - where data is handled and models are fitted with a blind eye to fundamental assumptions and relations. The aim of data science projects is to yield credible (“trustworthy”) and robust results.</p>
-</div>
-<div id="the-data-science-workflow" class="section level2 unnumbered hasAnchor">
-<h2>The data science workflow<a href="introduction.html#the-data-science-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The red thread of this course is the <em>data science workflow</em> (Fig. <a href="introduction.html#fig:datascienceworkflowslim">0.3</a>). Applied (geo-) data science projects typically start with research questions and hypotheses, and some data at hand, and (ideally) end with an answer to the research questions and the communication of results in textual, visual, and reproducible forms. What lies in between is not a linear process, but a cycle. One has to “understand” the data in order to identify appropriate analyses for answering the research questions. Before we’ve visualized the data, we don’t know how to transform it. And before we’ve modeled it, we don’t know the most appropriate visualization. In practice, we approach answers to our research questions gradually, through repeated cycles of <em>exploratory data analysis</em> - repeated cycles of transforming the data, visualizing it, and modelling relationships. More often than not, the exploratory data analysis generates insights about missing pieces in the data puzzle that we’re trying to solve. In such cases, the data collection and modelling task may have to be re-defined (dashed line in Fig. <a href="introduction.html#fig:datascienceworkflowslim">0.3</a>), and the exploratory data analysis cycle re-initiated.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:datascienceworkflowslim"></span>
-<img src="figures/data_science_workflow_simpl.png" alt="The data science workflow. Figure adapted from: [Wickham &amp; Grolemund *R for Data Science*](https://r4ds.had.co.nz/index.html)"  />
-<p class="caption">
-Figure 0.3: The data science workflow. Figure adapted from: <a href="https://r4ds.had.co.nz/index.html">Wickham &amp; Grolemund <em>R for Data Science</em></a>
-</p>
-</div>
-<p>As we work our way through repeated cycles of exploratory data analysis, we take decisions based on our data analysis, modelling, and visualizations. And we write code. The final conclusions we draw, the answers to research questions we find, and the results we communicate rest on the combination of all steps of our data processing, analysis, and visualization. Simply put, it rests on the reproducibility (and legibility) of our code (encapsulated by ‘Program’ in Fig. <a href="introduction.html#fig:datascienceworkflowslim">0.3</a>).</p>
-</div>
-<div id="why-now" class="section level2 unnumbered hasAnchor">
-<h2>Why now?<a href="introduction.html#why-now" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Three general developments set the stage for this course. First, Geography and Environmental Sciences (as many other realms of today’s world) have entered a <strong>data-rich era</strong> (Chapters <a href="datavariety.html#datavariety">5</a>). Second, <strong>machine learning</strong> algorithms have revolutionized the way we can extract information from large volumes of data (Chapters <a href="supervisedmlii.html#supervisedmlii">10</a> - <a href="randomforest.html#randomforest">11</a>). Third, <strong>Open Science</strong> principles (Chapter <a href="openscience.html#openscience">7</a>) - essential for inclusive research, boundless progress, and for diffusing science to society - are becoming a prerequisite for getting research funded and published. The skill set required to make use of the potentials of a data-rich world is diverse and is often not taught as part of the curriculum in the natural sciences (as of year 2023). This course fills this open space.</p>
-</div>
-<div id="a-new-modelling-paradigm" class="section level2 unnumbered hasAnchor">
-<h2>A new modelling paradigm<a href="introduction.html#a-new-modelling-paradigm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>What is ‘modelling’? Models are an essential part of the scientific endeavor. They are used for describing the world, explaining observed phenomena, and for making predictions that can be tested with data. Models are thus a device for translating hypotheses of how the world operates into a form that can be confronted with how the world is observed.</p>
-<p>Models can be more or less explicit and more or less quantitative. Models can come in the form of vague mental notions that underpin our view of the world and our interpretation of observations. Towards the more specific end of this spectrum, models can be visualizations. For example a visualization of how elements in a system are connected. At the arguably most explicit and quantitative end of the spectrum are models that rely on mathematical descriptions of how elements of a system are connected and how processes operate. Examples of such models include General Circulation Models of the climate system or models used for Numerical Weather Prediction. Such models are often referred to as <em>mechanistic models</em>.</p>
-<p>A further distinction within mechanistic models can be made between <em>dynamic models</em> that describe a temporal evolution of a system (e.g., the dynamics of the atmosphere and the ocean in a General Circulation Model) and “static” models (e.g., a model for estimating the power generation of a solar photovoltaics station). In a dynamic model, we need to specify an initial state and the model (in many cases given additional inputs) predicts the evolution of the system from that. In a static model, the prediction can be described as a <em>function</em> of a set of inputs, without temporal dependencies between the inputs and the model prediction.</p>
-<p>Often, mechanistic and <em>empirical models</em> are distinguished. Empirical models can be viewed as somewhere closer towards the less explicit end of the spectrum described above. In mechanistic models, the mathematical descriptions of relationships are informed by theory or by independently determined relationships (e.g., laboratory measurements of metabolic rates of an enzyme). In contrast, empirical models rely on no, or only a very limited amount of <em>a priori</em> knowledge that is built into the model formulation. However, it should be noted that mechanistic models often also rely on empirical or statistical descriptions for individual components (e.g., the parametrisation of convection in a climate model), and statistical models may, in some cases, also be viewed as a representation of mechanisms that is consistent with the theoretical understanding. A related example is the light use efficiency model (Monteith, 1972) that linearly relates vegetation productivity to the amount of absorbed solar radiation. It has the form of a bivariate linear regression model. Vice-versa, traditional statistical models also rely on assumptions regarding the data generating process(es) and the resulting distribution of the data.</p>
-<p><em>Supervised machine learning</em> models can be regarded as empirical models that are even further “assumption free” side than traditional statistical models. In contrast to mechanistic models where rules and hypotheses are explicitly and mathematically encoded, and in contrast to statistical models where assumptions of the data distribution are made for specifying the model, machine learning approaches modelling from the flip side: from the data to the insight <a href="https://projecteuclid.org/journals/statistical-science/volume-16/issue-3/Statistical-Modeling--The-Two-Cultures-with-comments-and-a/10.1214/ss/1009213726.full">(Breiman, 2001)</a>. Rules are not encoded by a human, but discovered by the machine. Machine learning models learn from <em>patterns in the data</em> for making new predictions, rather than relying on theory and <em>a priori</em> knowledge of the system. In that sense, machine learning follows a new modelling paradigm. The <em>learning</em> aspect in machine learning refers to the automatic search process and the guidance of the model fitting by some feedback signal (loss function) that are employed in machine learning algorithms (see also Chapter <a href="supervisedmlii.html#supervisedmlii">10</a>).</p>
-<p>The aspect of “patterns in the data” is key here. Often, these patterns are fuzzy. Rule-based algorithms have a limited capacity for dealing with such problems. <em>Symbolic artificial intelligence</em> is based on rules and underlies, for example, a computer playing chess <a href="https://www.manning.com/books/deep-learning-with-r">(Chollet &amp; Allaire, 2018)</a>. However, where rules cannot be encoded from the outset, symbolic artificial intelligence has reached its limits. A breakthrough in learning from fuzzy patterns in the data has been enabled by deep learning. Through multiple layers of abstraction of the data, deep learning models identify underlying, abstract, relationships and use them for prediction. Deep learning has been extremely successful in solving problems, e.g., in image classification, speech recognition, or language translation.</p>
-<p>However, the abstraction comes at the cost of interpretability. Deep learning models and machine learning models in general are used with an emphasis on <em>prediction</em> and have seen particularly wide adoption in fields where a false prediction has acceptable consequences (An inappropriate book recommendation based on your previous purchases is not grave.) (<a href="https://doi.org/10.1038/s41558-019-0404-1">Knüsel et al., 2019</a>). The model itself remains a black box and its utility for hypothesis testing is limited. This challenge has spurred the field of <em>interpretable machine learning</em>, where solutions are sought for uncovering the black box and proble the model for its trustworthiness.</p>
-<p>Chapters <a href="regressionclassification.html#regressionclassification">8</a>-<a href="randomforest.html#randomforest">11</a> lead into the world of machine learning and introduce the essential steps of the modelling workflow without delving into deep learning. Together with its preceeding chapters, this completes the toolbox required for making the first data scientific steps for applications in Geography and Environmental Sciences. This may be only just the beginning…</p>
-</div>
-<div id="reading-and-link-collection" class="section level2 unnumbered hasAnchor">
-<h2>Reading and link collection<a href="introduction.html#reading-and-link-collection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Foundations</strong></p>
+<div id="randomforest" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Random Forest<a href="randomforest.html#randomforest" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Chapter lead author: Benjamin Stocker</strong></p>
+<p>Contents:</p>
 <ul>
-<li><p>Leo Breiman. “Statistical Modeling: The Two Cultures (with comments and a rejoinder by the author).” Statist. Sci. 16 (3) 199 - 231, August 2001. <a href="https://doi.org/10.1214/ss/1009213726" class="uri">https://doi.org/10.1214/ss/1009213726</a></p>
-<ul>
-<li>A paper describing the paradigm shift in statistical modelling - from traditional approaches to machine learning. Written in accessible language by the inventor of the Random Forest algorithm.</li>
-</ul></li>
+<li><p>measure feature importance based on the sum of the reduction in the loss function</p></li>
+<li><p>pdp</p></li>
+<li><p>Sampling less than 100% adds additional randomness in the procedure, which helps to further de-correlate the trees.</p></li>
+<li><p>permutation-based importance measure: model-agnostic, argument ‘permutation’</p></li>
+<li><p>because mtry &lt; p, RF is faster than CART (and at the same time better)</p></li>
+<li><p>gradient boosting: fitting each tree in the sequence to the previous tree’s residuals</p></li>
+<li><p>Unlike random forests, GBMs can have high variability in accuracy dependent on their hyperparameter settings</p></li>
 </ul>
-<p><strong>Data wrangling</strong></p>
+<div id="learning-objectives-11" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Learning objectives<a href="randomforest.html#learning-objectives-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="tutorial-10" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Tutorial<a href="randomforest.html#tutorial-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="required-packages-3" class="section level3 hasAnchor" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> Required packages<a href="randomforest.html#required-packages-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="randomforest.html#cb449-1" aria-hidden="true" tabindex="-1"></a>use_pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;readr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;caret&quot;</span>, <span class="st">&quot;yardstick&quot;</span>, <span class="st">&quot;lubridate&quot;</span>, <span class="st">&quot;rsample&quot;</span>, <span class="st">&quot;recipes&quot;</span>, <span class="st">&quot;modelr&quot;</span>, <span class="st">&quot;forcats&quot;</span>, <span class="st">&quot;rpart&quot;</span>, <span class="st">&quot;rpart.plot&quot;</span>, <span class="st">&quot;ranger&quot;</span>)</span>
+<span id="cb449-2"><a href="randomforest.html#cb449-2" aria-hidden="true" tabindex="-1"></a>new_pkgs <span class="ot">&lt;-</span> use_pkgs[<span class="sc">!</span>(use_pkgs <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">&quot;Package&quot;</span>])]</span>
+<span id="cb449-3"><a href="randomforest.html#cb449-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(new_pkgs) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(new_pkgs)</span></code></pre></div>
+<pre><code>## Retrieving &#39;https://mran.microsoft.com/snapshot/2023-01-08/bin/macosx/contrib/4.2/ranger_0.14.1.tgz&#39; ...
+##  OK [downloaded 2 Mb in 12 secs]
+## Retrieving &#39;https://mran.microsoft.com/snapshot/2023-01-08/bin/macosx/contrib/4.2/RcppEigen_0.3.3.9.3.tgz&#39; ...
+##  OK [downloaded 4.5 Mb in 7.2 secs]
+## Installing RcppEigen [0.3.3.9.3] ...
+##  OK [installed binary]
+## Moving RcppEigen [0.3.3.9.3] into the cache ...
+##  OK [moved to cache in 1.6 milliseconds]
+## Installing ranger [0.14.1] ...
+##  OK [installed binary]
+## Moving ranger [0.14.1] into the cache ...
+##  OK [moved to cache in 1.6 milliseconds]</code></pre>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="randomforest.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(use_pkgs, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+</div>
+<div id="decision-trees" class="section level3 hasAnchor" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> Decision trees<a href="randomforest.html#decision-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Just as a forest consists of trees, a <em>Random Forest</em> model consists of <em>decision trees.</em> Therefore, let’s start with a decision tree, also known as CART (classification and regression tree). Consider a similar example as in Chapter <a href="supervisedmli.html#supervisedmli">9</a> where we fitted a function <span class="math inline">\(Y = f(X)\)</span> with polynomials. Instead, here we fit it with a decision tree. The tree grows by successively splitting (branching) the predictor range (<span class="math inline">\(X\)</span>) into binary classes (two regions along <span class="math inline">\(X\)</span>) and predicting a different and constant value <span class="math inline">\(c\)</span> for the target variable on either side of the split. The location of the split is chosen such that the overall error between the observed response (<span class="math inline">\(Y_i\)</span>) and the predicted constant (<span class="math inline">\(c_i\)</span>) is minimized. The error is determined based on whether we’re dealing with a regression or a classification problem.</p>
 <ul>
-<li>R4DS</li>
+<li>For regression problems, the sum of square errors is minimized.</li>
 </ul>
-<p><strong>Data visualisation</strong></p>
+<p><span class="math display">\[
+    \text{SSE} = \sum_i{(\hat{Y_i}-Y_i)^2}
+\]</span></p>
 <ul>
-<li>asdf</li>
+<li>For classification problems, the <em>cross-entropy</em> or the <em>Gini index</em> are typically maximized.</li>
 </ul>
-<p><strong>Machine learning</strong></p>
-<ul>
-<li>HOML</li>
-<li>Chollet &amp; Allaire “Deep learning with R”</li>
-</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-232-1.png" width="672" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-232-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As a tree grows, splits are recursively added. In our example, only one predictor variable is available. The splits are therefore performed always on the same variable, splitting up <span class="math inline">\(X\)</span> further.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-233-1.png" width="672" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-233-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In the visualisation of the decision tree above, the uppermost decision is the <em>root node</em>. From there, two branches connect to <em>internal nodes</em>, and at the bottom of the tree are the <em>leaf nodes</em>. (The nature-aware reader may note that leaves are typically at the top, and roots at the bottom of a tree. Nevermind.)</p>
+<p>Typically, multiple predictor variables are available. For each split, the variable and the location of the split along that variable is determined to satisfy the respective criteria for regression and classification.</p>
+<p>Decision trees are high variance learners. That is, as the maximum tree depth is increased, the variance of predictions increases. In other words, the depth of a tree controls the model complexity and the bias-variance trade-off. With excessive depth, decision trees tend to overfit.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-234-1.png" width="672" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-234-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>An advantage of decision trees is that they require minimal pre-processing of the data and they are robust to outliers. This is thanks to their approach of converting continuous variables into binary classes for predictions. Hence, they can naturally handle a mix of continuous and categorical predictor variables. Furthermore, predictions are not sensitive to the distance of a predictor variable’s value to a respective variable’s split location. This makes decision trees robust to outliers. It also implies that predictions to unseen data points that lie outside the range of values in the training data (<em>extrapolation</em>) are conservative.</p>
+<p>The disadvantage is, as demonstrated above, the tendency towards high variance of predictions when models get complex (deep trees). And thus, decision trees tend to be outperformed by other algorithms.</p>
+</div>
+<div id="bagging" class="section level3 hasAnchor" number="11.2.3">
+<h3><span class="header-section-number">11.2.3</span> Bagging<a href="randomforest.html#bagging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The approach of <em>bagging</em> is to smooth out the high variance of decision tree predictions by averaging over multiple, slightly differet trees. Differences between the trees are introduced by bagging, that is, by training each individual tree only on a bootstrapped sample of the full training data. Here, a decision tree has the role of a <em>base learner</em> and bagging takes an ensemble approach. Final predictions are then taken as the average (for regression) or the most frequent class (for classification) across all trees’ predictions.</p>
+<p>Bagging is particularly effective when the base learner tends to have a high variance. The variance of predictions is continuously reduced with an increasing number of decision trees, over which averages are taken, and no tendency to overfit results from increasing the number of trees. However, the computational cost linearly increases with the number of trees and the gain in model performance levels out. Bagging also limits the interpretability. We can no longer visualise the fitted model with an intuitive graphical decision tree as done above.</p>
+<p>XXX Exercise: implement bagging 12 decision trees, each with a maximum depth of 4, for the same data as used in the demonstration above.</p>
+</div>
+<div id="from-trees-to-a-forest" class="section level3 hasAnchor" number="11.2.4">
+<h3><span class="header-section-number">11.2.4</span> From trees to a forest<a href="randomforest.html#from-trees-to-a-forest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While bagging reduces the variance in predictions, limits to predictive performance remain. This is linked to the fact that, although a certain degree of randomness is introduced by sub-sampling the training data for each tree, individual trees often remain relatively similar. This is particularly expressed if variations in the target variable are controlled primarily by variations in a small number of predictor variables. In this case, decision trees tend to be built by splits on the same variable, irrespective of which bootstrapped sample the individual tree is trained with.</p>
+<p>Random Forest solves this problem by introducing an additional source of randomness: Only a subset of the predictor variables are considered at each split. This strongly reduces the similarity of individual trees (and also reduces computational costs) and leads to improved predictive performance.</p>
+<p>The number of variables to consider at each split is a hyperparameter of the Random Forest algorithm, commonly named <span class="math inline">\(m_\text{try}\)</span>. In the example below, we use the implementation in the {ranger} package (wrapped with {caret}), where the respective model fitting function has a hyperparameter <code>mtry</code>. Common default values are <span class="math inline">\(m_\text{try} = P/3\)</span> for regression and <span class="math inline">\(m_\text{try} = \sqrt{P}\)</span> for classification, where <span class="math inline">\(P\)</span> is the number of predictors. Model complexity is controlled by the depth of the trees. Depending on the implementation of the Random Forest algorithm, this is governed not by explicitly specifying the tree depth, but by setting the number of observations in the leaf node. In the {ranger} package, the respective hyperparamter is <code>min.node.size</code>. The number of trees is another hyperparameter and affects predictions similarly as described above for bagging.</p>
+<p>A great strength of Random Forest is, inherited by the characteristics of its underlying decision trees, its minimal requirement of data pre-processing, its capability of dealing with continuous and categorical variables, and its robustness to outliers. With the default choices of <span class="math inline">\(m_\text{try}\)</span>, Random Forest provides very good out-of-the-box performance. However, the hyperparameters of Random Forest have interactive effects and should be searched systematically.</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="randomforest.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/eval_model.R&quot;</span>)</span>
+<span id="cb452-2"><a href="randomforest.html#cb452-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb452-3"><a href="randomforest.html#cb452-3" aria-hidden="true" tabindex="-1"></a>ddf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./data/FLX_CH-Dav_FLUXNET2015_FULLSET_DD_1997-2014_1-3.csv&quot;</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb452-4"><a href="randomforest.html#cb452-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb452-5"><a href="randomforest.html#cb452-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select only the variables we are interested in</span></span>
+<span id="cb452-6"><a href="randomforest.html#cb452-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(TIMESTAMP,</span>
+<span id="cb452-7"><a href="randomforest.html#cb452-7" aria-hidden="true" tabindex="-1"></a>                GPP_NT_VUT_REF,    <span class="co"># the target</span></span>
+<span id="cb452-8"><a href="randomforest.html#cb452-8" aria-hidden="true" tabindex="-1"></a>                <span class="fu">ends_with</span>(<span class="st">&quot;_QC&quot;</span>),  <span class="co"># quality control info</span></span>
+<span id="cb452-9"><a href="randomforest.html#cb452-9" aria-hidden="true" tabindex="-1"></a>                <span class="fu">ends_with</span>(<span class="st">&quot;_F&quot;</span>),   <span class="co"># includes all all meteorological covariates</span></span>
+<span id="cb452-10"><a href="randomforest.html#cb452-10" aria-hidden="true" tabindex="-1"></a>                <span class="sc">-</span><span class="fu">contains</span>(<span class="st">&quot;JSB&quot;</span>)   <span class="co"># weird useless variable</span></span>
+<span id="cb452-11"><a href="randomforest.html#cb452-11" aria-hidden="true" tabindex="-1"></a>                ) <span class="sc">|&gt;</span></span>
+<span id="cb452-12"><a href="randomforest.html#cb452-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb452-13"><a href="randomforest.html#cb452-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convert to a nice date object</span></span>
+<span id="cb452-14"><a href="randomforest.html#cb452-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">TIMESTAMP =</span> <span class="fu">ymd</span>(TIMESTAMP)) <span class="sc">|&gt;</span></span>
+<span id="cb452-15"><a href="randomforest.html#cb452-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb452-16"><a href="randomforest.html#cb452-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set all -9999 to NA</span></span>
+<span id="cb452-17"><a href="randomforest.html#cb452-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">na_if</span>(<span class="sc">-</span><span class="dv">9999</span>) <span class="sc">|&gt;</span></span>
+<span id="cb452-18"><a href="randomforest.html#cb452-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb452-19"><a href="randomforest.html#cb452-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># retain only data based on &gt;=80% good-quality measurements</span></span>
+<span id="cb452-20"><a href="randomforest.html#cb452-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># overwrite bad data with NA (not dropping rows)</span></span>
+<span id="cb452-21"><a href="randomforest.html#cb452-21" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">GPP_NT_VUT_REF =</span> <span class="fu">ifelse</span>(NEE_VUT_REF_QC <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, GPP_NT_VUT_REF),</span>
+<span id="cb452-22"><a href="randomforest.html#cb452-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">TA_F           =</span> <span class="fu">ifelse</span>(TA_F_QC        <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, TA_F),</span>
+<span id="cb452-23"><a href="randomforest.html#cb452-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">SW_IN_F        =</span> <span class="fu">ifelse</span>(SW_IN_F_QC     <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, SW_IN_F),</span>
+<span id="cb452-24"><a href="randomforest.html#cb452-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">LW_IN_F        =</span> <span class="fu">ifelse</span>(LW_IN_F_QC     <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, LW_IN_F),</span>
+<span id="cb452-25"><a href="randomforest.html#cb452-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">VPD_F          =</span> <span class="fu">ifelse</span>(VPD_F_QC       <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, VPD_F),</span>
+<span id="cb452-26"><a href="randomforest.html#cb452-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">PA_F           =</span> <span class="fu">ifelse</span>(PA_F_QC        <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, PA_F),</span>
+<span id="cb452-27"><a href="randomforest.html#cb452-27" aria-hidden="true" tabindex="-1"></a>                <span class="at">P_F            =</span> <span class="fu">ifelse</span>(P_F_QC         <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, P_F),</span>
+<span id="cb452-28"><a href="randomforest.html#cb452-28" aria-hidden="true" tabindex="-1"></a>                <span class="at">WS_F           =</span> <span class="fu">ifelse</span>(WS_F_QC        <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, WS_F)) <span class="sc">|&gt;</span> </span>
+<span id="cb452-29"><a href="randomforest.html#cb452-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb452-30"><a href="randomforest.html#cb452-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># drop QC variables (no longer needed)</span></span>
+<span id="cb452-31"><a href="randomforest.html#cb452-31" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">&quot;_QC&quot;</span>))</span></code></pre></div>
+<pre><code>## Rows: 6574 Columns: 334
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## dbl (334): TIMESTAMP, TA_F_MDS, TA_F_MDS_QC, TA_F_MDS_NIGHT, TA_F_MDS_NIGHT_...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="randomforest.html#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data splitting</span></span>
+<span id="cb454-2"><a href="randomforest.html#cb454-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># for reproducibility</span></span>
+<span id="cb454-3"><a href="randomforest.html#cb454-3" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(ddf, <span class="at">prop =</span> <span class="fl">0.7</span>, <span class="at">strata =</span> <span class="st">&quot;VPD_F&quot;</span>)</span>
+<span id="cb454-4"><a href="randomforest.html#cb454-4" aria-hidden="true" tabindex="-1"></a>ddf_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(split)</span>
+<span id="cb454-5"><a href="randomforest.html#cb454-5" aria-hidden="true" tabindex="-1"></a>ddf_test <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">testing</span>(split)</span>
+<span id="cb454-6"><a href="randomforest.html#cb454-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb454-7"><a href="randomforest.html#cb454-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The same model formulation is in the previous chapter</span></span>
+<span id="cb454-8"><a href="randomforest.html#cb454-8" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(GPP_NT_VUT_REF <span class="sc">~</span> TA_F <span class="sc">+</span> SW_IN_F <span class="sc">+</span> LW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> P_F <span class="sc">+</span> WS_F, </span>
+<span id="cb454-9"><a href="randomforest.html#cb454-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> ddf_train) <span class="sc">|&gt;</span> </span>
+<span id="cb454-10"><a href="randomforest.html#cb454-10" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_center</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb454-11"><a href="randomforest.html#cb454-11" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_scale</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span>
+<span id="cb454-12"><a href="randomforest.html#cb454-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb454-13"><a href="randomforest.html#cb454-13" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb454-14"><a href="randomforest.html#cb454-14" aria-hidden="true" tabindex="-1"></a>  pp, </span>
+<span id="cb454-15"><a href="randomforest.html#cb454-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf_train <span class="sc">%&gt;%</span> </span>
+<span id="cb454-16"><a href="randomforest.html#cb454-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>(), </span>
+<span id="cb454-17"><a href="randomforest.html#cb454-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;ranger&quot;</span>,</span>
+<span id="cb454-18"><a href="randomforest.html#cb454-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span>, <span class="at">number =</span> <span class="dv">5</span>, <span class="at">savePredictions =</span> <span class="st">&quot;final&quot;</span>),</span>
+<span id="cb454-19"><a href="randomforest.html#cb454-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuneGrid =</span> <span class="fu">expand.grid</span>( <span class="at">.mtry =</span> <span class="fu">floor</span>(<span class="dv">6</span> <span class="sc">/</span> <span class="dv">3</span>),</span>
+<span id="cb454-20"><a href="randomforest.html#cb454-20" aria-hidden="true" tabindex="-1"></a>                          <span class="at">.min.node.size =</span> <span class="dv">5</span>,</span>
+<span id="cb454-21"><a href="randomforest.html#cb454-21" aria-hidden="true" tabindex="-1"></a>                          <span class="at">.splitrule =</span> <span class="st">&quot;variance&quot;</span>),</span>
+<span id="cb454-22"><a href="randomforest.html#cb454-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">metric =</span> <span class="st">&quot;RMSE&quot;</span>,</span>
+<span id="cb454-23"><a href="randomforest.html#cb454-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb454-24"><a href="randomforest.html#cb454-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample.fraction =</span> <span class="fl">0.5</span>,</span>
+<span id="cb454-25"><a href="randomforest.html#cb454-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">num.trees =</span> <span class="dv">2000</span>,           <span class="co"># high number ok since no hperparam tuning</span></span>
+<span id="cb454-26"><a href="randomforest.html#cb454-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">1982</span>                <span class="co"># for reproducibility</span></span>
+<span id="cb454-27"><a href="randomforest.html#cb454-27" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;e1071&#39;
+## 
+## The following object is masked from &#39;package:rsample&#39;:
+## 
+##     permutations
+## 
+## The following object is masked from &#39;package:terra&#39;:
+## 
+##     interpolate</code></pre>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="randomforest.html#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generic print</span></span>
+<span id="cb456-2"><a href="randomforest.html#cb456-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mod)</span></code></pre></div>
+<pre><code>## Random Forest 
+## 
+## 1910 samples
+##    8 predictor
+## 
+## Recipe steps: center, scale 
+## Resampling: Cross-Validated (5 fold) 
+## Summary of sample sizes: 1528, 1528, 1529, 1527, 1528 
+## Resampling results:
+## 
+##   RMSE      Rsquared   MAE     
+##   1.412309  0.7043115  1.070461
+## 
+## Tuning parameter &#39;mtry&#39; was held constant at a value of 2
+## Tuning
+##  parameter &#39;splitrule&#39; was held constant at a value of variance
+## 
+## Tuning parameter &#39;min.node.size&#39; was held constant at a value of 5</code></pre>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="randomforest.html#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_model</span>(<span class="at">mod =</span> mod, <span class="at">df_train =</span> ddf_train, <span class="at">df_test =</span> ddf_test)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-236-1.png" width="672" style="display: block; margin: auto;" />
+XXX Exercise: fit a random forest model to the flux data used in previous chapters. Use a single set of hyperparameters. Same modelling task, different engine.</p>
+</div>
+</div>
+<div id="exercises-10" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Exercises<a href="randomforest.html#exercises-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="solutions-8" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> Solutions<a href="randomforest.html#solutions-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
@@ -426,8 +538,8 @@ Figure 0.3: The data science workflow. Figure adapted from: <a href="https://r4d
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="gettingstarted.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="supervisedmlii.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -458,7 +570,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/11-randomforest.Rmd",
 "text": "Edit"
 },
 "history": {

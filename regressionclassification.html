@@ -805,8 +805,8 @@ improves as we consider higher degree polynomials:</p>
 <span id="cb355-13"><a href="regressionclassification.html#cb355-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-177-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="metrics-for-regression" class="section level4 hasAnchor" number="8.2.2.4">
-<h4><span class="header-section-number">8.2.2.4</span> Metrics for regression<a href="regressionclassification.html#metrics-for-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="metrics-for-regression-evaluation" class="section level4 hasAnchor" number="8.2.2.4">
+<h4><span class="header-section-number">8.2.2.4</span> Metrics for regression evaluation<a href="regressionclassification.html#metrics-for-regression-evaluation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Metrics measure the quality of fit between predicted and observed
 values, are essential to model training (where the metric defines the
 loss function, see Chapter <a href="supervisedmlii.html#supervisedmlii">10</a>), and inform model
@@ -814,7 +814,10 @@ evaluation. Different metrics measure different aspects of the
 model-data agreement. In other words, a single metric never captures all aspects and
 patterns of the model-data agreement. Therefore, a visual inspection of
 the model fit is always a good start of the model evaluation.</p>
-<p>To get an intuitive understanding of the different abilities of different metrics, compare the scatterplots in Fig. <a href="regressionclassification.html#fig:correlationplots">8.1</a> and how different aspects of the model-data agreement are measured by different metrics. Definitions of the metrics displayed and other metrics are given below.</p>
+<p>To get an intuitive understanding of the different abilities of different metrics, compare
+the scatterplots in Fig. <a href="regressionclassification.html#fig:correlationplots">8.1</a> and how different aspects of the model-data
+agreement are measured by different metrics. The observed target values <span class="math inline">\(y\)</span> are plotted against the predicted values <span class="math inline">\(\hat{y}\)</span> from a
+regression model, and the dashed line represents the ideal scenario: our predictions matching the data perfectly. Definitions of the metrics displayed and other metrics are given below.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:correlationplots"></span>
 <img src="_main_files/figure-html/correlationplots-1.png" alt="Correlation plots" width="672" />
 <p class="caption">
@@ -849,66 +852,90 @@ instead of squared errors, gives less importance to errors of large magnitude an
 to small errors than the MSE would. Hence, this measures is more stable in the presence of
 outliers.</p>
 <p><strong><span class="math inline">\(R^2\)</span> - coefficient of determination</strong></p>
-<p>also called the <em>coefficient of determination</em>, describes the
-proportion of variation in <span class="math inline">\(y\)</span> that is captured by modelled values
-<span class="math inline">\(\hat{y}\)</span>. In this case, the goal is to maximize the metric, thus
+<p>describes the proportion of variation in <span class="math inline">\(y\)</span> that is captured by modelled values
+<span class="math inline">\(\hat{y_i}\)</span>. It tells us how much better our fitted values <span class="math inline">\(\hat{y_i}\)</span> are than just
+taking the average of the target <span class="math inline">\(\bar{y}\)</span> as predictions. In this case, the goal is to maximize the metric, thus
 trying the explain as much variation as possible. In contrast to the
 MSE and RMSE, <span class="math inline">\(R^2\)</span> measures <em>consistency</em>, or <em>correlation</em>, or
-<em>goodness of fit</em>. It is traditionally defined as:
+<em>goodness of fit</em>. It is defined as:
 <span class="math display">\[
 R^2 = 1 - \frac{\sum_i (\hat{Y}_i - Y_i)^2}{\sum_i (Y_i - \bar{Y})^2}\\
 \]</span>
-A perfect fit is quantified by <span class="math inline">\(R^2 = 1\)</span>. There is not generally
+When the regression model is fitted by minimizing the MSE, the <span class="math inline">\(R^2\)</span> takes values
+between 0 and 1. A perfect fit is quantified by <span class="math inline">\(R^2 = 1\)</span>. There is no generally
 valid threshold of <span class="math inline">\(R^2\)</span> for a model to be considered “good”. It
 depends on the application and the nature of the data and the
-data-generating process. Note that above equation can also be
+data-generating process. Note that the above equation can also be
 written as <span class="math inline">\(R^2 = 1 - \text{MSE}/var(Y)\)</span>.</p>
-<p><strong>Pearson’s-r</strong></p>
-<p>The linear association between to variables (here <span class="math inline">\(y\)</span> and <span class="math inline">\(\hat{y}\)</span>) is measured by the <em>Pearson’s correlation coefficient</em> <span class="math inline">\(r\)</span>.
+<p><span class="math inline">\(r\)</span> - <strong>Pearson’s correlation</strong></p>
+<p>The linear association between two variables (here <span class="math inline">\(y\)</span> and <span class="math inline">\(\hat{y}\)</span>) is measured by the <em>Pearson’s correlation coefficient</em> <span class="math inline">\(r\)</span>.
 <span class="math display">\[
-r = \frac{\sum_i (Y_i - \bar{Y}) (\hat{Y_i} - \hat{\bar{Y}}) }{\sqrt{ \sum_i(Y_i-\bar{Y})^2 \; (\hat{Y_i}-\hat{\bar{Y}})^2 } }
+r = \frac{\sum_i (Y_i - \bar{Y}) (\hat{Y_i} - \bar{\hat{Y}}) }{\sqrt{ \sum_i(Y_i-\bar{Y})^2 \; (\hat{Y_i}-\bar{\hat{Y}})^2 } }
 \]</span></p>
-<p>The squared value of the Pearson’s-<em>r</em> is often reported as “<span class="math inline">\(R^2\)</span>” but doesn’t
+<p>The correlation calculated between the target <span class="math inline">\(Y\)</span> and a predictor <span class="math inline">\(X\)</span> can tell us about the predictive
+power of <span class="math inline">\(X\)</span> in a linear regression model (the higher the correlation, the more powerful). We can also compute
+the correlation between the target <span class="math inline">\(Y\)</span> and the predicted values <span class="math inline">\(\hat{Y}\)</span> by a model (multivariate, or even
+not linear) to assess the adequacy of the model chosen. See Figure <a href="regressionclassification.html#fig:correlationplots">8.1</a> as an example. It is
+noteworthy to mention that correlation is location and scale invariant, hence it will not detect
+model deviations like the ones in the middle row plots.</p>
+<p>The squared value of the Pearson’s <em>r</em> is often reported as “<span class="math inline">\(R^2\)</span>” but doesn’t
 correspond to the definition of the coefficient of determination
-given above. However, the square of the Pearson’s-<em>r</em> is closely
-related to the coefficient of determination-<span class="math inline">\(R^2\)</span> and in common
-cases of prediction-observation comparisons almost identical. For a
-linear regression, they are identical (see proof
-<a href="https://statproofbook.github.io/P/slr-rsq">here</a>).</p>
-<p>Note the implementations in R. The <span class="math inline">\(R^2\)</span> reported by the generic
+given above. However, the square of the Pearson’s <em>r</em> is closely
+related to the coefficient of determination <span class="math inline">\(R^2\)</span>. For a
+linear regression, fitted minimizing the MSE, they are identical (see proof
+<a href="https://statproofbook.github.io/P/slr-rsq">here</a>). In subsequent chapters, we
+will use “<span class="math inline">\(R^2\)</span>” to refer to the square of the Pearson’s <em>r</em>
+between the observed <span class="math inline">\(Y\)</span> and predicted <span class="math inline">\(\hat{Y}\)</span> values.</p>
+<blockquote>
+<p>Note the implementations in R.The <span class="math inline">\(R^2\)</span> reported by the generic
 <code>summary()</code> function corresponds to the base-R function <code>cor()^2</code> , to
 <code>yardstick::rsq()</code>, and to the definition of the square of the
-<em>Pearson’s-</em><span class="math inline">\(r\)</span> given above.</p>
+<em>Pearson’s</em> <span class="math inline">\(r\)</span> given above. The <code>yardstick::rsq_trad()</code> returns the coefficient of determination as
+traditionally defined and is not equal to the values above, unless computed on the predicted values <span class="math inline">\(\hat{y}\)</span>.</p>
+</blockquote>
+<blockquote>
+<p>Sometimes the Person’s version is computed between <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span>, and it leads to the
+same number due to its “location and scale invariant” property. Nevertheless, this is
+conceptually wrong, as we should look at the predictions, not the predictors: We are
+not predicting <span class="math inline">\(y\)</span> by just giving the values of <span class="math inline">\(x\)</span> instead. Hence, especially when
+using {yardstick} functions, make sure you compute the values on <span class="math inline">\(\hat{y}\)</span>. When we
+have several predictors, it’s already clear that we should compare <span class="math inline">\(y\)</span> to <span class="math inline">\(\hat{y}\)</span>
+instead of <span class="math inline">\(y\)</span> to each predictor separately.</p>
+</blockquote>
 <div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="regressionclassification.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate correlated random data </span></span>
 <span id="cb356-2"><a href="regressionclassification.html#cb356-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1982</span>)</span>
 <span id="cb356-3"><a href="regressionclassification.html#cb356-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb356-4"><a href="regressionclassification.html#cb356-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
-<span id="cb356-5"><a href="regressionclassification.html#cb356-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb356-6"><a href="regressionclassification.html#cb356-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df))<span class="sc">$</span>r.squared</span></code></pre></div>
+<span id="cb356-4"><a href="regressionclassification.html#cb356-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb356-5"><a href="regressionclassification.html#cb356-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y_fitted =</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)<span class="sc">$</span>fitted.values)</span>
+<span id="cb356-6"><a href="regressionclassification.html#cb356-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb356-7"><a href="regressionclassification.html#cb356-7" aria-hidden="true" tabindex="-1"></a><span class="co"># implementations using Pearson&#39;s correlation</span></span>
+<span id="cb356-8"><a href="regressionclassification.html#cb356-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df))<span class="sc">$</span>r.squared</span></code></pre></div>
 <pre><code>## [1] 0.6186521</code></pre>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="regressionclassification.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>y, df<span class="sc">$</span>x)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="regressionclassification.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>y, df<span class="sc">$</span>x)<span class="sc">^</span><span class="dv">2</span> <span class="co"># remember: location and scale invariant</span></span></code></pre></div>
 <pre><code>## [1] 0.6186521</code></pre>
 <div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="regressionclassification.html#cb360-1" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rsq</span>(df, y, x) <span class="sc">|&gt;</span> <span class="fu">pull</span>(.estimate)</span></code></pre></div>
 <pre><code>## [1] 0.6186521</code></pre>
 <div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="regressionclassification.html#cb362-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sum</span>((df<span class="sc">$</span>x <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>x))<span class="sc">*</span>(df<span class="sc">$</span>y <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y))))<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span></span>
 <span id="cb362-2"><a href="regressionclassification.html#cb362-2" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">sum</span>((df<span class="sc">$</span>y <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y))<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">sum</span>((df<span class="sc">$</span>x <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>x))<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 0.6186521</code></pre>
-<p>The <code>yardstick::rsq_trad()</code> returns the coefficient of determination as
-defined above and is not equal to the values above.</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="regressionclassification.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>((df<span class="sc">$</span>x <span class="sc">-</span> df<span class="sc">$</span>y)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">sum</span>((df<span class="sc">$</span>y <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="regressionclassification.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="co"># implementations using coefficient of determination definition</span></span>
+<span id="cb364-2"><a href="regressionclassification.html#cb364-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>((df<span class="sc">$</span>x <span class="sc">-</span> df<span class="sc">$</span>y)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">sum</span>((df<span class="sc">$</span>y <span class="sc">-</span> <span class="fu">mean</span>(df<span class="sc">$</span>y))<span class="sc">^</span><span class="dv">2</span>) <span class="co"># should be \hat{y}, not x</span></span></code></pre></div>
 <pre><code>## [1] 0.5993324</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="regressionclassification.html#cb366-1" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rsq_trad</span>(df, y, x) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.estimate)</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="regressionclassification.html#cb366-1" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rsq_trad</span>(df, y, x) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.estimate) <span class="co"># incorrect</span></span></code></pre></div>
 <pre><code>## [1] 0.5993324</code></pre>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="regressionclassification.html#cb368-1" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rsq_trad</span>(df, y, y_fitted) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.estimate) <span class="co"># correct</span></span></code></pre></div>
+<pre><code>## [1] 0.6186521</code></pre>
+<blockquote>
 <p>An “<span class="math inline">\(R^2\)</span>” is commonly reported when evaluating the <em>agreement</em> between observed
 and predicted values of a given model. When the <em>correlation</em>
 between two different variables in a sample is quantified, <span class="math inline">\(r\)</span> is
 commonly used to reflect also whether the correlation is positive or
-negative (<span class="math inline">\(r\)</span> can attain positive or negative values). The
+negative (<span class="math inline">\(r\)</span> can attain positive or negative values in the interval <span class="math inline">\([-1, 1]\)</span>). The
 coefficient of determination can return negative values when
-comparing observed and predicted values for uninformative estimates
-and is thus not actually bound between 0 and 1. Therefore, the
-definition of the coefficient of determination <span class="math inline">\(R^2\)</span> as given above
-is to be avoided. For subsequent chapters, we will use ‘<span class="math inline">\(R^2\)</span>’ to refer to the square of the Pearson’s-<em>r</em>.</p>
+comparing observed and predicted values for uninformative estimates (worse than just using the average of <span class="math inline">\(Y\)</span>)
+and is thus not actually bound between 0 and 1. Therefore, be careful with the interpreration of “<span class="math inline">\(R^2\)</span>” and
+think on which variables it was computed and with which method.</p>
+</blockquote>
 <p><strong>Bias</strong></p>
 <p>The bias is simply the mean error:
 <span class="math display">\[
@@ -916,9 +943,9 @@ is to be avoided. For subsequent chapters, we will use ‘<span class="math inli
 \]</span></p>
 <p><strong>Slope</strong></p>
 <p>The slope refers to the slope of the linear regression line between predicted and observed values. It is returned as the second element of the vector returned by <code>coef(lm(..))</code>:</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="regressionclassification.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df))[<span class="dv">2</span>]</span></code></pre></div>
-<pre><code>##        x 
-## 1.153641</code></pre>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="regressionclassification.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> y_fitted, <span class="at">data =</span> df))[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## y_fitted 
+##        1</code></pre>
 <p>XXX Exercise: In supervised machine learning, a certain metric is chosen to guide the model training (fitting). Which metric would you chose as a target for optimisation. Discuss why. XXX</p>
 </div>
 <div id="metrics-for-regression-model-comparison" class="section level4 hasAnchor" number="8.2.2.5">
@@ -969,29 +996,29 @@ regression models. Some of these metrics, like <span class="math inline">\(R^2\)
 given by the <code>summary()</code> function. Alternatively, the {yardstick}
 package provides implementations for a few of these metrics, which we
 compute below:</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="regressionclassification.html#cb370-1" aria-hidden="true" tabindex="-1"></a>compute_regr_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(mod){</span>
-<span id="cb370-2"><a href="regressionclassification.html#cb370-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb370-3"><a href="regressionclassification.html#cb370-3" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">length</span>(mod<span class="sc">$</span>coefficients)</span>
-<span id="cb370-4"><a href="regressionclassification.html#cb370-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(mod<span class="sc">$</span>residuals)</span>
-<span id="cb370-5"><a href="regressionclassification.html#cb370-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb370-6"><a href="regressionclassification.html#cb370-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb370-7"><a href="regressionclassification.html#cb370-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mse =</span> <span class="fu">mean</span>(mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb370-8"><a href="regressionclassification.html#cb370-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">R2 =</span> <span class="fu">summary</span>(mod)<span class="sc">$</span>r.squared,</span>
-<span id="cb370-9"><a href="regressionclassification.html#cb370-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">R2_adj =</span> <span class="fu">summary</span>(mod)<span class="sc">$</span>adj.r.squared,</span>
-<span id="cb370-10"><a href="regressionclassification.html#cb370-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">AIC =</span> <span class="fu">extractAIC</span>(mod)[<span class="dv">2</span>],</span>
-<span id="cb370-11"><a href="regressionclassification.html#cb370-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">AIC_adj =</span> <span class="fu">extractAIC</span>(mod)[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>(p<span class="sc">+</span><span class="dv">2</span>)<span class="sc">*</span>(p<span class="sc">+</span><span class="dv">3</span>)<span class="sc">/</span>(n<span class="sc">-</span>p<span class="dv">-3</span>),</span>
-<span id="cb370-12"><a href="regressionclassification.html#cb370-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">BIC =</span> <span class="fu">BIC</span>(mod) <span class="co"># this implementation is based on log-likelihood</span></span>
-<span id="cb370-13"><a href="regressionclassification.html#cb370-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb370-14"><a href="regressionclassification.html#cb370-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb370-15"><a href="regressionclassification.html#cb370-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb370-16"><a href="regressionclassification.html#cb370-16" aria-hidden="true" tabindex="-1"></a>list_metrics <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(</span>
-<span id="cb370-17"><a href="regressionclassification.html#cb370-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(linmod1, linmod2, linmod_cat, quadmod), </span>
-<span id="cb370-18"><a href="regressionclassification.html#cb370-18" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span><span class="fu">compute_regr_metrics</span>(.))</span>
-<span id="cb370-19"><a href="regressionclassification.html#cb370-19" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(list_metrics) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Linear model&quot;</span>, </span>
-<span id="cb370-20"><a href="regressionclassification.html#cb370-20" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;Linear model 2&quot;</span>, </span>
-<span id="cb370-21"><a href="regressionclassification.html#cb370-21" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;Linear + categories&quot;</span>,</span>
-<span id="cb370-22"><a href="regressionclassification.html#cb370-22" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;Quadratic model&quot;</span>)</span>
-<span id="cb370-23"><a href="regressionclassification.html#cb370-23" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(list_metrics, <span class="at">.id =</span> <span class="st">&quot;type&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="regressionclassification.html#cb372-1" aria-hidden="true" tabindex="-1"></a>compute_regr_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(mod){</span>
+<span id="cb372-2"><a href="regressionclassification.html#cb372-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb372-3"><a href="regressionclassification.html#cb372-3" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">length</span>(mod<span class="sc">$</span>coefficients)</span>
+<span id="cb372-4"><a href="regressionclassification.html#cb372-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(mod<span class="sc">$</span>residuals)</span>
+<span id="cb372-5"><a href="regressionclassification.html#cb372-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb372-6"><a href="regressionclassification.html#cb372-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb372-7"><a href="regressionclassification.html#cb372-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mse =</span> <span class="fu">mean</span>(mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb372-8"><a href="regressionclassification.html#cb372-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">R2 =</span> <span class="fu">summary</span>(mod)<span class="sc">$</span>r.squared,</span>
+<span id="cb372-9"><a href="regressionclassification.html#cb372-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">R2_adj =</span> <span class="fu">summary</span>(mod)<span class="sc">$</span>adj.r.squared,</span>
+<span id="cb372-10"><a href="regressionclassification.html#cb372-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">AIC =</span> <span class="fu">extractAIC</span>(mod)[<span class="dv">2</span>],</span>
+<span id="cb372-11"><a href="regressionclassification.html#cb372-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">AIC_adj =</span> <span class="fu">extractAIC</span>(mod)[<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>(p<span class="sc">+</span><span class="dv">2</span>)<span class="sc">*</span>(p<span class="sc">+</span><span class="dv">3</span>)<span class="sc">/</span>(n<span class="sc">-</span>p<span class="dv">-3</span>),</span>
+<span id="cb372-12"><a href="regressionclassification.html#cb372-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">BIC =</span> <span class="fu">BIC</span>(mod) <span class="co"># this implementation is based on log-likelihood</span></span>
+<span id="cb372-13"><a href="regressionclassification.html#cb372-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb372-14"><a href="regressionclassification.html#cb372-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb372-15"><a href="regressionclassification.html#cb372-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb372-16"><a href="regressionclassification.html#cb372-16" aria-hidden="true" tabindex="-1"></a>list_metrics <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(</span>
+<span id="cb372-17"><a href="regressionclassification.html#cb372-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(linmod1, linmod2, linmod_cat, quadmod), </span>
+<span id="cb372-18"><a href="regressionclassification.html#cb372-18" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span><span class="fu">compute_regr_metrics</span>(.))</span>
+<span id="cb372-19"><a href="regressionclassification.html#cb372-19" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(list_metrics) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Linear model&quot;</span>, </span>
+<span id="cb372-20"><a href="regressionclassification.html#cb372-20" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;Linear model 2&quot;</span>, </span>
+<span id="cb372-21"><a href="regressionclassification.html#cb372-21" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;Linear + categories&quot;</span>,</span>
+<span id="cb372-22"><a href="regressionclassification.html#cb372-22" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;Quadratic model&quot;</span>)</span>
+<span id="cb372-23"><a href="regressionclassification.html#cb372-23" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(list_metrics, <span class="at">.id =</span> <span class="st">&quot;type&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 7
 ##   type                  mse    R2 R2_adj     AIC AIC_adj     BIC
 ##   &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -1014,13 +1041,13 @@ species. We will try to classify the origin of each plant (categorical
 variable <code>Type</code> with values <code>Quebec</code> or <code>Mississippi</code>) depending on the
 carbon dioxide uptake rate of the plant (continuous variable <code>uptake</code>
 measured in <span class="math inline">\(\mu\)</span>mol m<span class="math inline">\(^{-2}\)</span>s<span class="math inline">\(^{-1}\)</span>). More information on the dataset can be obtained by typing <code>?datasets::CO2</code> in the console.</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="regressionclassification.html#cb372-1" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> datasets<span class="sc">::</span>CO2 <span class="sc">|&gt;</span></span>
-<span id="cb372-2"><a href="regressionclassification.html#cb372-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> uptake, <span class="at">y =</span> Type, <span class="at">color =</span> Type)) <span class="sc">+</span></span>
-<span id="cb372-3"><a href="regressionclassification.html#cb372-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb372-4"><a href="regressionclassification.html#cb372-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb372-5"><a href="regressionclassification.html#cb372-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb372-6"><a href="regressionclassification.html#cb372-6" aria-hidden="true" tabindex="-1"></a>gg2</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-182-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="regressionclassification.html#cb374-1" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> datasets<span class="sc">::</span>CO2 <span class="sc">|&gt;</span></span>
+<span id="cb374-2"><a href="regressionclassification.html#cb374-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> uptake, <span class="at">y =</span> Type, <span class="at">color =</span> Type)) <span class="sc">+</span></span>
+<span id="cb374-3"><a href="regressionclassification.html#cb374-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb374-4"><a href="regressionclassification.html#cb374-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb374-5"><a href="regressionclassification.html#cb374-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb374-6"><a href="regressionclassification.html#cb374-6" aria-hidden="true" tabindex="-1"></a>gg2</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-181-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>At first sight, it’s easy to see that the carbon uptake is lower for the
 Mississippi type. Note that other predictors can be included in the
 model, but we’ll focus on a single predictor. Using this example, we’ll
@@ -1043,8 +1070,8 @@ predictions to be either 0 or 1. We can transform these values to be in
 the interval <span class="math inline">\([0,1]\)</span> with a <em>link</em> function. For a binary response, it’s
 common to use a <em>logit</em> link function:
 <span class="math display">\[\text{logit}(z) = \frac{\exp(z)}{1+\exp(z)}.\]</span></p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="regressionclassification.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(x)), <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">ylab =</span> <span class="st">&quot;logit(x)&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-183-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="regressionclassification.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(x)), <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">ylab =</span> <span class="st">&quot;logit(x)&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-182-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Combining a linear model (with any type of predictors, like for
 regression) and a logit link function, we arrive to a <strong>logistic
 regression</strong> model:
@@ -1075,7 +1102,7 @@ level. R factors work such that each factor level (here <code>Quebec</code> and
 <code>Mississippi</code>) corresponds to an integer value (its position given by
 <code>levels()</code>, here <code>1</code> and <code>2</code> respectively). We can fit a logistic model
 in R with this encoding.</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="regressionclassification.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datasets<span class="sc">::</span>CO2)</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="regressionclassification.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datasets<span class="sc">::</span>CO2)</span></code></pre></div>
 <pre><code>## Classes &#39;nfnGroupedData&#39;, &#39;nfGroupedData&#39;, &#39;groupedData&#39; and &#39;data.frame&#39;:   84 obs. of  5 variables:
 ##  $ Plant    : Ord.factor w/ 12 levels &quot;Qn1&quot;&lt;&quot;Qn2&quot;&lt;&quot;Qn3&quot;&lt;..: 1 1 1 1 1 1 1 2 2 2 ...
 ##  $ Type     : Factor w/ 2 levels &quot;Quebec&quot;,&quot;Mississippi&quot;: 1 1 1 1 1 1 1 1 1 1 ...
@@ -1092,16 +1119,16 @@ in R with this encoding.</p>
 ##  - attr(*, &quot;units&quot;)=List of 2
 ##   ..$ x: chr &quot;(uL/L)&quot;
 ##   ..$ y: chr &quot;(umol/m^2 s)&quot;</code></pre>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="regressionclassification.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(datasets<span class="sc">::</span>CO2<span class="sc">$</span>Type)</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="regressionclassification.html#cb378-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(datasets<span class="sc">::</span>CO2<span class="sc">$</span>Type)</span></code></pre></div>
 <pre><code>## [1] &quot;Quebec&quot;      &quot;Mississippi&quot;</code></pre>
 <p>To fit a logistic regression in R we can use the <code>glm()</code> function, which
 fits a generalized linear model, indicating that our target variable is
 binary and the link function is a logit function. Let’s see the model
 output:</p>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="regressionclassification.html#cb378-1" aria-hidden="true" tabindex="-1"></a>logmod <span class="ot">&lt;-</span> <span class="fu">glm</span>(Type <span class="sc">~</span> uptake,</span>
-<span id="cb378-2"><a href="regressionclassification.html#cb378-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> logit),</span>
-<span id="cb378-3"><a href="regressionclassification.html#cb378-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> datasets<span class="sc">::</span>CO2)</span>
-<span id="cb378-4"><a href="regressionclassification.html#cb378-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logmod)</span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="regressionclassification.html#cb380-1" aria-hidden="true" tabindex="-1"></a>logmod <span class="ot">&lt;-</span> <span class="fu">glm</span>(Type <span class="sc">~</span> uptake,</span>
+<span id="cb380-2"><a href="regressionclassification.html#cb380-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> logit),</span>
+<span id="cb380-3"><a href="regressionclassification.html#cb380-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> datasets<span class="sc">::</span>CO2)</span>
+<span id="cb380-4"><a href="regressionclassification.html#cb380-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logmod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Type ~ uptake, family = binomial(link = logit), 
@@ -1130,20 +1157,20 @@ output:</p>
 Where that line falls depends on the choice of threshold, in this case
 <span class="math inline">\(\tau=0.5\)</span> (see where the grey logistic regression line meets the dashed
 threshold line). You can see it plotted below:</p>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="regressionclassification.html#cb380-1" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">coef</span>(logmod)</span>
-<span id="cb380-2"><a href="regressionclassification.html#cb380-2" aria-hidden="true" tabindex="-1"></a><span class="co"># reuse previous plot with classification line</span></span>
-<span id="cb380-3"><a href="regressionclassification.html#cb380-3" aria-hidden="true" tabindex="-1"></a>gg2<span class="fl">.1</span> <span class="ot">&lt;-</span> datasets<span class="sc">::</span>CO2 <span class="sc">|&gt;</span></span>
-<span id="cb380-4"><a href="regressionclassification.html#cb380-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> uptake, <span class="at">y =</span> <span class="fu">as.numeric</span>(Type)<span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> Type)) <span class="sc">+</span></span>
-<span id="cb380-5"><a href="regressionclassification.html#cb380-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb380-6"><a href="regressionclassification.html#cb380-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
-<span id="cb380-7"><a href="regressionclassification.html#cb380-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb380-8"><a href="regressionclassification.html#cb380-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;glm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb380-9"><a href="regressionclassification.html#cb380-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span>binomial)) <span class="sc">+</span></span>
-<span id="cb380-10"><a href="regressionclassification.html#cb380-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span>beta[<span class="dv">1</span>]<span class="sc">/</span>beta[<span class="dv">2</span>], <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb380-11"><a href="regressionclassification.html#cb380-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb380-12"><a href="regressionclassification.html#cb380-12" aria-hidden="true" tabindex="-1"></a>gg2<span class="fl">.1</span></span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="regressionclassification.html#cb382-1" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">coef</span>(logmod)</span>
+<span id="cb382-2"><a href="regressionclassification.html#cb382-2" aria-hidden="true" tabindex="-1"></a><span class="co"># reuse previous plot with classification line</span></span>
+<span id="cb382-3"><a href="regressionclassification.html#cb382-3" aria-hidden="true" tabindex="-1"></a>gg2<span class="fl">.1</span> <span class="ot">&lt;-</span> datasets<span class="sc">::</span>CO2 <span class="sc">|&gt;</span></span>
+<span id="cb382-4"><a href="regressionclassification.html#cb382-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> uptake, <span class="at">y =</span> <span class="fu">as.numeric</span>(Type)<span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> Type)) <span class="sc">+</span></span>
+<span id="cb382-5"><a href="regressionclassification.html#cb382-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb382-6"><a href="regressionclassification.html#cb382-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb382-7"><a href="regressionclassification.html#cb382-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb382-8"><a href="regressionclassification.html#cb382-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">&quot;glm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb382-9"><a href="regressionclassification.html#cb382-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span>binomial)) <span class="sc">+</span></span>
+<span id="cb382-10"><a href="regressionclassification.html#cb382-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span>beta[<span class="dv">1</span>]<span class="sc">/</span>beta[<span class="dv">2</span>], <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb382-11"><a href="regressionclassification.html#cb382-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb382-12"><a href="regressionclassification.html#cb382-12" aria-hidden="true" tabindex="-1"></a>gg2<span class="fl">.1</span></span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-186-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-185-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Most blue points fall to one side of the dashed classification line and
 most red points to the other side; this is what we wanted. The points
 that are in the wrong side of the line are misclassified by the logistic
@@ -1299,16 +1326,16 @@ chapter</a>.</p>
 <p>Let’s take a look at the previous metrics for the logistic regression
 model we fitted before. The <code>confusionMatrix()</code> function from the
 {caret} library provides most of the statistics introduced above.</p>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="regressionclassification.html#cb382-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make classification predictions</span></span>
-<span id="cb382-2"><a href="regressionclassification.html#cb382-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> logmod<span class="sc">$</span>data<span class="sc">$</span>Type</span>
-<span id="cb382-3"><a href="regressionclassification.html#cb382-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(logmod<span class="sc">$</span>fitted.values)) <span class="co"># Use 0.5 as threshold</span></span>
-<span id="cb382-4"><a href="regressionclassification.html#cb382-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb382-5"><a href="regressionclassification.html#cb382-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Change class names</span></span>
-<span id="cb382-6"><a href="regressionclassification.html#cb382-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Y) <span class="ot">&lt;-</span> <span class="fu">levels</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Quebec&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)</span>
-<span id="cb382-7"><a href="regressionclassification.html#cb382-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb382-8"><a href="regressionclassification.html#cb382-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot confusion matrix</span></span>
-<span id="cb382-9"><a href="regressionclassification.html#cb382-9" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">confusionMatrix</span>(<span class="at">data =</span> x, <span class="at">reference =</span> Y)</span>
-<span id="cb382-10"><a href="regressionclassification.html#cb382-10" aria-hidden="true" tabindex="-1"></a>conf_matrix</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="regressionclassification.html#cb384-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make classification predictions</span></span>
+<span id="cb384-2"><a href="regressionclassification.html#cb384-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> logmod<span class="sc">$</span>data<span class="sc">$</span>Type</span>
+<span id="cb384-3"><a href="regressionclassification.html#cb384-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">round</span>(logmod<span class="sc">$</span>fitted.values)) <span class="co"># Use 0.5 as threshold</span></span>
+<span id="cb384-4"><a href="regressionclassification.html#cb384-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb384-5"><a href="regressionclassification.html#cb384-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Change class names</span></span>
+<span id="cb384-6"><a href="regressionclassification.html#cb384-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Y) <span class="ot">&lt;-</span> <span class="fu">levels</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Quebec&quot;</span>, <span class="st">&quot;Mississippi&quot;</span>)</span>
+<span id="cb384-7"><a href="regressionclassification.html#cb384-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb384-8"><a href="regressionclassification.html#cb384-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot confusion matrix</span></span>
+<span id="cb384-9"><a href="regressionclassification.html#cb384-9" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">confusionMatrix</span>(<span class="at">data =</span> x, <span class="at">reference =</span> Y)</span>
+<span id="cb384-10"><a href="regressionclassification.html#cb384-10" aria-hidden="true" tabindex="-1"></a>conf_matrix</span></code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##              Reference
@@ -1338,9 +1365,9 @@ model we fitted before. The <code>confusionMatrix()</code> function from the
 ## </code></pre>
 <p>Now we can visualize the confusion matrix as a mosaic plot. This is
 quite helpful when we work with many classes.</p>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="regressionclassification.html#cb384-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(conf_matrix<span class="sc">$</span>table,</span>
-<span id="cb384-2"><a href="regressionclassification.html#cb384-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">main =</span> <span class="st">&quot;Confusion matrix&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-188-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="regressionclassification.html#cb386-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(conf_matrix<span class="sc">$</span>table,</span>
+<span id="cb386-2"><a href="regressionclassification.html#cb386-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">main =</span> <span class="st">&quot;Confusion matrix&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-187-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="model-evaluation" class="section level3 hasAnchor" number="8.2.4">
@@ -1481,37 +1508,37 @@ distant from the center of the predictor’s distribution, it becomes very
 influential (it has a big <em>leverage</em>). If the observed response for that
 data point is in harmony with the rest of points, nothing happens, but
 if it’s also off, the regression model will be affected greatly.</p>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="regressionclassification.html#cb385-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
-<span id="cb385-2"><a href="regressionclassification.html#cb385-2" aria-hidden="true" tabindex="-1"></a>hhdf_small <span class="ot">&lt;-</span> hhdf <span class="sc">|&gt;</span></span>
-<span id="cb385-3"><a href="regressionclassification.html#cb385-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">100</span>) <span class="sc">|&gt;</span> <span class="co"># reduce dataset</span></span>
-<span id="cb385-4"><a href="regressionclassification.html#cb385-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SW_IN_F, GPP_NT_VUT_REF)</span>
-<span id="cb385-5"><a href="regressionclassification.html#cb385-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb385-6"><a href="regressionclassification.html#cb385-6" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
-<span id="cb385-7"><a href="regressionclassification.html#cb385-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
-<span id="cb385-8"><a href="regressionclassification.html#cb385-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
-<span id="cb385-9"><a href="regressionclassification.html#cb385-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb385-10"><a href="regressionclassification.html#cb385-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)), </span>
-<span id="cb385-11"><a href="regressionclassification.html#cb385-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb385-12"><a href="regressionclassification.html#cb385-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb385-13"><a href="regressionclassification.html#cb385-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="dv">40</span>) <span class="sc">+</span> </span>
-<span id="cb385-14"><a href="regressionclassification.html#cb385-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">2000</span>)</span>
-<span id="cb385-15"><a href="regressionclassification.html#cb385-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb385-16"><a href="regressionclassification.html#cb385-16" aria-hidden="true" tabindex="-1"></a>gg4 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
-<span id="cb385-17"><a href="regressionclassification.html#cb385-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
-<span id="cb385-18"><a href="regressionclassification.html#cb385-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
-<span id="cb385-19"><a href="regressionclassification.html#cb385-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
-<span id="cb385-20"><a href="regressionclassification.html#cb385-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb385-21"><a href="regressionclassification.html#cb385-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)), </span>
-<span id="cb385-22"><a href="regressionclassification.html#cb385-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb385-23"><a href="regressionclassification.html#cb385-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb385-24"><a href="regressionclassification.html#cb385-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2000</span>, <span class="at">y =</span> <span class="sc">-</span><span class="dv">20</span>), <span class="at">colour=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
-<span id="cb385-25"><a href="regressionclassification.html#cb385-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="dv">40</span>) <span class="sc">+</span> </span>
-<span id="cb385-26"><a href="regressionclassification.html#cb385-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">2000</span>)</span>
-<span id="cb385-27"><a href="regressionclassification.html#cb385-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb385-28"><a href="regressionclassification.html#cb385-28" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg3, gg4)</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="regressionclassification.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb387-2"><a href="regressionclassification.html#cb387-2" aria-hidden="true" tabindex="-1"></a>hhdf_small <span class="ot">&lt;-</span> hhdf <span class="sc">|&gt;</span></span>
+<span id="cb387-3"><a href="regressionclassification.html#cb387-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">100</span>) <span class="sc">|&gt;</span> <span class="co"># reduce dataset</span></span>
+<span id="cb387-4"><a href="regressionclassification.html#cb387-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SW_IN_F, GPP_NT_VUT_REF)</span>
+<span id="cb387-5"><a href="regressionclassification.html#cb387-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb387-6"><a href="regressionclassification.html#cb387-6" aria-hidden="true" tabindex="-1"></a>gg3 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
+<span id="cb387-7"><a href="regressionclassification.html#cb387-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
+<span id="cb387-8"><a href="regressionclassification.html#cb387-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb387-9"><a href="regressionclassification.html#cb387-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb387-10"><a href="regressionclassification.html#cb387-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)), </span>
+<span id="cb387-11"><a href="regressionclassification.html#cb387-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb387-12"><a href="regressionclassification.html#cb387-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb387-13"><a href="regressionclassification.html#cb387-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="dv">40</span>) <span class="sc">+</span> </span>
+<span id="cb387-14"><a href="regressionclassification.html#cb387-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">2000</span>)</span>
+<span id="cb387-15"><a href="regressionclassification.html#cb387-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb387-16"><a href="regressionclassification.html#cb387-16" aria-hidden="true" tabindex="-1"></a>gg4 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
+<span id="cb387-17"><a href="regressionclassification.html#cb387-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
+<span id="cb387-18"><a href="regressionclassification.html#cb387-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
+<span id="cb387-19"><a href="regressionclassification.html#cb387-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb387-20"><a href="regressionclassification.html#cb387-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb387-21"><a href="regressionclassification.html#cb387-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)), </span>
+<span id="cb387-22"><a href="regressionclassification.html#cb387-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb387-23"><a href="regressionclassification.html#cb387-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb387-24"><a href="regressionclassification.html#cb387-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">2000</span>, <span class="at">y =</span> <span class="sc">-</span><span class="dv">20</span>), <span class="at">colour=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb387-25"><a href="regressionclassification.html#cb387-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="dv">40</span>) <span class="sc">+</span> </span>
+<span id="cb387-26"><a href="regressionclassification.html#cb387-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">2000</span>)</span>
+<span id="cb387-27"><a href="regressionclassification.html#cb387-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb387-28"><a href="regressionclassification.html#cb387-28" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg3, gg4)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
 ## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-189-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-188-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The first step to identifying outliers is to look at your data, one
 variable at a time. Plot a histogram to see the rough distribution of a
 variable. This will help identify what kind of values to expect. In
@@ -1520,50 +1547,50 @@ to identify values that fell out of this distribution using histograms
 and boxplots. Checking in the histogram if the distribution has fat
 tails helps to discern whether the values that pop out of a boxplot
 should be considered outliers or not.</p>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="regressionclassification.html#cb387-1" aria-hidden="true" tabindex="-1"></a>gg5 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
-<span id="cb387-2"><a href="regressionclassification.html#cb387-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
-<span id="cb387-3"><a href="regressionclassification.html#cb387-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> GPP_NT_VUT_REF, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span></span>
-<span id="cb387-4"><a href="regressionclassification.html#cb387-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb387-5"><a href="regressionclassification.html#cb387-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&#39;red&#39;</span>)<span class="sc">+</span></span>
-<span id="cb387-6"><a href="regressionclassification.html#cb387-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Histogram, density and boxplot&#39;</span>, </span>
-<span id="cb387-7"><a href="regressionclassification.html#cb387-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb387-8"><a href="regressionclassification.html#cb387-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb387-9"><a href="regressionclassification.html#cb387-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb387-10"><a href="regressionclassification.html#cb387-10" aria-hidden="true" tabindex="-1"></a>gg6 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
-<span id="cb387-11"><a href="regressionclassification.html#cb387-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
-<span id="cb387-12"><a href="regressionclassification.html#cb387-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
-<span id="cb387-13"><a href="regressionclassification.html#cb387-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb387-14"><a href="regressionclassification.html#cb387-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb387-15"><a href="regressionclassification.html#cb387-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb387-16"><a href="regressionclassification.html#cb387-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
-<span id="cb387-17"><a href="regressionclassification.html#cb387-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb387-18"><a href="regressionclassification.html#cb387-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>)))</span>
-<span id="cb387-19"><a href="regressionclassification.html#cb387-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb387-20"><a href="regressionclassification.html#cb387-20" aria-hidden="true" tabindex="-1"></a>gg7 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
-<span id="cb387-21"><a href="regressionclassification.html#cb387-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
-<span id="cb387-22"><a href="regressionclassification.html#cb387-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span></span>
-<span id="cb387-23"><a href="regressionclassification.html#cb387-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb387-24"><a href="regressionclassification.html#cb387-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&#39;red&#39;</span>)<span class="sc">+</span></span>
-<span id="cb387-25"><a href="regressionclassification.html#cb387-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Histogram, density and boxplot&#39;</span>, </span>
-<span id="cb387-26"><a href="regressionclassification.html#cb387-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb387-27"><a href="regressionclassification.html#cb387-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb387-28"><a href="regressionclassification.html#cb387-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb387-29"><a href="regressionclassification.html#cb387-29" aria-hidden="true" tabindex="-1"></a>gg8 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
-<span id="cb387-30"><a href="regressionclassification.html#cb387-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
-<span id="cb387-31"><a href="regressionclassification.html#cb387-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> SW_IN_F)) <span class="sc">+</span></span>
-<span id="cb387-32"><a href="regressionclassification.html#cb387-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb387-33"><a href="regressionclassification.html#cb387-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb387-34"><a href="regressionclassification.html#cb387-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb387-35"><a href="regressionclassification.html#cb387-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
-<span id="cb387-36"><a href="regressionclassification.html#cb387-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb387-37"><a href="regressionclassification.html#cb387-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)))</span>
-<span id="cb387-38"><a href="regressionclassification.html#cb387-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb387-39"><a href="regressionclassification.html#cb387-39" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg5, gg7, gg6, gg8,</span>
-<span id="cb387-40"><a href="regressionclassification.html#cb387-40" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>),</span>
-<span id="cb387-41"><a href="regressionclassification.html#cb387-41" aria-hidden="true" tabindex="-1"></a>                   <span class="at">align =</span> <span class="st">&#39;v&#39;</span>, <span class="at">axis =</span> <span class="st">&#39;lr&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="regressionclassification.html#cb389-1" aria-hidden="true" tabindex="-1"></a>gg5 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
+<span id="cb389-2"><a href="regressionclassification.html#cb389-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
+<span id="cb389-3"><a href="regressionclassification.html#cb389-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> GPP_NT_VUT_REF, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span></span>
+<span id="cb389-4"><a href="regressionclassification.html#cb389-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb389-5"><a href="regressionclassification.html#cb389-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&#39;red&#39;</span>)<span class="sc">+</span></span>
+<span id="cb389-6"><a href="regressionclassification.html#cb389-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Histogram, density and boxplot&#39;</span>, </span>
+<span id="cb389-7"><a href="regressionclassification.html#cb389-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb389-8"><a href="regressionclassification.html#cb389-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb389-9"><a href="regressionclassification.html#cb389-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb389-10"><a href="regressionclassification.html#cb389-10" aria-hidden="true" tabindex="-1"></a>gg6 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
+<span id="cb389-11"><a href="regressionclassification.html#cb389-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
+<span id="cb389-12"><a href="regressionclassification.html#cb389-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
+<span id="cb389-13"><a href="regressionclassification.html#cb389-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb389-14"><a href="regressionclassification.html#cb389-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb389-15"><a href="regressionclassification.html#cb389-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb389-16"><a href="regressionclassification.html#cb389-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb389-17"><a href="regressionclassification.html#cb389-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb389-18"><a href="regressionclassification.html#cb389-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>)))</span>
+<span id="cb389-19"><a href="regressionclassification.html#cb389-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb389-20"><a href="regressionclassification.html#cb389-20" aria-hidden="true" tabindex="-1"></a>gg7 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
+<span id="cb389-21"><a href="regressionclassification.html#cb389-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
+<span id="cb389-22"><a href="regressionclassification.html#cb389-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> SW_IN_F, <span class="at">y =</span> <span class="fu">after_stat</span>(density))) <span class="sc">+</span></span>
+<span id="cb389-23"><a href="regressionclassification.html#cb389-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb389-24"><a href="regressionclassification.html#cb389-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&#39;red&#39;</span>)<span class="sc">+</span></span>
+<span id="cb389-25"><a href="regressionclassification.html#cb389-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Histogram, density and boxplot&#39;</span>, </span>
+<span id="cb389-26"><a href="regressionclassification.html#cb389-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb389-27"><a href="regressionclassification.html#cb389-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb389-28"><a href="regressionclassification.html#cb389-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb389-29"><a href="regressionclassification.html#cb389-29" aria-hidden="true" tabindex="-1"></a>gg8 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
+<span id="cb389-30"><a href="regressionclassification.html#cb389-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier</span></span>
+<span id="cb389-31"><a href="regressionclassification.html#cb389-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> SW_IN_F)) <span class="sc">+</span></span>
+<span id="cb389-32"><a href="regressionclassification.html#cb389-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;grey70&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb389-33"><a href="regressionclassification.html#cb389-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb389-34"><a href="regressionclassification.html#cb389-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb389-35"><a href="regressionclassification.html#cb389-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb389-36"><a href="regressionclassification.html#cb389-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb389-37"><a href="regressionclassification.html#cb389-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)))</span>
+<span id="cb389-38"><a href="regressionclassification.html#cb389-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb389-39"><a href="regressionclassification.html#cb389-39" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg5, gg7, gg6, gg8,</span>
+<span id="cb389-40"><a href="regressionclassification.html#cb389-40" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>),</span>
+<span id="cb389-41"><a href="regressionclassification.html#cb389-41" aria-hidden="true" tabindex="-1"></a>                   <span class="at">align =</span> <span class="st">&#39;v&#39;</span>, <span class="at">axis =</span> <span class="st">&#39;lr&#39;</span>)</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-190-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-189-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>A <strong>Q-Q Plot</strong> depicts the sample quantiles of a variable against the
 theoretical quantiles of a distribution of our choice, usually a normal
 distribution. In the histograms above, GPP looks somewhat Gaussian but
@@ -1572,26 +1599,26 @@ radiation is skewed to the right, resembling an exponential
 distribution. This is also visible in the Q-Q plots below, because
 outliers deviate greatly from the straight line (which represents a
 match between the observed values and the theoretical distribution):</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="regressionclassification.html#cb389-1" aria-hidden="true" tabindex="-1"></a>gg9 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
-<span id="cb389-2"><a href="regressionclassification.html#cb389-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier |&gt;</span></span>
-<span id="cb389-3"><a href="regressionclassification.html#cb389-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
-<span id="cb389-4"><a href="regressionclassification.html#cb389-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
-<span id="cb389-5"><a href="regressionclassification.html#cb389-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb389-6"><a href="regressionclassification.html#cb389-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>)),</span>
-<span id="cb389-7"><a href="regressionclassification.html#cb389-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Theoretical normal quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb389-8"><a href="regressionclassification.html#cb389-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb389-9"><a href="regressionclassification.html#cb389-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb389-10"><a href="regressionclassification.html#cb389-10" aria-hidden="true" tabindex="-1"></a>gg10 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
-<span id="cb389-11"><a href="regressionclassification.html#cb389-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier |&gt;</span></span>
-<span id="cb389-12"><a href="regressionclassification.html#cb389-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> SW_IN_F)) <span class="sc">+</span></span>
-<span id="cb389-13"><a href="regressionclassification.html#cb389-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
-<span id="cb389-14"><a href="regressionclassification.html#cb389-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb389-15"><a href="regressionclassification.html#cb389-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)),</span>
-<span id="cb389-16"><a href="regressionclassification.html#cb389-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Theoretical normal quantiles&quot;</span>) <span class="sc">+</span></span>
-<span id="cb389-17"><a href="regressionclassification.html#cb389-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb389-18"><a href="regressionclassification.html#cb389-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb389-19"><a href="regressionclassification.html#cb389-19" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg9, gg10, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-191-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="regressionclassification.html#cb391-1" aria-hidden="true" tabindex="-1"></a>gg9 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
+<span id="cb391-2"><a href="regressionclassification.html#cb391-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier |&gt;</span></span>
+<span id="cb391-3"><a href="regressionclassification.html#cb391-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> GPP_NT_VUT_REF)) <span class="sc">+</span></span>
+<span id="cb391-4"><a href="regressionclassification.html#cb391-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
+<span id="cb391-5"><a href="regressionclassification.html#cb391-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb391-6"><a href="regressionclassification.html#cb391-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;GPP (gC m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;s&quot;</span><span class="sc">^-</span><span class="dv">1</span>, <span class="st">&quot;)&quot;</span>)),</span>
+<span id="cb391-7"><a href="regressionclassification.html#cb391-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Theoretical normal quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb391-8"><a href="regressionclassification.html#cb391-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb391-9"><a href="regressionclassification.html#cb391-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb391-10"><a href="regressionclassification.html#cb391-10" aria-hidden="true" tabindex="-1"></a>gg10 <span class="ot">&lt;-</span> hhdf_small <span class="sc">|&gt;</span></span>
+<span id="cb391-11"><a href="regressionclassification.html#cb391-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>) <span class="sc">|&gt;</span> <span class="co"># add outlier |&gt;</span></span>
+<span id="cb391-12"><a href="regressionclassification.html#cb391-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> SW_IN_F)) <span class="sc">+</span></span>
+<span id="cb391-13"><a href="regressionclassification.html#cb391-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
+<span id="cb391-14"><a href="regressionclassification.html#cb391-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb391-15"><a href="regressionclassification.html#cb391-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Shortwave radiation (W m&quot;</span><span class="sc">^-</span><span class="dv">2</span>, <span class="st">&quot;)&quot;</span>)),</span>
+<span id="cb391-16"><a href="regressionclassification.html#cb391-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Theoretical normal quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb391-17"><a href="regressionclassification.html#cb391-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb391-18"><a href="regressionclassification.html#cb391-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb391-19"><a href="regressionclassification.html#cb391-19" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg9, gg10, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-190-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>For linear (and logistic) regression, we would like predictor variables
 to look as normal as possible. You’ve probably learned some of the
 reasons for this in quantitative methods courses, but are beyond the
@@ -1604,12 +1631,12 @@ radiation but for GPP it doesn’t stick out so much. This already points
 to how important it is to check their multivariate distribution. R
 provides some useful plots from the fitted regression objects, in
 particular the “Residuals vs Leverage” plot:</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="regressionclassification.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit regression with outlier</span></span>
-<span id="cb390-2"><a href="regressionclassification.html#cb390-2" aria-hidden="true" tabindex="-1"></a>linmod_outlier <span class="ot">&lt;-</span> <span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F, </span>
-<span id="cb390-3"><a href="regressionclassification.html#cb390-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> <span class="fu">add_row</span>(hhdf_small, <span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>))</span>
-<span id="cb390-4"><a href="regressionclassification.html#cb390-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb390-5"><a href="regressionclassification.html#cb390-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(linmod_outlier, <span class="dv">5</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-192-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="regressionclassification.html#cb392-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit regression with outlier</span></span>
+<span id="cb392-2"><a href="regressionclassification.html#cb392-2" aria-hidden="true" tabindex="-1"></a>linmod_outlier <span class="ot">&lt;-</span> <span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F, </span>
+<span id="cb392-3"><a href="regressionclassification.html#cb392-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> <span class="fu">add_row</span>(hhdf_small, <span class="at">SW_IN_F =</span> <span class="dv">2000</span>, <span class="at">GPP_NT_VUT_REF =</span> <span class="sc">-</span><span class="dv">20</span>))</span>
+<span id="cb392-4"><a href="regressionclassification.html#cb392-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb392-5"><a href="regressionclassification.html#cb392-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(linmod_outlier, <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-191-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This plot shows the leverage (see the mathematical definition
 <a href="https://en.wikipedia.org/wiki/Leverage_(statistics)">here</a>) of each
 observation against the corresponding residual from the fitted linear
@@ -1639,14 +1666,14 @@ potentially collect more data.</p>
 <li><p>Implement the formula for RMSE using simple “low-level” functions
 like <code>sqrt()</code> and <code>mean()</code>. Confirm that the function <code>rmse()</code> from
 the yardstick package computes the RMSE the same way.</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="regressionclassification.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="do">## generate random data </span></span>
-<span id="cb391-2"><a href="regressionclassification.html#cb391-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb391-3"><a href="regressionclassification.html#cb391-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>),</span>
-<span id="cb391-4"><a href="regressionclassification.html#cb391-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> x)</span>
-<span id="cb391-5"><a href="regressionclassification.html#cb391-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb391-6"><a href="regressionclassification.html#cb391-6" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rmse</span>(df, y, x) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.estimate)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="regressionclassification.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="do">## generate random data </span></span>
+<span id="cb393-2"><a href="regressionclassification.html#cb393-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb393-3"><a href="regressionclassification.html#cb393-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>),</span>
+<span id="cb393-4"><a href="regressionclassification.html#cb393-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> x)</span>
+<span id="cb393-5"><a href="regressionclassification.html#cb393-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb393-6"><a href="regressionclassification.html#cb393-6" aria-hidden="true" tabindex="-1"></a>yardstick<span class="sc">::</span><span class="fu">rmse</span>(df, y, x) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(.estimate)</span></code></pre></div>
 <pre><code>## [1] 1.037171</code></pre>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="regressionclassification.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((df<span class="sc">$</span>x <span class="sc">-</span> df<span class="sc">$</span>y)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="regressionclassification.html#cb395-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>((df<span class="sc">$</span>x <span class="sc">-</span> df<span class="sc">$</span>y)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 1.037171</code></pre></li>
 <li><p>Performance assessment: Exercise for stepwise regression
 <a href="https://stineb.github.io/esds_book/ch-08.html">link</a>,

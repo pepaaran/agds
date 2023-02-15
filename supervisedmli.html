@@ -377,10 +377,10 @@ Greenwell</a>.</p>
 <h2><span class="header-section-number">9.2</span> Tutorial<a href="supervisedmli.html#tutorial-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="required-packages-1" class="section level3 hasAnchor" number="9.2.1">
 <h3><span class="header-section-number">9.2.1</span> Required packages<a href="supervisedmli.html#required-packages-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="supervisedmli.html#cb395-1" aria-hidden="true" tabindex="-1"></a>use_pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;readr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;caret&quot;</span>, <span class="st">&quot;yardstick&quot;</span>, <span class="st">&quot;lubridate&quot;</span>, <span class="st">&quot;rsample&quot;</span>, <span class="st">&quot;recipes&quot;</span>, <span class="st">&quot;modelr&quot;</span>, <span class="st">&quot;forcats&quot;</span>)</span>
-<span id="cb395-2"><a href="supervisedmli.html#cb395-2" aria-hidden="true" tabindex="-1"></a>new_pkgs <span class="ot">&lt;-</span> use_pkgs[<span class="sc">!</span>(use_pkgs <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">&quot;Package&quot;</span>])]</span>
-<span id="cb395-3"><a href="supervisedmli.html#cb395-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(new_pkgs) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(new_pkgs)</span>
-<span id="cb395-4"><a href="supervisedmli.html#cb395-4" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(use_pkgs, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="supervisedmli.html#cb397-1" aria-hidden="true" tabindex="-1"></a>use_pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;readr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;caret&quot;</span>, <span class="st">&quot;yardstick&quot;</span>, <span class="st">&quot;lubridate&quot;</span>, <span class="st">&quot;rsample&quot;</span>, <span class="st">&quot;recipes&quot;</span>, <span class="st">&quot;modelr&quot;</span>, <span class="st">&quot;forcats&quot;</span>)</span>
+<span id="cb397-2"><a href="supervisedmli.html#cb397-2" aria-hidden="true" tabindex="-1"></a>new_pkgs <span class="ot">&lt;-</span> use_pkgs[<span class="sc">!</span>(use_pkgs <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">&quot;Package&quot;</span>])]</span>
+<span id="cb397-3"><a href="supervisedmli.html#cb397-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(new_pkgs) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(new_pkgs)</span>
+<span id="cb397-4"><a href="supervisedmli.html#cb397-4" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(use_pkgs, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 </div>
 <div id="what-is-supervised-machine-learning" class="section level3 hasAnchor" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> What is supervised machine learning?<a href="supervisedmli.html#what-is-supervised-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -465,13 +465,13 @@ degree 1 has two parameters (and corresponds to a simple bivariate
 linear regression). You can imagine that the polynomial of degree 15 is
 much more flexible and should thus yield the closest fit to the training
 data. This is indeed the case.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-195-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-194-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We can use the same fitted models on data that was <em>not</em> used for model
 fitting - the <em>test data</em>. This is what’s done below. Again, the same
 true underlying relationship is used, but we sample a new set of data
 points <span class="math inline">\(X\)</span> and add a new sample of errors on top of the true
 relationship.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-196-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-195-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>You see that, using the test set, we find that “poly4” actually performs
 the best - it has a much lower RMSE than “poly15”. Apparently, “poly15”
 was overfitted. Apparently, it used its flexibility to fit not only the
@@ -488,7 +488,7 @@ set.</p>
 applying the fitted polynomial models to data that extends beyond the
 range in <span class="math inline">\(X\)</span> that was used for model training. Here, we’re extending
 just 20% to the right.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-197-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-196-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>You see that the RMSE for “poly15” literally explodes. The model is
 hopelessly overfitted and completely useless for prediction, although it
 looked like it fitted the data best when we considered only the training
@@ -548,35 +548,35 @@ are the <em>predictors.</em></p>
 value codes, and select only good-quality data (where at least 80% of
 the underlying half-hourly data was good quality measured data, and not
 gap-filled).</p>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="supervisedmli.html#cb396-1" aria-hidden="true" tabindex="-1"></a>ddf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./data/FLX_CH-Dav_FLUXNET2015_FULLSET_DD_1997-2014_1-3.csv&quot;</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb396-2"><a href="supervisedmli.html#cb396-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb396-3"><a href="supervisedmli.html#cb396-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select only the variables we are interested in</span></span>
-<span id="cb396-4"><a href="supervisedmli.html#cb396-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(TIMESTAMP,</span>
-<span id="cb396-5"><a href="supervisedmli.html#cb396-5" aria-hidden="true" tabindex="-1"></a>                GPP_NT_VUT_REF,    <span class="co"># the target</span></span>
-<span id="cb396-6"><a href="supervisedmli.html#cb396-6" aria-hidden="true" tabindex="-1"></a>                <span class="fu">ends_with</span>(<span class="st">&quot;_QC&quot;</span>),  <span class="co"># quality control info</span></span>
-<span id="cb396-7"><a href="supervisedmli.html#cb396-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">ends_with</span>(<span class="st">&quot;_F&quot;</span>),   <span class="co"># includes all all meteorological covariates</span></span>
-<span id="cb396-8"><a href="supervisedmli.html#cb396-8" aria-hidden="true" tabindex="-1"></a>                <span class="sc">-</span><span class="fu">contains</span>(<span class="st">&quot;JSB&quot;</span>)   <span class="co"># weird useless variable</span></span>
-<span id="cb396-9"><a href="supervisedmli.html#cb396-9" aria-hidden="true" tabindex="-1"></a>                ) <span class="sc">|&gt;</span></span>
-<span id="cb396-10"><a href="supervisedmli.html#cb396-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb396-11"><a href="supervisedmli.html#cb396-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convert to a nice date object</span></span>
-<span id="cb396-12"><a href="supervisedmli.html#cb396-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">TIMESTAMP =</span> <span class="fu">ymd</span>(TIMESTAMP)) <span class="sc">|&gt;</span></span>
-<span id="cb396-13"><a href="supervisedmli.html#cb396-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb396-14"><a href="supervisedmli.html#cb396-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set all -9999 to NA</span></span>
-<span id="cb396-15"><a href="supervisedmli.html#cb396-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">na_if</span>(<span class="sc">-</span><span class="dv">9999</span>) <span class="sc">|&gt;</span></span>
-<span id="cb396-16"><a href="supervisedmli.html#cb396-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb396-17"><a href="supervisedmli.html#cb396-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># retain only data based on &gt;=80% good-quality measurements</span></span>
-<span id="cb396-18"><a href="supervisedmli.html#cb396-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># overwrite bad data with NA (not dropping rows)</span></span>
-<span id="cb396-19"><a href="supervisedmli.html#cb396-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">GPP_NT_VUT_REF =</span> <span class="fu">ifelse</span>(NEE_VUT_REF_QC <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, GPP_NT_VUT_REF),</span>
-<span id="cb396-20"><a href="supervisedmli.html#cb396-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">TA_F           =</span> <span class="fu">ifelse</span>(TA_F_QC        <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, TA_F),</span>
-<span id="cb396-21"><a href="supervisedmli.html#cb396-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">SW_IN_F        =</span> <span class="fu">ifelse</span>(SW_IN_F_QC     <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, SW_IN_F),</span>
-<span id="cb396-22"><a href="supervisedmli.html#cb396-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">LW_IN_F        =</span> <span class="fu">ifelse</span>(LW_IN_F_QC     <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, LW_IN_F),</span>
-<span id="cb396-23"><a href="supervisedmli.html#cb396-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">VPD_F          =</span> <span class="fu">ifelse</span>(VPD_F_QC       <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, VPD_F),</span>
-<span id="cb396-24"><a href="supervisedmli.html#cb396-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">PA_F           =</span> <span class="fu">ifelse</span>(PA_F_QC        <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, PA_F),</span>
-<span id="cb396-25"><a href="supervisedmli.html#cb396-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">P_F            =</span> <span class="fu">ifelse</span>(P_F_QC         <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, P_F),</span>
-<span id="cb396-26"><a href="supervisedmli.html#cb396-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">WS_F           =</span> <span class="fu">ifelse</span>(WS_F_QC        <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, WS_F)) <span class="sc">|&gt;</span> </span>
-<span id="cb396-27"><a href="supervisedmli.html#cb396-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb396-28"><a href="supervisedmli.html#cb396-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># drop QC variables (no longer needed)</span></span>
-<span id="cb396-29"><a href="supervisedmli.html#cb396-29" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">&quot;_QC&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="supervisedmli.html#cb398-1" aria-hidden="true" tabindex="-1"></a>ddf <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;./data/FLX_CH-Dav_FLUXNET2015_FULLSET_DD_1997-2014_1-3.csv&quot;</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb398-2"><a href="supervisedmli.html#cb398-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb398-3"><a href="supervisedmli.html#cb398-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select only the variables we are interested in</span></span>
+<span id="cb398-4"><a href="supervisedmli.html#cb398-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(TIMESTAMP,</span>
+<span id="cb398-5"><a href="supervisedmli.html#cb398-5" aria-hidden="true" tabindex="-1"></a>                GPP_NT_VUT_REF,    <span class="co"># the target</span></span>
+<span id="cb398-6"><a href="supervisedmli.html#cb398-6" aria-hidden="true" tabindex="-1"></a>                <span class="fu">ends_with</span>(<span class="st">&quot;_QC&quot;</span>),  <span class="co"># quality control info</span></span>
+<span id="cb398-7"><a href="supervisedmli.html#cb398-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">ends_with</span>(<span class="st">&quot;_F&quot;</span>),   <span class="co"># includes all all meteorological covariates</span></span>
+<span id="cb398-8"><a href="supervisedmli.html#cb398-8" aria-hidden="true" tabindex="-1"></a>                <span class="sc">-</span><span class="fu">contains</span>(<span class="st">&quot;JSB&quot;</span>)   <span class="co"># weird useless variable</span></span>
+<span id="cb398-9"><a href="supervisedmli.html#cb398-9" aria-hidden="true" tabindex="-1"></a>                ) <span class="sc">|&gt;</span></span>
+<span id="cb398-10"><a href="supervisedmli.html#cb398-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb398-11"><a href="supervisedmli.html#cb398-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convert to a nice date object</span></span>
+<span id="cb398-12"><a href="supervisedmli.html#cb398-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">TIMESTAMP =</span> <span class="fu">ymd</span>(TIMESTAMP)) <span class="sc">|&gt;</span></span>
+<span id="cb398-13"><a href="supervisedmli.html#cb398-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb398-14"><a href="supervisedmli.html#cb398-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set all -9999 to NA</span></span>
+<span id="cb398-15"><a href="supervisedmli.html#cb398-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">na_if</span>(<span class="sc">-</span><span class="dv">9999</span>) <span class="sc">|&gt;</span></span>
+<span id="cb398-16"><a href="supervisedmli.html#cb398-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb398-17"><a href="supervisedmli.html#cb398-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># retain only data based on &gt;=80% good-quality measurements</span></span>
+<span id="cb398-18"><a href="supervisedmli.html#cb398-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># overwrite bad data with NA (not dropping rows)</span></span>
+<span id="cb398-19"><a href="supervisedmli.html#cb398-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">GPP_NT_VUT_REF =</span> <span class="fu">ifelse</span>(NEE_VUT_REF_QC <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, GPP_NT_VUT_REF),</span>
+<span id="cb398-20"><a href="supervisedmli.html#cb398-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">TA_F           =</span> <span class="fu">ifelse</span>(TA_F_QC        <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, TA_F),</span>
+<span id="cb398-21"><a href="supervisedmli.html#cb398-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">SW_IN_F        =</span> <span class="fu">ifelse</span>(SW_IN_F_QC     <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, SW_IN_F),</span>
+<span id="cb398-22"><a href="supervisedmli.html#cb398-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">LW_IN_F        =</span> <span class="fu">ifelse</span>(LW_IN_F_QC     <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, LW_IN_F),</span>
+<span id="cb398-23"><a href="supervisedmli.html#cb398-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">VPD_F          =</span> <span class="fu">ifelse</span>(VPD_F_QC       <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, VPD_F),</span>
+<span id="cb398-24"><a href="supervisedmli.html#cb398-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">PA_F           =</span> <span class="fu">ifelse</span>(PA_F_QC        <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, PA_F),</span>
+<span id="cb398-25"><a href="supervisedmli.html#cb398-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">P_F            =</span> <span class="fu">ifelse</span>(P_F_QC         <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, P_F),</span>
+<span id="cb398-26"><a href="supervisedmli.html#cb398-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">WS_F           =</span> <span class="fu">ifelse</span>(WS_F_QC        <span class="sc">&lt;</span> <span class="fl">0.8</span>, <span class="cn">NA</span>, WS_F)) <span class="sc">|&gt;</span> </span>
+<span id="cb398-27"><a href="supervisedmli.html#cb398-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb398-28"><a href="supervisedmli.html#cb398-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># drop QC variables (no longer needed)</span></span>
+<span id="cb398-29"><a href="supervisedmli.html#cb398-29" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">&quot;_QC&quot;</span>))</span></code></pre></div>
 <p>The steps above are considered data <em>wrangling</em> and are <em>not</em> part of
 the modelling process. After completing this tutorial, you will
 understand this distinction. (-&gt; exercise explain the distinction)</p>
@@ -634,7 +634,7 @@ and predictor variables. You have encountered formulas before, e.g., for
 a linear regression using the <code>lm()</code> function. To specify a linear
 regression model for <code>GPP_NT_VUT_REF</code> with three predictors <code>SW_F_IN</code>,
 <code>VPD_F</code>, and <code>TA_F</code>, to be fitted to data <code>ddf</code>, we write:</p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="supervisedmli.html#cb397-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_F_IN <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F, <span class="at">data =</span> ddf)</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="supervisedmli.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_F_IN <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F, <span class="at">data =</span> ddf)</span></code></pre></div>
 </div>
 <div id="the-generic-train" class="section level4 hasAnchor" number="9.2.6.2">
 <h4><span class="header-section-number">9.2.6.2</span> The generic <code>train()</code><a href="supervisedmli.html#the-generic-train" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -653,12 +653,12 @@ outside <em>caret</em>, also requires that the respective package be installed
 and loaded. Using <em>caret</em> for specifying the same linear regression
 model as above, the base-R <code>lm()</code> function, can be done with caret in a
 generalized form as:</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb398-1"><a href="supervisedmli.html#cb398-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">train</span>(</span>
-<span id="cb398-2"><a href="supervisedmli.html#cb398-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">form =</span> GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F, </span>
-<span id="cb398-3"><a href="supervisedmli.html#cb398-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(),  <span class="co"># drop missing values</span></span>
-<span id="cb398-4"><a href="supervisedmli.html#cb398-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>),  <span class="co"># no resampling</span></span>
-<span id="cb398-5"><a href="supervisedmli.html#cb398-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;lm&quot;</span></span>
-<span id="cb398-6"><a href="supervisedmli.html#cb398-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb400-1"><a href="supervisedmli.html#cb400-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">train</span>(</span>
+<span id="cb400-2"><a href="supervisedmli.html#cb400-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">form =</span> GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F, </span>
+<span id="cb400-3"><a href="supervisedmli.html#cb400-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(),  <span class="co"># drop missing values</span></span>
+<span id="cb400-4"><a href="supervisedmli.html#cb400-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>),  <span class="co"># no resampling</span></span>
+<span id="cb400-5"><a href="supervisedmli.html#cb400-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;lm&quot;</span></span>
+<span id="cb400-6"><a href="supervisedmli.html#cb400-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Linear Regression 
 ## 
 ## 2729 samples
@@ -681,12 +681,12 @@ above compared to just writing <code>lm(...)</code>. But the advantage of the
 unified interface is that we can simply replace the <code>method</code> argument to
 use a different model fitting algorithm. For example, to use KNN, we
 just can write:</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb400-1"><a href="supervisedmli.html#cb400-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">train</span>(</span>
-<span id="cb400-2"><a href="supervisedmli.html#cb400-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">form =</span> GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F, </span>
-<span id="cb400-3"><a href="supervisedmli.html#cb400-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), </span>
-<span id="cb400-4"><a href="supervisedmli.html#cb400-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>),</span>
-<span id="cb400-5"><a href="supervisedmli.html#cb400-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;knn&quot;</span></span>
-<span id="cb400-6"><a href="supervisedmli.html#cb400-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb402-1"><a href="supervisedmli.html#cb402-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">train</span>(</span>
+<span id="cb402-2"><a href="supervisedmli.html#cb402-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">form =</span> GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F, </span>
+<span id="cb402-3"><a href="supervisedmli.html#cb402-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), </span>
+<span id="cb402-4"><a href="supervisedmli.html#cb402-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>),</span>
+<span id="cb402-5"><a href="supervisedmli.html#cb402-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;knn&quot;</span></span>
+<span id="cb402-6"><a href="supervisedmli.html#cb402-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## k-Nearest Neighbors 
 ## 
 ## 2729 samples
@@ -742,20 +742,20 @@ from different packages in R. We use the the <em>rsample</em> package here as
 it allows to additionally make sure that data from the full range of a
 given variable’s values (<code>VPD_F</code> in the example below) are well covered
 in both training and testing sets.</p>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="supervisedmli.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># for reproducibility</span></span>
-<span id="cb402-2"><a href="supervisedmli.html#cb402-2" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(ddf, <span class="at">prop =</span> <span class="fl">0.7</span>, <span class="at">strata =</span> <span class="st">&quot;VPD_F&quot;</span>)</span>
-<span id="cb402-3"><a href="supervisedmli.html#cb402-3" aria-hidden="true" tabindex="-1"></a>ddf_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(split)</span>
-<span id="cb402-4"><a href="supervisedmli.html#cb402-4" aria-hidden="true" tabindex="-1"></a>ddf_test <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">testing</span>(split)</span></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="supervisedmli.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># for reproducibility</span></span>
+<span id="cb404-2"><a href="supervisedmli.html#cb404-2" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(ddf, <span class="at">prop =</span> <span class="fl">0.7</span>, <span class="at">strata =</span> <span class="st">&quot;VPD_F&quot;</span>)</span>
+<span id="cb404-3"><a href="supervisedmli.html#cb404-3" aria-hidden="true" tabindex="-1"></a>ddf_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(split)</span>
+<span id="cb404-4"><a href="supervisedmli.html#cb404-4" aria-hidden="true" tabindex="-1"></a>ddf_test <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">testing</span>(split)</span></code></pre></div>
 <p>Plot the distribution of values in the training and testing sets.</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="supervisedmli.html#cb403-1" aria-hidden="true" tabindex="-1"></a>ddf_train <span class="sc">|&gt;</span> </span>
-<span id="cb403-2"><a href="supervisedmli.html#cb403-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">split =</span> <span class="st">&quot;train&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb403-3"><a href="supervisedmli.html#cb403-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(ddf_test <span class="sc">|&gt;</span> </span>
-<span id="cb403-4"><a href="supervisedmli.html#cb403-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">split =</span> <span class="st">&quot;test&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb403-5"><a href="supervisedmli.html#cb403-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb403-6"><a href="supervisedmli.html#cb403-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> ..density.., <span class="at">color =</span> split)) <span class="sc">+</span></span>
-<span id="cb403-7"><a href="supervisedmli.html#cb403-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
-<span id="cb403-8"><a href="supervisedmli.html#cb403-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-203-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="supervisedmli.html#cb405-1" aria-hidden="true" tabindex="-1"></a>ddf_train <span class="sc">|&gt;</span> </span>
+<span id="cb405-2"><a href="supervisedmli.html#cb405-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">split =</span> <span class="st">&quot;train&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb405-3"><a href="supervisedmli.html#cb405-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(ddf_test <span class="sc">|&gt;</span> </span>
+<span id="cb405-4"><a href="supervisedmli.html#cb405-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">split =</span> <span class="st">&quot;test&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb405-5"><a href="supervisedmli.html#cb405-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb405-6"><a href="supervisedmli.html#cb405-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> ..density.., <span class="at">color =</span> split)) <span class="sc">+</span></span>
+<span id="cb405-7"><a href="supervisedmli.html#cb405-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb405-8"><a href="supervisedmli.html#cb405-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-202-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="preprocessing" class="section level3 hasAnchor" number="9.2.8">
 <h3><span class="header-section-number">9.2.8</span> Pre-processing<a href="supervisedmli.html#preprocessing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -791,9 +791,9 @@ steps in one go. It is compatible with the <code>train()</code> function of
 {caret}. For the same formula as above, and an example where the data
 <code>ddf_train</code> is to be normalized (centered and scaled), we can specify a
 “recipe” using the pipe operator as:</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="supervisedmli.html#cb404-1" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F, <span class="at">data =</span> ddf_train) <span class="sc">|&gt;</span> </span>
-<span id="cb404-2"><a href="supervisedmli.html#cb404-2" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_center</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb404-3"><a href="supervisedmli.html#cb404-3" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_scale</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="supervisedmli.html#cb406-1" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F, <span class="at">data =</span> ddf_train) <span class="sc">|&gt;</span> </span>
+<span id="cb406-2"><a href="supervisedmli.html#cb406-2" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_center</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb406-3"><a href="supervisedmli.html#cb406-3" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_scale</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span></code></pre></div>
 <p>The first line with the <code>recipe()</code> function call assigns <em>roles</em> to the
 different variables. <code>GPP_NT_VUT_REF</code> is an <em>outcome</em> (in “{recipes}
 speak”). Then, we used selectors to apply the recipe step to several
@@ -805,12 +805,12 @@ version of the data frame <code>ddf_train</code>, but rather the information tha
 allows us to apply a specific set of pre-processing steps also to any
 data set.</p>
 <p>The object <code>pp</code> can then be supplied to <code>train()</code> as its first argument:</p>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="supervisedmli.html#cb405-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">train</span>(</span>
-<span id="cb405-2"><a href="supervisedmli.html#cb405-2" aria-hidden="true" tabindex="-1"></a>  pp, </span>
-<span id="cb405-3"><a href="supervisedmli.html#cb405-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf_train, </span>
-<span id="cb405-4"><a href="supervisedmli.html#cb405-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;knn&quot;</span>,</span>
-<span id="cb405-5"><a href="supervisedmli.html#cb405-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>)</span>
-<span id="cb405-6"><a href="supervisedmli.html#cb405-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="supervisedmli.html#cb407-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">train</span>(</span>
+<span id="cb407-2"><a href="supervisedmli.html#cb407-2" aria-hidden="true" tabindex="-1"></a>  pp, </span>
+<span id="cb407-3"><a href="supervisedmli.html#cb407-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf_train, </span>
+<span id="cb407-4"><a href="supervisedmli.html#cb407-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;knn&quot;</span>,</span>
+<span id="cb407-5"><a href="supervisedmli.html#cb407-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb407-6"><a href="supervisedmli.html#cb407-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>The example above showed data standardization as a data pre-processing
 step. Data pre-processing may be done with different aims, as described
 in sub-sections below.</p>
@@ -822,11 +822,11 @@ of this step becomes obvious when considering KNN, where the magnitude
 of the distance is strongly influenced by the order of magnitude of the
 predictor values. To get a quick overview of the distribution of all
 variables (columns) in our data frame, we can use the {skimr} package.</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="supervisedmli.html#cb406-1" aria-hidden="true" tabindex="-1"></a>ddf <span class="sc">|&gt;</span> </span>
-<span id="cb406-2"><a href="supervisedmli.html#cb406-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">quantile</span>(.x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb406-3"><a href="supervisedmli.html#cb406-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb406-4"><a href="supervisedmli.html#cb406-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb406-5"><a href="supervisedmli.html#cb406-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;min&quot;</span>, <span class="st">&quot;q25&quot;</span>, <span class="st">&quot;q50&quot;</span>, <span class="st">&quot;q75&quot;</span>, <span class="st">&quot;max&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="supervisedmli.html#cb408-1" aria-hidden="true" tabindex="-1"></a>ddf <span class="sc">|&gt;</span> </span>
+<span id="cb408-2"><a href="supervisedmli.html#cb408-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">quantile</span>(.x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb408-3"><a href="supervisedmli.html#cb408-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb408-4"><a href="supervisedmli.html#cb408-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb408-5"><a href="supervisedmli.html#cb408-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;min&quot;</span>, <span class="st">&quot;q25&quot;</span>, <span class="st">&quot;q50&quot;</span>, <span class="st">&quot;q75&quot;</span>, <span class="st">&quot;max&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 8 × 6
 ##   variable           min     q25    q50    q75    max
 ##   &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -863,32 +863,32 @@ separation is critical in the context of model training and data
 leakage, and translates the conception of the pre-processing as a
 “recipe” into the way we write the code.</p>
 <p>To actually transform the data, we first have to “prepare” the recipe:</p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="supervisedmli.html#cb408-1" aria-hidden="true" tabindex="-1"></a>pp_prep <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(pp, <span class="at">training =</span> ddf_train) </span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="supervisedmli.html#cb410-1" aria-hidden="true" tabindex="-1"></a>pp_prep <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">prep</span>(pp, <span class="at">training =</span> ddf_train) </span></code></pre></div>
 <p>Finally we can actually transform the data. That is, “juice” the prepared
 recipe.</p>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="supervisedmli.html#cb409-1" aria-hidden="true" tabindex="-1"></a>ddf_juiced <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">juice</span>(pp_prep)</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="supervisedmli.html#cb411-1" aria-hidden="true" tabindex="-1"></a>ddf_juiced <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">juice</span>(pp_prep)</span></code></pre></div>
 <p>Note, if we are to apply the prepared recipe to new data, we’ll have to <code>bake()</code> it.</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="supervisedmli.html#cb410-1" aria-hidden="true" tabindex="-1"></a>ddf_baked <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(pp_prep, <span class="at">new_data =</span> ddf_train)</span>
-<span id="cb410-2"><a href="supervisedmli.html#cb410-2" aria-hidden="true" tabindex="-1"></a><span class="fu">all_equal</span>(ddf_juiced, ddf_baked)</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="supervisedmli.html#cb412-1" aria-hidden="true" tabindex="-1"></a>ddf_baked <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">bake</span>(pp_prep, <span class="at">new_data =</span> ddf_train)</span>
+<span id="cb412-2"><a href="supervisedmli.html#cb412-2" aria-hidden="true" tabindex="-1"></a><span class="fu">all_equal</span>(ddf_juiced, ddf_baked)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>The effect is of standardization is illustrated by comparing original
 and transformed variables:</p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="supervisedmli.html#cb412-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> ddf_train <span class="sc">|&gt;</span> </span>
-<span id="cb412-2"><a href="supervisedmli.html#cb412-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(<span class="st">&quot;SW_IN_F&quot;</span>, <span class="st">&quot;VPD_F&quot;</span>, <span class="st">&quot;TA_F&quot;</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb412-3"><a href="supervisedmli.html#cb412-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(SW_IN_F, VPD_F, TA_F), <span class="at">names_to =</span> <span class="st">&quot;var&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;val&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb412-4"><a href="supervisedmli.html#cb412-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(val, ..density..)) <span class="sc">+</span></span>
-<span id="cb412-5"><a href="supervisedmli.html#cb412-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
-<span id="cb412-6"><a href="supervisedmli.html#cb412-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>var)</span>
-<span id="cb412-7"><a href="supervisedmli.html#cb412-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb412-8"><a href="supervisedmli.html#cb412-8" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> ddf_juiced <span class="sc">|&gt;</span> </span>
-<span id="cb412-9"><a href="supervisedmli.html#cb412-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(<span class="st">&quot;SW_IN_F&quot;</span>, <span class="st">&quot;VPD_F&quot;</span>, <span class="st">&quot;TA_F&quot;</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb412-10"><a href="supervisedmli.html#cb412-10" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(SW_IN_F, VPD_F, TA_F), <span class="at">names_to =</span> <span class="st">&quot;var&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;val&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb412-11"><a href="supervisedmli.html#cb412-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(val, ..density..)) <span class="sc">+</span></span>
-<span id="cb412-12"><a href="supervisedmli.html#cb412-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
-<span id="cb412-13"><a href="supervisedmli.html#cb412-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>var)</span>
-<span id="cb412-14"><a href="supervisedmli.html#cb412-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb412-15"><a href="supervisedmli.html#cb412-15" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg1, gg2, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-210-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="supervisedmli.html#cb414-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> ddf_train <span class="sc">|&gt;</span> </span>
+<span id="cb414-2"><a href="supervisedmli.html#cb414-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(<span class="st">&quot;SW_IN_F&quot;</span>, <span class="st">&quot;VPD_F&quot;</span>, <span class="st">&quot;TA_F&quot;</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb414-3"><a href="supervisedmli.html#cb414-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(SW_IN_F, VPD_F, TA_F), <span class="at">names_to =</span> <span class="st">&quot;var&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;val&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb414-4"><a href="supervisedmli.html#cb414-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(val, ..density..)) <span class="sc">+</span></span>
+<span id="cb414-5"><a href="supervisedmli.html#cb414-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb414-6"><a href="supervisedmli.html#cb414-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>var)</span>
+<span id="cb414-7"><a href="supervisedmli.html#cb414-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb414-8"><a href="supervisedmli.html#cb414-8" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> ddf_juiced <span class="sc">|&gt;</span> </span>
+<span id="cb414-9"><a href="supervisedmli.html#cb414-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">one_of</span>(<span class="fu">c</span>(<span class="st">&quot;SW_IN_F&quot;</span>, <span class="st">&quot;VPD_F&quot;</span>, <span class="st">&quot;TA_F&quot;</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb414-10"><a href="supervisedmli.html#cb414-10" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(SW_IN_F, VPD_F, TA_F), <span class="at">names_to =</span> <span class="st">&quot;var&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;val&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb414-11"><a href="supervisedmli.html#cb414-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(val, ..density..)) <span class="sc">+</span></span>
+<span id="cb414-12"><a href="supervisedmli.html#cb414-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb414-13"><a href="supervisedmli.html#cb414-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>var)</span>
+<span id="cb414-14"><a href="supervisedmli.html#cb414-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb414-15"><a href="supervisedmli.html#cb414-15" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg1, gg2, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-209-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="handling-missing-data-1" class="section level4 hasAnchor" number="9.2.8.2">
 <h4><span class="header-section-number">9.2.8.2</span> Handling missing data<a href="supervisedmli.html#handling-missing-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -907,12 +907,12 @@ out-of-sample test (more on that later).</p>
 <p>Visualizing missing data is the essential first step in making decisions
 about dropping rows with missing data versus removing predictors from
 the model (which would imply too much data removal).</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="supervisedmli.html#cb413-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(</span>
-<span id="cb413-2"><a href="supervisedmli.html#cb413-2" aria-hidden="true" tabindex="-1"></a>  ddf,</span>
-<span id="cb413-3"><a href="supervisedmli.html#cb413-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cluster =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb413-4"><a href="supervisedmli.html#cb413-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">warn_large_data =</span> <span class="cn">FALSE</span></span>
-<span id="cb413-5"><a href="supervisedmli.html#cb413-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-211-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="supervisedmli.html#cb415-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(</span>
+<span id="cb415-2"><a href="supervisedmli.html#cb415-2" aria-hidden="true" tabindex="-1"></a>  ddf,</span>
+<span id="cb415-3"><a href="supervisedmli.html#cb415-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cluster =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb415-4"><a href="supervisedmli.html#cb415-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">warn_large_data =</span> <span class="cn">FALSE</span></span>
+<span id="cb415-5"><a href="supervisedmli.html#cb415-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-210-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Here, the variable <code>LW_IN_F</code> (longwave radiation) if affected by a lot
 of missing data. Note that we applied a data cleaning step along with
 the data read-in at the very top of this Chapter. There, we applied a
@@ -937,8 +937,8 @@ approach is to impute missing values with the mean or median of the
 available values of the same variable, which can be implemented using
 <code>step_impute_*()</code> from the {recipes} package. For example, to impute the
 median for all predictors separately:</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="supervisedmli.html#cb414-1" aria-hidden="true" tabindex="-1"></a>pp <span class="sc">|&gt;</span> </span>
-<span id="cb414-2"><a href="supervisedmli.html#cb414-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_impute_median</span>(<span class="fu">all_predictors</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="supervisedmli.html#cb416-1" aria-hidden="true" tabindex="-1"></a>pp <span class="sc">|&gt;</span> </span>
+<span id="cb416-2"><a href="supervisedmli.html#cb416-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_impute_median</span>(<span class="fu">all_predictors</span>())</span></code></pre></div>
 <pre><code>## Recipe
 ## 
 ## Inputs:
@@ -961,8 +961,8 @@ other co-variates (predictors). Several approaches to modelling missing
 values are available through the recipes package (see
 <a href="https://recipes.tidymodels.org/reference/index.html#step-functions-imputation">here</a>).
 For example, we can use KNN with five neighbors as:</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="supervisedmli.html#cb416-1" aria-hidden="true" tabindex="-1"></a>pp <span class="sc">|&gt;</span> </span>
-<span id="cb416-2"><a href="supervisedmli.html#cb416-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_impute_knn</span>(<span class="fu">all_predictors</span>(), <span class="at">neighbors =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="supervisedmli.html#cb418-1" aria-hidden="true" tabindex="-1"></a>pp <span class="sc">|&gt;</span> </span>
+<span id="cb418-2"><a href="supervisedmli.html#cb418-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_impute_knn</span>(<span class="fu">all_predictors</span>(), <span class="at">neighbors =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## Recipe
 ## 
 ## Inputs:
@@ -988,9 +988,9 @@ that contain either zeros or ones depending whether the value of the
 categorical feature corresponds to the respective column. Because this
 creates perfect collinearity between these new column, we can also drop
 one of them. This is referred to as <em>dummy encoding</em>.</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="supervisedmli.html#cb418-1" aria-hidden="true" tabindex="-1"></a><span class="co"># original data frame</span></span>
-<span id="cb418-2"><a href="supervisedmli.html#cb418-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span>
-<span id="cb418-3"><a href="supervisedmli.html#cb418-3" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="supervisedmli.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="co"># original data frame</span></span>
+<span id="cb420-2"><a href="supervisedmli.html#cb420-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span>
+<span id="cb420-3"><a href="supervisedmli.html#cb420-3" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 2
 ##      id color
 ##   &lt;int&gt; &lt;chr&gt;
@@ -998,9 +998,9 @@ one of them. This is referred to as <em>dummy encoding</em>.</p>
 ## 2     2 red  
 ## 3     3 green
 ## 4     4 blue</code></pre>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="supervisedmli.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="co"># after one-hot encoding</span></span>
-<span id="cb420-2"><a href="supervisedmli.html#cb420-2" aria-hidden="true" tabindex="-1"></a>dmy <span class="ot">&lt;-</span> <span class="fu">dummyVars</span>(<span class="st">&quot;~ .&quot;</span>, <span class="at">data =</span> df, <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
-<span id="cb420-3"><a href="supervisedmli.html#cb420-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="fu">predict</span>(dmy, <span class="at">newdata =</span> df))</span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="supervisedmli.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="co"># after one-hot encoding</span></span>
+<span id="cb422-2"><a href="supervisedmli.html#cb422-2" aria-hidden="true" tabindex="-1"></a>dmy <span class="ot">&lt;-</span> <span class="fu">dummyVars</span>(<span class="st">&quot;~ .&quot;</span>, <span class="at">data =</span> df, <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb422-3"><a href="supervisedmli.html#cb422-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="fu">predict</span>(dmy, <span class="at">newdata =</span> df))</span></code></pre></div>
 <pre><code>##   id colorblue colorgreen colorred
 ## 1  1         0          0        1
 ## 2  2         0          0        1
@@ -1012,8 +1012,8 @@ then one of the columns added by <code>dummyVars()</code> is obsolete (if it’s
 neither <code>"red"</code>, nor <code>"green"</code>, it must be <code>"blue"</code>) - columns are
 collinear. This can be avoided by <code>setting fullRank = FALSE</code>.</p>
 <p>Using the recipes package, one-hot encoding is implemented by:</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="supervisedmli.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(GPP_NT_VUT_REF <span class="sc">~</span> ., <span class="at">data =</span> ddf) <span class="sc">|&gt;</span> </span>
-<span id="cb422-2"><a href="supervisedmli.html#cb422-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal</span>(), <span class="at">one_hot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="supervisedmli.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(GPP_NT_VUT_REF <span class="sc">~</span> ., <span class="at">data =</span> ddf) <span class="sc">|&gt;</span> </span>
+<span id="cb424-2"><a href="supervisedmli.html#cb424-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal</span>(), <span class="at">one_hot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Recipe
 ## 
 ## Inputs:
@@ -1051,7 +1051,7 @@ variables, this ratio gets small (approaches 1/100).</li>
 <p>The function <code>nearZeroVar</code> of the {caret} package flags suspicious
 variables (<code>zeroVar = TRUE</code> or <code>nzv = TRUE</code>). In our data set, we don’t
 find any:</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="supervisedmli.html#cb424-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">nearZeroVar</span>(ddf, <span class="at">saveMetrics =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="supervisedmli.html#cb426-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">nearZeroVar</span>(ddf, <span class="at">saveMetrics =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##                freqRatio percentUnique zeroVar   nzv
 ## TIMESTAMP       1.000000    100.000000   FALSE FALSE
 ## GPP_NT_VUT_REF  1.000000     93.732887   FALSE FALSE
@@ -1064,8 +1064,8 @@ find any:</p>
 ## WS_F            1.083333     34.758138   FALSE FALSE</code></pre>
 <p>Using the recipes package, we can add a step that removes zero-variance
 predictors by:</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="supervisedmli.html#cb426-1" aria-hidden="true" tabindex="-1"></a>pp <span class="sc">|&gt;</span> </span>
-<span id="cb426-2"><a href="supervisedmli.html#cb426-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="supervisedmli.html#cb428-1" aria-hidden="true" tabindex="-1"></a>pp <span class="sc">|&gt;</span> </span>
+<span id="cb428-2"><a href="supervisedmli.html#cb428-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>())</span></code></pre></div>
 <pre><code>## Recipe
 ## 
 ## Inputs:
@@ -1096,23 +1096,23 @@ compared to errors in the lower range.</p>
 variable that we have considered so far (<code>GPP_NT_VUT_REF</code>) is not
 skewed. In a case where we would consider <code>WS_F</code> to be our target
 variable, we would thus consider applying a log-transformation.</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="supervisedmli.html#cb428-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> ddf <span class="sc">|&gt;</span> </span>
-<span id="cb428-2"><a href="supervisedmli.html#cb428-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> WS_F, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
-<span id="cb428-3"><a href="supervisedmli.html#cb428-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb428-4"><a href="supervisedmli.html#cb428-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Original&quot;</span>)</span>
-<span id="cb428-5"><a href="supervisedmli.html#cb428-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb428-6"><a href="supervisedmli.html#cb428-6" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> ddf <span class="sc">|&gt;</span> </span>
-<span id="cb428-7"><a href="supervisedmli.html#cb428-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(WS_F), <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
-<span id="cb428-8"><a href="supervisedmli.html#cb428-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb428-9"><a href="supervisedmli.html#cb428-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Log-transformed&quot;</span>)</span>
-<span id="cb428-10"><a href="supervisedmli.html#cb428-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb428-11"><a href="supervisedmli.html#cb428-11" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg1, gg2)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-218-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="supervisedmli.html#cb430-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> ddf <span class="sc">|&gt;</span> </span>
+<span id="cb430-2"><a href="supervisedmli.html#cb430-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> WS_F, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
+<span id="cb430-3"><a href="supervisedmli.html#cb430-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb430-4"><a href="supervisedmli.html#cb430-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Original&quot;</span>)</span>
+<span id="cb430-5"><a href="supervisedmli.html#cb430-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb430-6"><a href="supervisedmli.html#cb430-6" aria-hidden="true" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> ddf <span class="sc">|&gt;</span> </span>
+<span id="cb430-7"><a href="supervisedmli.html#cb430-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(WS_F), <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
+<span id="cb430-8"><a href="supervisedmli.html#cb430-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb430-9"><a href="supervisedmli.html#cb430-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Log-transformed&quot;</span>)</span>
+<span id="cb430-10"><a href="supervisedmli.html#cb430-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb430-11"><a href="supervisedmli.html#cb430-11" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg1, gg2)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-217-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Log transformation as part of the pre-processing is specified using the
 <code>step_log()</code> function, here applied to the model target variable
 (<code>all_outcomes()</code>).</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="supervisedmli.html#cb429-1" aria-hidden="true" tabindex="-1"></a>recipes<span class="sc">::</span><span class="fu">recipe</span>(WS_F <span class="sc">~</span> ., <span class="at">data =</span> ddf) <span class="sc">|&gt;</span>   <span class="co"># it&#39;s of course non-sense to model wind speed like this</span></span>
-<span id="cb429-2"><a href="supervisedmli.html#cb429-2" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_log</span>(<span class="fu">all_outcomes</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="supervisedmli.html#cb431-1" aria-hidden="true" tabindex="-1"></a>recipes<span class="sc">::</span><span class="fu">recipe</span>(WS_F <span class="sc">~</span> ., <span class="at">data =</span> ddf) <span class="sc">|&gt;</span>   <span class="co"># it&#39;s of course non-sense to model wind speed like this</span></span>
+<span id="cb431-2"><a href="supervisedmli.html#cb431-2" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_log</span>(<span class="fu">all_outcomes</span>())</span></code></pre></div>
 <pre><code>## Recipe
 ## 
 ## Inputs:
@@ -1136,21 +1136,21 @@ y(\lambda) = \begin{cases}
 resulting distribution of values <span class="math inline">\(Y\)</span> approaches the normal distribution.
 To specify a Box-Cox-transformation as part of the pre-processing, we
 can use <code>step_BoxCox()</code> from the {recipes} package.</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="supervisedmli.html#cb431-1" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">recipe</span>(WS_F <span class="sc">~</span> ., <span class="at">data =</span> ddf_train) <span class="sc">|&gt;</span></span>
-<span id="cb431-2"><a href="supervisedmli.html#cb431-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_BoxCox</span>(<span class="fu">all_outcomes</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="supervisedmli.html#cb433-1" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">recipe</span>(WS_F <span class="sc">~</span> ., <span class="at">data =</span> ddf_train) <span class="sc">|&gt;</span></span>
+<span id="cb433-2"><a href="supervisedmli.html#cb433-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_BoxCox</span>(<span class="fu">all_outcomes</span>())</span></code></pre></div>
 <p>How do transformed values look like?</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="supervisedmli.html#cb432-1" aria-hidden="true" tabindex="-1"></a>prep_pp <span class="ot">&lt;-</span> <span class="fu">prep</span>(pp, <span class="at">training =</span> ddf_train <span class="sc">|&gt;</span> <span class="fu">drop_na</span>())</span>
-<span id="cb432-2"><a href="supervisedmli.html#cb432-2" aria-hidden="true" tabindex="-1"></a>ddf_baked <span class="ot">&lt;-</span> <span class="fu">bake</span>(prep_pp, <span class="at">new_data =</span> ddf_test <span class="sc">|&gt;</span> <span class="fu">drop_na</span>())</span>
-<span id="cb432-3"><a href="supervisedmli.html#cb432-3" aria-hidden="true" tabindex="-1"></a>ddf_baked <span class="sc">|&gt;</span></span>
-<span id="cb432-4"><a href="supervisedmli.html#cb432-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> WS_F, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
-<span id="cb432-5"><a href="supervisedmli.html#cb432-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb432-6"><a href="supervisedmli.html#cb432-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Box-Cox-transformed&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-221-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="supervisedmli.html#cb434-1" aria-hidden="true" tabindex="-1"></a>prep_pp <span class="ot">&lt;-</span> <span class="fu">prep</span>(pp, <span class="at">training =</span> ddf_train <span class="sc">|&gt;</span> <span class="fu">drop_na</span>())</span>
+<span id="cb434-2"><a href="supervisedmli.html#cb434-2" aria-hidden="true" tabindex="-1"></a>ddf_baked <span class="ot">&lt;-</span> <span class="fu">bake</span>(prep_pp, <span class="at">new_data =</span> ddf_test <span class="sc">|&gt;</span> <span class="fu">drop_na</span>())</span>
+<span id="cb434-3"><a href="supervisedmli.html#cb434-3" aria-hidden="true" tabindex="-1"></a>ddf_baked <span class="sc">|&gt;</span></span>
+<span id="cb434-4"><a href="supervisedmli.html#cb434-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> WS_F, <span class="at">y =</span> ..density..)) <span class="sc">+</span></span>
+<span id="cb434-5"><a href="supervisedmli.html#cb434-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb434-6"><a href="supervisedmli.html#cb434-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Box-Cox-transformed&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-220-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Note that the Box-Cox-transformation can only be applied to values that
 are strictly positive. In our example, wind speed (<code>WS_F</code>) is. If this
 is not satisfied, a Yeo-Johnson transformation can be applied.</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="supervisedmli.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(WS_F <span class="sc">~</span> ., <span class="at">data =</span> ddf) <span class="sc">|&gt;</span></span>
-<span id="cb433-2"><a href="supervisedmli.html#cb433-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_YeoJohnson</span>(<span class="fu">all_outcomes</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="supervisedmli.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(WS_F <span class="sc">~</span> ., <span class="at">data =</span> ddf) <span class="sc">|&gt;</span></span>
+<span id="cb435-2"><a href="supervisedmli.html#cb435-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_YeoJohnson</span>(<span class="fu">all_outcomes</span>())</span></code></pre></div>
 <pre><code>## Recipe
 ## 
 ## Inputs:
@@ -1199,43 +1199,43 @@ argument in <code>train()</code> (<em>loss function</em>) in the next chapter.</
 <li>For the KNN model, use <span class="math inline">\(k=5\)</span>.</li>
 </ul>
 <p>These steps are implemented by the code below.</p>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="supervisedmli.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data cleaning: looks ok, no obviously bad data</span></span>
-<span id="cb435-2"><a href="supervisedmli.html#cb435-2" aria-hidden="true" tabindex="-1"></a><span class="co"># no long tail, therefore no further target engineering</span></span>
-<span id="cb435-3"><a href="supervisedmli.html#cb435-3" aria-hidden="true" tabindex="-1"></a>ddf <span class="sc">|&gt;</span> </span>
-<span id="cb435-4"><a href="supervisedmli.html#cb435-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> GPP_NT_VUT_REF, <span class="at">y =</span> ..count..)) <span class="sc">+</span> </span>
-<span id="cb435-5"><a href="supervisedmli.html#cb435-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-223-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="supervisedmli.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data splitting</span></span>
-<span id="cb436-2"><a href="supervisedmli.html#cb436-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1982</span>)  <span class="co"># for reproducibility</span></span>
-<span id="cb436-3"><a href="supervisedmli.html#cb436-3" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(ddf, <span class="at">prop =</span> <span class="fl">0.7</span>, <span class="at">strata =</span> <span class="st">&quot;VPD_F&quot;</span>)</span>
-<span id="cb436-4"><a href="supervisedmli.html#cb436-4" aria-hidden="true" tabindex="-1"></a>ddf_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(split)</span>
-<span id="cb436-5"><a href="supervisedmli.html#cb436-5" aria-hidden="true" tabindex="-1"></a>ddf_test <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">testing</span>(split)</span>
-<span id="cb436-6"><a href="supervisedmli.html#cb436-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb436-7"><a href="supervisedmli.html#cb436-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Model and pre-processing formulation, use all variables but LW_IN_F</span></span>
-<span id="cb436-8"><a href="supervisedmli.html#cb436-8" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F <span class="sc">+</span> PA_F <span class="sc">+</span> P_F <span class="sc">+</span> WS_F, </span>
-<span id="cb436-9"><a href="supervisedmli.html#cb436-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> ddf_train <span class="sc">|&gt;</span> <span class="fu">drop_na</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb436-10"><a href="supervisedmli.html#cb436-10" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_BoxCox</span>(<span class="fu">all_predictors</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb436-11"><a href="supervisedmli.html#cb436-11" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_center</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb436-12"><a href="supervisedmli.html#cb436-12" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_scale</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span>
-<span id="cb436-13"><a href="supervisedmli.html#cb436-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb436-14"><a href="supervisedmli.html#cb436-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear regression model</span></span>
-<span id="cb436-15"><a href="supervisedmli.html#cb436-15" aria-hidden="true" tabindex="-1"></a>mod_lm <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">train</span>(</span>
-<span id="cb436-16"><a href="supervisedmli.html#cb436-16" aria-hidden="true" tabindex="-1"></a>  pp, </span>
-<span id="cb436-17"><a href="supervisedmli.html#cb436-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf_train <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), </span>
-<span id="cb436-18"><a href="supervisedmli.html#cb436-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
-<span id="cb436-19"><a href="supervisedmli.html#cb436-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>),</span>
-<span id="cb436-20"><a href="supervisedmli.html#cb436-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">metric =</span> <span class="st">&quot;RMSE&quot;</span></span>
-<span id="cb436-21"><a href="supervisedmli.html#cb436-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb436-22"><a href="supervisedmli.html#cb436-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb436-23"><a href="supervisedmli.html#cb436-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit KNN model</span></span>
-<span id="cb436-24"><a href="supervisedmli.html#cb436-24" aria-hidden="true" tabindex="-1"></a>mod_knn <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">train</span>(</span>
-<span id="cb436-25"><a href="supervisedmli.html#cb436-25" aria-hidden="true" tabindex="-1"></a>  pp, </span>
-<span id="cb436-26"><a href="supervisedmli.html#cb436-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf_train <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), </span>
-<span id="cb436-27"><a href="supervisedmli.html#cb436-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;knn&quot;</span>,</span>
-<span id="cb436-28"><a href="supervisedmli.html#cb436-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>),</span>
-<span id="cb436-29"><a href="supervisedmli.html#cb436-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="dv">5</span>),</span>
-<span id="cb436-30"><a href="supervisedmli.html#cb436-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">metric =</span> <span class="st">&quot;RMSE&quot;</span></span>
-<span id="cb436-31"><a href="supervisedmli.html#cb436-31" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="supervisedmli.html#cb437-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data cleaning: looks ok, no obviously bad data</span></span>
+<span id="cb437-2"><a href="supervisedmli.html#cb437-2" aria-hidden="true" tabindex="-1"></a><span class="co"># no long tail, therefore no further target engineering</span></span>
+<span id="cb437-3"><a href="supervisedmli.html#cb437-3" aria-hidden="true" tabindex="-1"></a>ddf <span class="sc">|&gt;</span> </span>
+<span id="cb437-4"><a href="supervisedmli.html#cb437-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> GPP_NT_VUT_REF, <span class="at">y =</span> ..count..)) <span class="sc">+</span> </span>
+<span id="cb437-5"><a href="supervisedmli.html#cb437-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-222-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="supervisedmli.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data splitting</span></span>
+<span id="cb438-2"><a href="supervisedmli.html#cb438-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1982</span>)  <span class="co"># for reproducibility</span></span>
+<span id="cb438-3"><a href="supervisedmli.html#cb438-3" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">initial_split</span>(ddf, <span class="at">prop =</span> <span class="fl">0.7</span>, <span class="at">strata =</span> <span class="st">&quot;VPD_F&quot;</span>)</span>
+<span id="cb438-4"><a href="supervisedmli.html#cb438-4" aria-hidden="true" tabindex="-1"></a>ddf_train <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">training</span>(split)</span>
+<span id="cb438-5"><a href="supervisedmli.html#cb438-5" aria-hidden="true" tabindex="-1"></a>ddf_test <span class="ot">&lt;-</span> rsample<span class="sc">::</span><span class="fu">testing</span>(split)</span>
+<span id="cb438-6"><a href="supervisedmli.html#cb438-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb438-7"><a href="supervisedmli.html#cb438-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Model and pre-processing formulation, use all variables but LW_IN_F</span></span>
+<span id="cb438-8"><a href="supervisedmli.html#cb438-8" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> recipes<span class="sc">::</span><span class="fu">recipe</span>(GPP_NT_VUT_REF <span class="sc">~</span> SW_IN_F <span class="sc">+</span> VPD_F <span class="sc">+</span> TA_F <span class="sc">+</span> PA_F <span class="sc">+</span> P_F <span class="sc">+</span> WS_F, </span>
+<span id="cb438-9"><a href="supervisedmli.html#cb438-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> ddf_train <span class="sc">|&gt;</span> <span class="fu">drop_na</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb438-10"><a href="supervisedmli.html#cb438-10" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_BoxCox</span>(<span class="fu">all_predictors</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb438-11"><a href="supervisedmli.html#cb438-11" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_center</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb438-12"><a href="supervisedmli.html#cb438-12" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_scale</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span>
+<span id="cb438-13"><a href="supervisedmli.html#cb438-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb438-14"><a href="supervisedmli.html#cb438-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear regression model</span></span>
+<span id="cb438-15"><a href="supervisedmli.html#cb438-15" aria-hidden="true" tabindex="-1"></a>mod_lm <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">train</span>(</span>
+<span id="cb438-16"><a href="supervisedmli.html#cb438-16" aria-hidden="true" tabindex="-1"></a>  pp, </span>
+<span id="cb438-17"><a href="supervisedmli.html#cb438-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf_train <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), </span>
+<span id="cb438-18"><a href="supervisedmli.html#cb438-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb438-19"><a href="supervisedmli.html#cb438-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>),</span>
+<span id="cb438-20"><a href="supervisedmli.html#cb438-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">metric =</span> <span class="st">&quot;RMSE&quot;</span></span>
+<span id="cb438-21"><a href="supervisedmli.html#cb438-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb438-22"><a href="supervisedmli.html#cb438-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb438-23"><a href="supervisedmli.html#cb438-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit KNN model</span></span>
+<span id="cb438-24"><a href="supervisedmli.html#cb438-24" aria-hidden="true" tabindex="-1"></a>mod_knn <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">train</span>(</span>
+<span id="cb438-25"><a href="supervisedmli.html#cb438-25" aria-hidden="true" tabindex="-1"></a>  pp, </span>
+<span id="cb438-26"><a href="supervisedmli.html#cb438-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ddf_train <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(), </span>
+<span id="cb438-27"><a href="supervisedmli.html#cb438-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;knn&quot;</span>,</span>
+<span id="cb438-28"><a href="supervisedmli.html#cb438-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> caret<span class="sc">::</span><span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;none&quot;</span>),</span>
+<span id="cb438-29"><a href="supervisedmli.html#cb438-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="dv">5</span>),</span>
+<span id="cb438-30"><a href="supervisedmli.html#cb438-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">metric =</span> <span class="st">&quot;RMSE&quot;</span></span>
+<span id="cb438-31"><a href="supervisedmli.html#cb438-31" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>We can use the model objects <code>mod_lm</code> and <code>mod_knn</code> to add the fitted
 values to the training data and add the predicted values to the test
 data, both using the generic function <code>predict(..., newdata = ...)</code>. The
@@ -1243,73 +1243,73 @@ code below implements the prediction step, the measuring of the
 prediction skill, and the visualisation of predicted versus observed
 values on the test and training sets, bundled into one function -
 <code>eval_model()</code> - which we will re-use for each fitted model object.</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="supervisedmli.html#cb437-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make model evaluation into a function to reuse code</span></span>
-<span id="cb437-2"><a href="supervisedmli.html#cb437-2" aria-hidden="true" tabindex="-1"></a>eval_model <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, df_train, df_test){</span>
-<span id="cb437-3"><a href="supervisedmli.html#cb437-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-4"><a href="supervisedmli.html#cb437-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add predictions to the data frames</span></span>
-<span id="cb437-5"><a href="supervisedmli.html#cb437-5" aria-hidden="true" tabindex="-1"></a>  df_train <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> </span>
-<span id="cb437-6"><a href="supervisedmli.html#cb437-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb437-7"><a href="supervisedmli.html#cb437-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">fitted =</span>  <span class="fu">predict</span>(mod, <span class="at">newdata =</span> .))</span>
-<span id="cb437-8"><a href="supervisedmli.html#cb437-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-9"><a href="supervisedmli.html#cb437-9" aria-hidden="true" tabindex="-1"></a>  df_test <span class="ot">&lt;-</span> df_test <span class="sc">%&gt;%</span> </span>
-<span id="cb437-10"><a href="supervisedmli.html#cb437-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb437-11"><a href="supervisedmli.html#cb437-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">fitted =</span>  <span class="fu">predict</span>(mod, <span class="at">newdata =</span> .))</span>
-<span id="cb437-12"><a href="supervisedmli.html#cb437-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-13"><a href="supervisedmli.html#cb437-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get metrics tables</span></span>
-<span id="cb437-14"><a href="supervisedmli.html#cb437-14" aria-hidden="true" tabindex="-1"></a>  metrics_train <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> </span>
-<span id="cb437-15"><a href="supervisedmli.html#cb437-15" aria-hidden="true" tabindex="-1"></a>    yardstick<span class="sc">::</span><span class="fu">metrics</span>(GPP_NT_VUT_REF, fitted)</span>
-<span id="cb437-16"><a href="supervisedmli.html#cb437-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-17"><a href="supervisedmli.html#cb437-17" aria-hidden="true" tabindex="-1"></a>  metrics_test <span class="ot">&lt;-</span> df_test <span class="sc">%&gt;%</span> </span>
-<span id="cb437-18"><a href="supervisedmli.html#cb437-18" aria-hidden="true" tabindex="-1"></a>    yardstick<span class="sc">::</span><span class="fu">metrics</span>(GPP_NT_VUT_REF, fitted)</span>
-<span id="cb437-19"><a href="supervisedmli.html#cb437-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-20"><a href="supervisedmli.html#cb437-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract values from metrics tables</span></span>
-<span id="cb437-21"><a href="supervisedmli.html#cb437-21" aria-hidden="true" tabindex="-1"></a>  rmse_train <span class="ot">&lt;-</span> metrics_train <span class="sc">%&gt;%</span> </span>
-<span id="cb437-22"><a href="supervisedmli.html#cb437-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">&quot;rmse&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb437-23"><a href="supervisedmli.html#cb437-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.estimate)</span>
-<span id="cb437-24"><a href="supervisedmli.html#cb437-24" aria-hidden="true" tabindex="-1"></a>  rsq_train <span class="ot">&lt;-</span> metrics_train <span class="sc">%&gt;%</span> </span>
-<span id="cb437-25"><a href="supervisedmli.html#cb437-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">&quot;rsq&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb437-26"><a href="supervisedmli.html#cb437-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.estimate)</span>
-<span id="cb437-27"><a href="supervisedmli.html#cb437-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-28"><a href="supervisedmli.html#cb437-28" aria-hidden="true" tabindex="-1"></a>  rmse_test <span class="ot">&lt;-</span> metrics_test <span class="sc">%&gt;%</span> </span>
-<span id="cb437-29"><a href="supervisedmli.html#cb437-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">&quot;rmse&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb437-30"><a href="supervisedmli.html#cb437-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.estimate)</span>
-<span id="cb437-31"><a href="supervisedmli.html#cb437-31" aria-hidden="true" tabindex="-1"></a>  rsq_test <span class="ot">&lt;-</span> metrics_test <span class="sc">%&gt;%</span> </span>
-<span id="cb437-32"><a href="supervisedmli.html#cb437-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">&quot;rsq&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb437-33"><a href="supervisedmli.html#cb437-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.estimate)</span>
-<span id="cb437-34"><a href="supervisedmli.html#cb437-34" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-35"><a href="supervisedmli.html#cb437-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># visualise as a scatterplot</span></span>
-<span id="cb437-36"><a href="supervisedmli.html#cb437-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adding information of metrics as sub-titles</span></span>
-<span id="cb437-37"><a href="supervisedmli.html#cb437-37" aria-hidden="true" tabindex="-1"></a>  gg1 <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> </span>
-<span id="cb437-38"><a href="supervisedmli.html#cb437-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(GPP_NT_VUT_REF, fitted)) <span class="sc">+</span></span>
-<span id="cb437-39"><a href="supervisedmli.html#cb437-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb437-40"><a href="supervisedmli.html#cb437-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb437-41"><a href="supervisedmli.html#cb437-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>) <span class="sc">+</span></span>
-<span id="cb437-42"><a href="supervisedmli.html#cb437-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">bquote</span>( <span class="fu">italic</span>(R)<span class="sc">^</span><span class="dv">2</span> <span class="sc">==</span> .(<span class="fu">format</span>(rsq_train, <span class="at">digits =</span> <span class="dv">2</span>)) <span class="sc">~</span><span class="er">~</span></span>
-<span id="cb437-43"><a href="supervisedmli.html#cb437-43" aria-hidden="true" tabindex="-1"></a>                            RMSE <span class="sc">==</span> .(<span class="fu">format</span>(rmse_train, <span class="at">digits =</span> <span class="dv">3</span>))),</span>
-<span id="cb437-44"><a href="supervisedmli.html#cb437-44" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&quot;Training set&quot;</span>) <span class="sc">+</span></span>
-<span id="cb437-45"><a href="supervisedmli.html#cb437-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span>
-<span id="cb437-46"><a href="supervisedmli.html#cb437-46" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-47"><a href="supervisedmli.html#cb437-47" aria-hidden="true" tabindex="-1"></a>  gg2 <span class="ot">&lt;-</span> df_test <span class="sc">%&gt;%</span> </span>
-<span id="cb437-48"><a href="supervisedmli.html#cb437-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(GPP_NT_VUT_REF, fitted)) <span class="sc">+</span></span>
-<span id="cb437-49"><a href="supervisedmli.html#cb437-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb437-50"><a href="supervisedmli.html#cb437-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb437-51"><a href="supervisedmli.html#cb437-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>) <span class="sc">+</span></span>
-<span id="cb437-52"><a href="supervisedmli.html#cb437-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">bquote</span>( <span class="fu">italic</span>(R)<span class="sc">^</span><span class="dv">2</span> <span class="sc">==</span> .(<span class="fu">format</span>(rsq_test, <span class="at">digits =</span> <span class="dv">2</span>)) <span class="sc">~</span><span class="er">~</span></span>
-<span id="cb437-53"><a href="supervisedmli.html#cb437-53" aria-hidden="true" tabindex="-1"></a>                            RMSE <span class="sc">==</span> .(<span class="fu">format</span>(rmse_test, <span class="at">digits =</span> <span class="dv">3</span>))),</span>
-<span id="cb437-54"><a href="supervisedmli.html#cb437-54" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&quot;Test set&quot;</span>) <span class="sc">+</span></span>
-<span id="cb437-55"><a href="supervisedmli.html#cb437-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span>
-<span id="cb437-56"><a href="supervisedmli.html#cb437-56" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-57"><a href="supervisedmli.html#cb437-57" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg1, gg2)</span>
-<span id="cb437-58"><a href="supervisedmli.html#cb437-58" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb437-59"><a href="supervisedmli.html#cb437-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
-<span id="cb437-60"><a href="supervisedmli.html#cb437-60" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb437-61"><a href="supervisedmli.html#cb437-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb437-62"><a href="supervisedmli.html#cb437-62" aria-hidden="true" tabindex="-1"></a><span class="co"># linear regression model</span></span>
-<span id="cb437-63"><a href="supervisedmli.html#cb437-63" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_model</span>(<span class="at">mod =</span> mod_lm, <span class="at">df_train =</span> ddf_train, <span class="at">df_test =</span> ddf_test)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-224-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="supervisedmli.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KNN</span></span>
-<span id="cb438-2"><a href="supervisedmli.html#cb438-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_model</span>(<span class="at">mod =</span> mod_knn, <span class="at">df_train =</span> ddf_train, <span class="at">df_test =</span> ddf_test)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-224-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="supervisedmli.html#cb439-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make model evaluation into a function to reuse code</span></span>
+<span id="cb439-2"><a href="supervisedmli.html#cb439-2" aria-hidden="true" tabindex="-1"></a>eval_model <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, df_train, df_test){</span>
+<span id="cb439-3"><a href="supervisedmli.html#cb439-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-4"><a href="supervisedmli.html#cb439-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add predictions to the data frames</span></span>
+<span id="cb439-5"><a href="supervisedmli.html#cb439-5" aria-hidden="true" tabindex="-1"></a>  df_train <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> </span>
+<span id="cb439-6"><a href="supervisedmli.html#cb439-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb439-7"><a href="supervisedmli.html#cb439-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">fitted =</span>  <span class="fu">predict</span>(mod, <span class="at">newdata =</span> .))</span>
+<span id="cb439-8"><a href="supervisedmli.html#cb439-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-9"><a href="supervisedmli.html#cb439-9" aria-hidden="true" tabindex="-1"></a>  df_test <span class="ot">&lt;-</span> df_test <span class="sc">%&gt;%</span> </span>
+<span id="cb439-10"><a href="supervisedmli.html#cb439-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb439-11"><a href="supervisedmli.html#cb439-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">fitted =</span>  <span class="fu">predict</span>(mod, <span class="at">newdata =</span> .))</span>
+<span id="cb439-12"><a href="supervisedmli.html#cb439-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-13"><a href="supervisedmli.html#cb439-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get metrics tables</span></span>
+<span id="cb439-14"><a href="supervisedmli.html#cb439-14" aria-hidden="true" tabindex="-1"></a>  metrics_train <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> </span>
+<span id="cb439-15"><a href="supervisedmli.html#cb439-15" aria-hidden="true" tabindex="-1"></a>    yardstick<span class="sc">::</span><span class="fu">metrics</span>(GPP_NT_VUT_REF, fitted)</span>
+<span id="cb439-16"><a href="supervisedmli.html#cb439-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-17"><a href="supervisedmli.html#cb439-17" aria-hidden="true" tabindex="-1"></a>  metrics_test <span class="ot">&lt;-</span> df_test <span class="sc">%&gt;%</span> </span>
+<span id="cb439-18"><a href="supervisedmli.html#cb439-18" aria-hidden="true" tabindex="-1"></a>    yardstick<span class="sc">::</span><span class="fu">metrics</span>(GPP_NT_VUT_REF, fitted)</span>
+<span id="cb439-19"><a href="supervisedmli.html#cb439-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-20"><a href="supervisedmli.html#cb439-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract values from metrics tables</span></span>
+<span id="cb439-21"><a href="supervisedmli.html#cb439-21" aria-hidden="true" tabindex="-1"></a>  rmse_train <span class="ot">&lt;-</span> metrics_train <span class="sc">%&gt;%</span> </span>
+<span id="cb439-22"><a href="supervisedmli.html#cb439-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">&quot;rmse&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb439-23"><a href="supervisedmli.html#cb439-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.estimate)</span>
+<span id="cb439-24"><a href="supervisedmli.html#cb439-24" aria-hidden="true" tabindex="-1"></a>  rsq_train <span class="ot">&lt;-</span> metrics_train <span class="sc">%&gt;%</span> </span>
+<span id="cb439-25"><a href="supervisedmli.html#cb439-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">&quot;rsq&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb439-26"><a href="supervisedmli.html#cb439-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.estimate)</span>
+<span id="cb439-27"><a href="supervisedmli.html#cb439-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-28"><a href="supervisedmli.html#cb439-28" aria-hidden="true" tabindex="-1"></a>  rmse_test <span class="ot">&lt;-</span> metrics_test <span class="sc">%&gt;%</span> </span>
+<span id="cb439-29"><a href="supervisedmli.html#cb439-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">&quot;rmse&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb439-30"><a href="supervisedmli.html#cb439-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.estimate)</span>
+<span id="cb439-31"><a href="supervisedmli.html#cb439-31" aria-hidden="true" tabindex="-1"></a>  rsq_test <span class="ot">&lt;-</span> metrics_test <span class="sc">%&gt;%</span> </span>
+<span id="cb439-32"><a href="supervisedmli.html#cb439-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">&quot;rsq&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb439-33"><a href="supervisedmli.html#cb439-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(.estimate)</span>
+<span id="cb439-34"><a href="supervisedmli.html#cb439-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-35"><a href="supervisedmli.html#cb439-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># visualise as a scatterplot</span></span>
+<span id="cb439-36"><a href="supervisedmli.html#cb439-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># adding information of metrics as sub-titles</span></span>
+<span id="cb439-37"><a href="supervisedmli.html#cb439-37" aria-hidden="true" tabindex="-1"></a>  gg1 <span class="ot">&lt;-</span> df_train <span class="sc">%&gt;%</span> </span>
+<span id="cb439-38"><a href="supervisedmli.html#cb439-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(GPP_NT_VUT_REF, fitted)) <span class="sc">+</span></span>
+<span id="cb439-39"><a href="supervisedmli.html#cb439-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb439-40"><a href="supervisedmli.html#cb439-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb439-41"><a href="supervisedmli.html#cb439-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>) <span class="sc">+</span></span>
+<span id="cb439-42"><a href="supervisedmli.html#cb439-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">bquote</span>( <span class="fu">italic</span>(R)<span class="sc">^</span><span class="dv">2</span> <span class="sc">==</span> .(<span class="fu">format</span>(rsq_train, <span class="at">digits =</span> <span class="dv">2</span>)) <span class="sc">~</span><span class="er">~</span></span>
+<span id="cb439-43"><a href="supervisedmli.html#cb439-43" aria-hidden="true" tabindex="-1"></a>                            RMSE <span class="sc">==</span> .(<span class="fu">format</span>(rmse_train, <span class="at">digits =</span> <span class="dv">3</span>))),</span>
+<span id="cb439-44"><a href="supervisedmli.html#cb439-44" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&quot;Training set&quot;</span>) <span class="sc">+</span></span>
+<span id="cb439-45"><a href="supervisedmli.html#cb439-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span>
+<span id="cb439-46"><a href="supervisedmli.html#cb439-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-47"><a href="supervisedmli.html#cb439-47" aria-hidden="true" tabindex="-1"></a>  gg2 <span class="ot">&lt;-</span> df_test <span class="sc">%&gt;%</span> </span>
+<span id="cb439-48"><a href="supervisedmli.html#cb439-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(GPP_NT_VUT_REF, fitted)) <span class="sc">+</span></span>
+<span id="cb439-49"><a href="supervisedmli.html#cb439-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb439-50"><a href="supervisedmli.html#cb439-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb439-51"><a href="supervisedmli.html#cb439-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>) <span class="sc">+</span></span>
+<span id="cb439-52"><a href="supervisedmli.html#cb439-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">bquote</span>( <span class="fu">italic</span>(R)<span class="sc">^</span><span class="dv">2</span> <span class="sc">==</span> .(<span class="fu">format</span>(rsq_test, <span class="at">digits =</span> <span class="dv">2</span>)) <span class="sc">~</span><span class="er">~</span></span>
+<span id="cb439-53"><a href="supervisedmli.html#cb439-53" aria-hidden="true" tabindex="-1"></a>                            RMSE <span class="sc">==</span> .(<span class="fu">format</span>(rmse_test, <span class="at">digits =</span> <span class="dv">3</span>))),</span>
+<span id="cb439-54"><a href="supervisedmli.html#cb439-54" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&quot;Test set&quot;</span>) <span class="sc">+</span></span>
+<span id="cb439-55"><a href="supervisedmli.html#cb439-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span>
+<span id="cb439-56"><a href="supervisedmli.html#cb439-56" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-57"><a href="supervisedmli.html#cb439-57" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(gg1, gg2)</span>
+<span id="cb439-58"><a href="supervisedmli.html#cb439-58" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb439-59"><a href="supervisedmli.html#cb439-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb439-60"><a href="supervisedmli.html#cb439-60" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb439-61"><a href="supervisedmli.html#cb439-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb439-62"><a href="supervisedmli.html#cb439-62" aria-hidden="true" tabindex="-1"></a><span class="co"># linear regression model</span></span>
+<span id="cb439-63"><a href="supervisedmli.html#cb439-63" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_model</span>(<span class="at">mod =</span> mod_lm, <span class="at">df_train =</span> ddf_train, <span class="at">df_test =</span> ddf_test)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-223-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="supervisedmli.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="co"># KNN</span></span>
+<span id="cb440-2"><a href="supervisedmli.html#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_model</span>(<span class="at">mod =</span> mod_knn, <span class="at">df_train =</span> ddf_train, <span class="at">df_test =</span> ddf_test)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-223-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>It is advisable to keep workflow notebooks (this RMarkdown file) light
 and legible. Therefore, code chunks should not be excessively long and
 functions should be kept in a <code>./R/*.R</code> file, which can be loaded. This

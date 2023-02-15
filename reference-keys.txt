@@ -165,7 +165,7 @@ regression
 linear-regression
 regression-on-categorical-variables
 polynomial-regression
-metrics-for-regression
+metrics-for-regression-evaluation
 metrics-for-regression-model-comparison
 classification
 logistic-regression

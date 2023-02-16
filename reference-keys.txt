@@ -31,7 +31,6 @@ installing-r-and-rstudio
 the-rstudio-interface
 running-r-code
 base-r-operations
-working-directory
 r-objects
 types-of-data
 variables-and-classes

@@ -22,7 +22,6 @@ fig:projecttemplate
 fig:newtemplaterepository
 fig:newtemplaterepositoryname
 fig:correlationplots
-system-information-and-package-list
 gettingstarted
 learning-objectives-1
 tutorial
@@ -31,6 +30,7 @@ installing-r-and-rstudio
 the-rstudio-interface
 running-r-code
 base-r-operations
+working-directory
 r-objects
 types-of-data
 variables-and-classes
@@ -43,7 +43,6 @@ r-environment
 read-and-save-data
 r-scripts
 structure-your-script
-comments
 spaces-and-breaks
 variable-naming
 r-markdown

@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Stocker (lead), Koen Hufkens (contributing), Pepa Arán (contributing), Pascal Schneider (contributing)" />
 
 
-<meta name="date" content="2023-02-22" />
+<meta name="date" content="2023-02-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -41,6 +41,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
 
 
 
@@ -274,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="codemgmt.html"><a href="codemgmt.html#learning-objectives-7"><i class="fa fa-check"></i><b>7.1</b> Learning objectives</a></li>
 <li class="chapter" data-level="7.2" data-path="codemgmt.html"><a href="codemgmt.html#tutorial-6"><i class="fa fa-check"></i><b>7.2</b> Tutorial</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="codemgmt.html"><a href="codemgmt.html#git-and-local-version-control"><i class="fa fa-check"></i><b>7.2.1</b> Git and local version control</a></li>
+<li class="chapter" data-level="7.2.1" data-path="codemgmt.html"><a href="codemgmt.html#gitworkflow"><i class="fa fa-check"></i><b>7.2.1</b> Git and local version control</a></li>
 <li class="chapter" data-level="7.2.2" data-path="codemgmt.html"><a href="codemgmt.html#remote-version-control"><i class="fa fa-check"></i><b>7.2.2</b> Remote version control</a></li>
 <li class="chapter" data-level="7.2.3" data-path="codemgmt.html"><a href="codemgmt.html#location-based-code-management---github-templates"><i class="fa fa-check"></i><b>7.2.3</b> Location based code management - github templates</a></li>
 </ul></li>
@@ -367,9 +368,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html#system-information-and-package-list"><i class="fa fa-check"></i>System information and package list</a></li>
 </ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
 </ul>
 
       </nav>
@@ -865,7 +863,17 @@ Figure 1.5: R project menu.
 </ul></li>
 </ul>
 <p>You can check if the installation was successful by running the following code in the RStudio console:</p>
-<pre><code># XXX TO DO @koenhufkens</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="gettingstarted.html#cb102-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">rast</span>(<span class="st">&quot;https://raw.githubusercontent.com/geco-bern/agds/main/data/demo_data.nc&quot;</span>)</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 41, 71, 1  (nrow, ncol, nlyr)
+## resolution  : 0.1, 0.1  (x, y)
+## extent      : 4.95, 12.05, 43.95, 48.05  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 
+## source      : demo_data.nc 
+## varname     : t2m (2 metre temperature) 
+## name        : t2m 
+## unit        :   K 
+## time        : 2022-01-01 12:00:00 UTC</code></pre>
 </div>
 <div id="git-1" class="section level4 hasAnchor" number="1.2.8.3">
 <h4><span class="header-section-number">1.2.8.3</span> git<a href="gettingstarted.html#git-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1033,6 +1041,7 @@ Figure 1.12: At first, the R Markdown for your report will look something like t
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1047,12 +1056,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"linkedin": false,
+"linkedin": true,
 "weibo": false,
 "instapaper": false,
 "vk": false,
 "whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1060,8 +1069,8 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-getting_started.Rmd",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
@@ -1071,14 +1080,19 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf", "_main.epub"],
+"download": null,
 "search": {
-"engine": "fuse",
+"engine": "lunr",
 "options": null
 },
 "toc": {
-"collapse": "subsection"
-}
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"info": true
 });
 });
 </script>

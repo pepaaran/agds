@@ -232,7 +232,10 @@ tutorial-10
 decision-trees
 bagging
 from-trees-to-a-forest
+exercises-8
+xxx-solution
 solutions
 getting-started
 programming-primers
+random-forest
 references

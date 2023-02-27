@@ -20,10 +20,10 @@
   <meta name="twitter:description" content="This course prepares you to benefit from the general data richness in environmental and geo-sciences." />
   
 
-<meta name="author" content="Benjamin Stocker (lead), Koen Hufkens (contributing), Pepa Arán (contributing), Pascal Schneider (contributing)" />
+<meta name="author" content="Benjamin Stocker, Koen Hufkens, Pepa Arán, and Pascal Schneider" />
 
 
-<meta name="date" content="2023-02-23" />
+<meta name="date" content="2023-02-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -226,7 +226,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="datawrangling.html"><a href="datawrangling.html#aggregating"><i class="fa fa-check"></i>Aggregating</a></li>
 <li class="chapter" data-level="" data-path="datawrangling.html"><a href="datawrangling.html#patterns-in-data-quality"><i class="fa fa-check"></i>Patterns in data quality</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="datawrangling.html"><a href="datawrangling.html#report-exercise"><i class="fa fa-check"></i><b>3.5</b> Report Exercise</a></li>
+<li class="chapter" data-level="3.5" data-path="datawrangling.html"><a href="datawrangling.html#report-exercise"><i class="fa fa-check"></i><b>3.5</b> Report Exercise</a>
+<ul>
+<li class="chapter" data-level="" data-path="datawrangling.html"><a href="datawrangling.html#cleaning-data-from-elevated-co_2-experiments"><i class="fa fa-check"></i>Cleaning data from elevated CO<span class="math inline">\(_2\)</span> experiments</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="datavis.html"><a href="datavis.html"><i class="fa fa-check"></i><b>4</b> Data visualisation</a>
 <ul>
@@ -238,6 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="datavis.html"><a href="datavis.html#exercises-2"><i class="fa fa-check"></i><b>4.3</b> Exercises</a>
 <ul>
+<li class="chapter" data-level="" data-path="datavis.html"><a href="datavis.html#spurious-data"><i class="fa fa-check"></i>Spurious data</a></li>
 <li class="chapter" data-level="" data-path="datavis.html"><a href="datavis.html#identifying-outliers"><i class="fa fa-check"></i>Identifying Outliers</a></li>
 <li class="chapter" data-level="" data-path="datavis.html"><a href="datavis.html#visualising-diurnal-and-seasonal-cycles-of-gpp"><i class="fa fa-check"></i>Visualising diurnal and seasonal cycles of GPP</a></li>
 <li class="chapter" data-level="" data-path="datavis.html"><a href="datavis.html#trend-in-carbon-dioxide-concentrations"><i class="fa fa-check"></i>Trend in carbon dioxide concentrations</a></li>
@@ -256,7 +260,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.2" data-path="datavariety.html"><a href="datavariety.html#meta-data"><i class="fa fa-check"></i><b>5.2.2</b> Meta-data</a></li>
 <li class="chapter" data-level="5.2.3" data-path="datavariety.html"><a href="datavariety.html#spatial-data-representation"><i class="fa fa-check"></i><b>5.2.3</b> Spatial data representation</a></li>
 <li class="chapter" data-level="5.2.4" data-path="datavariety.html"><a href="datavariety.html#online-data-sources"><i class="fa fa-check"></i><b>5.2.4</b> Online data sources</a></li>
-<li class="chapter" data-level="5.2.5" data-path="datavariety.html"><a href="datavariety.html#example-environmental-data-repositories"><i class="fa fa-check"></i><b>5.2.5</b> Example environmental data repositories</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="datavariety.html"><a href="datavariety.html#exercises-3"><i class="fa fa-check"></i><b>5.3</b> Exercises</a>
 <ul>
@@ -274,7 +277,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.3" data-path="openscience.html"><a href="openscience.html#capturing-your-session-state"><i class="fa fa-check"></i><b>6.2.3</b> Capturing your session state</a></li>
 <li class="chapter" data-level="6.2.4" data-path="openscience.html"><a href="openscience.html#capturing-a-system-state"><i class="fa fa-check"></i><b>6.2.4</b> Capturing a system state</a></li>
 <li class="chapter" data-level="6.2.5" data-path="openscience.html"><a href="openscience.html#readable-reporting-using-rmarkdown"><i class="fa fa-check"></i><b>6.2.5</b> Readable reporting using Rmarkdown</a></li>
-<li class="chapter" data-level="6.2.6" data-path="openscience.html"><a href="openscience.html#data-retention"><i class="fa fa-check"></i><b>6.2.6</b> Data retention</a></li>
+<li class="chapter" data-level="6.2.6" data-path="openscience.html"><a href="openscience.html#project-structure-1"><i class="fa fa-check"></i><b>6.2.6</b> Project structure</a></li>
+<li class="chapter" data-level="6.2.7" data-path="openscience.html"><a href="openscience.html#data-retention"><i class="fa fa-check"></i><b>6.2.7</b> Data retention</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="openscience.html"><a href="openscience.html#exercises-4"><i class="fa fa-check"></i><b>6.3</b> Exercises</a>
 <ul>
@@ -308,13 +312,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.2.1" data-path="regressionclassification.html"><a href="regressionclassification.html#types-of-models"><i class="fa fa-check"></i><b>8.2.1</b> Types of models</a></li>
 <li class="chapter" data-level="8.2.2" data-path="regressionclassification.html"><a href="regressionclassification.html#regression"><i class="fa fa-check"></i><b>8.2.2</b> Regression</a></li>
-<li class="chapter" data-level="8.2.3" data-path="regressionclassification.html"><a href="regressionclassification.html#classification"><i class="fa fa-check"></i><b>8.2.3</b> Classification</a></li>
-<li class="chapter" data-level="8.2.4" data-path="regressionclassification.html"><a href="regressionclassification.html#model-evaluation"><i class="fa fa-check"></i><b>8.2.4</b> Model evaluation</a></li>
+<li class="chapter" data-level="8.2.3" data-path="regressionclassification.html"><a href="regressionclassification.html#model-selection"><i class="fa fa-check"></i><b>8.2.3</b> Model selection</a></li>
+<li class="chapter" data-level="8.2.4" data-path="regressionclassification.html"><a href="regressionclassification.html#outlier-detection"><i class="fa fa-check"></i><b>8.2.4</b> Outlier detection</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="regressionclassification.html"><a href="regressionclassification.html#exercises-6"><i class="fa fa-check"></i><b>8.3</b> Exercises</a></li>
-<li class="chapter" data-level="8.4" data-path="regressionclassification.html"><a href="regressionclassification.html#report-exercise-1"><i class="fa fa-check"></i><b>8.4</b> Report Exercise</a>
+<li class="chapter" data-level="8.3" data-path="regressionclassification.html"><a href="regressionclassification.html#extra-material"><i class="fa fa-check"></i><b>8.3</b> Extra material</a>
 <ul>
-<li class="chapter" data-level="" data-path="regressionclassification.html"><a href="regressionclassification.html#stepwise-regression-and-asking-for-help"><i class="fa fa-check"></i>Stepwise regression and asking for help</a></li>
+<li class="chapter" data-level="8.3.1" data-path="regressionclassification.html"><a href="regressionclassification.html#classification"><i class="fa fa-check"></i><b>8.3.1</b> Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="regressionclassification.html"><a href="regressionclassification.html#exercises-6"><i class="fa fa-check"></i><b>8.4</b> Exercises</a></li>
+<li class="chapter" data-level="8.5" data-path="regressionclassification.html"><a href="regressionclassification.html#report-exercise-1"><i class="fa fa-check"></i><b>8.5</b> Report Exercise</a>
+<ul>
+<li class="chapter" data-level="" data-path="regressionclassification.html"><a href="regressionclassification.html#deliverables-for-the-report"><i class="fa fa-check"></i>Deliverables for the report</a></li>
+<li class="chapter" data-level="" data-path="regressionclassification.html"><a href="regressionclassification.html#guide-for-your-implementation"><i class="fa fa-check"></i>Guide for your implementation</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervisedmli.html"><a href="supervisedmli.html"><i class="fa fa-check"></i><b>9</b> Supervised machine learning I</a>
@@ -334,7 +343,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.3" data-path="supervisedmli.html"><a href="supervisedmli.html#exercises-7"><i class="fa fa-check"></i><b>9.3</b> Exercises</a></li>
 <li class="chapter" data-level="9.4" data-path="supervisedmli.html"><a href="supervisedmli.html#report-exercises-2"><i class="fa fa-check"></i><b>9.4</b> Report Exercises</a>
 <ul>
-<li class="chapter" data-level="" data-path="supervisedmli.html"><a href="supervisedmli.html#the-role-of-picking-a-hyperparameter"><i class="fa fa-check"></i>The role of picking a hyperparameter</a></li>
+<li class="chapter" data-level="" data-path="supervisedmli.html"><a href="supervisedmli.html#comparison-of-the-linear-regression-and-knn-models"><i class="fa fa-check"></i>Comparison of the linear regression and KNN models</a></li>
+<li class="chapter" data-level="" data-path="supervisedmli.html"><a href="supervisedmli.html#the-role-of-k"><i class="fa fa-check"></i>The role of k</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="supervisedmlii.html"><a href="supervisedmlii.html"><i class="fa fa-check"></i><b>10</b> Supervised machine learning II</a>
@@ -352,6 +362,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3" data-path="supervisedmlii.html"><a href="supervisedmlii.html#exercises-8"><i class="fa fa-check"></i><b>10.3</b> Exercises</a>
 <ul>
 <li class="chapter" data-level="" data-path="supervisedmlii.html"><a href="supervisedmlii.html#cross-validation-by-hand"><i class="fa fa-check"></i>Cross-validation by hand</a></li>
+<li class="chapter" data-level="10.3.1" data-path="supervisedmlii.html"><a href="supervisedmlii.html#cross-validation-vs.-test-error"><i class="fa fa-check"></i><b>10.3.1</b> Cross-validation vs. test error</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="supervisedmlii.html"><a href="supervisedmlii.html#report-exercises-3"><i class="fa fa-check"></i><b>10.4</b> Report Exercises</a></li>
 </ul></li>
@@ -363,6 +374,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.2.1" data-path="randomforest.html"><a href="randomforest.html#decision-trees"><i class="fa fa-check"></i><b>11.2.1</b> Decision trees</a></li>
 <li class="chapter" data-level="11.2.2" data-path="randomforest.html"><a href="randomforest.html#bagging"><i class="fa fa-check"></i><b>11.2.2</b> Bagging</a></li>
 <li class="chapter" data-level="11.2.3" data-path="randomforest.html"><a href="randomforest.html#from-trees-to-a-forest"><i class="fa fa-check"></i><b>11.2.3</b> From trees to a forest</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="randomforest.html"><a href="randomforest.html#exercises-9"><i class="fa fa-check"></i><b>11.3</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="" data-path="randomforest.html"><a href="randomforest.html#fitting-a-random-forest"><i class="fa fa-check"></i>Fitting a Random Forest</a></li>
+<li class="chapter" data-level="" data-path="randomforest.html"><a href="randomforest.html#hyperparameter-tuning"><i class="fa fa-check"></i>Hyperparameter tuning</a></li>
+<li class="chapter" data-level="" data-path="randomforest.html"><a href="randomforest.html#model-performance"><i class="fa fa-check"></i>Model performance</a></li>
 </ul></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -389,18 +406,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#star-wars-1"><i class="fa fa-check"></i>Star wars</a></li>
 <li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#aggregating-1"><i class="fa fa-check"></i>Aggregating</a></li>
 <li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#patterns-in-data-quality-1"><i class="fa fa-check"></i>Patterns in data quality</a></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#tidying-an-excel-file"><i class="fa fa-check"></i>Tidying an Excel-file</a></li>
 </ul></li>
 <li class="chapter" data-level="A.4" data-path="solutions.html"><a href="solutions.html#data-visualisation"><i class="fa fa-check"></i><b>A.4</b> Data Visualisation</a>
 <ul>
+<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#spurious-data-1"><i class="fa fa-check"></i>Spurious data</a></li>
 <li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#identifying-outliers-1"><i class="fa fa-check"></i>Identifying Outliers</a></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#diurnal-and-seasonal-cycles"><i class="fa fa-check"></i>Diurnal and seasonal cycles</a></li>
+<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#visualising-diurnal-and-seasonal-cycles-of-gpp-1"><i class="fa fa-check"></i>Visualising diurnal and seasonal cycles of GPP</a></li>
 <li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#trend-in-carbon-dioxide-concentrations-1"><i class="fa fa-check"></i>Trend in carbon dioxide concentrations</a></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#telling-a-story-from-data-1"><i class="fa fa-check"></i>Telling a story from data</a></li>
 </ul></li>
 <li class="chapter" data-level="A.5" data-path="solutions.html"><a href="solutions.html#data-variety"><i class="fa fa-check"></i><b>A.5</b> Data Variety</a>
 <ul>
 <li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#files-and-file-formats-2"><i class="fa fa-check"></i>Files and file formats</a></li>
+<li class="chapter" data-level="A.5.1" data-path="solutions.html"><a href="solutions.html#api-use-1"><i class="fa fa-check"></i><b>A.5.1</b> API Use</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="solutions.html"><a href="solutions.html#open-science"><i class="fa fa-check"></i><b>A.6</b> Open Science</a>
 <ul>
@@ -411,23 +428,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.7" data-path="solutions.html"><a href="solutions.html#code-management"><i class="fa fa-check"></i><b>A.7</b> Code Management</a>
 <ul>
 <li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#location-based-code-management-1"><i class="fa fa-check"></i>Location based code management</a></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#collaborative-work-on-github-1"><i class="fa fa-check"></i>Collaborative Work on Github</a></li>
 </ul></li>
-<li class="chapter" data-level="A.8" data-path="solutions.html"><a href="solutions.html#regression-and-classification"><i class="fa fa-check"></i><b>A.8</b> Regression and Classification</a>
-<ul>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#stepwise-regression-and-asking-for-help-1"><i class="fa fa-check"></i>Stepwise regression and asking for help</a></li>
-</ul></li>
-<li class="chapter" data-level="A.9" data-path="solutions.html"><a href="solutions.html#supervised-ml-i"><i class="fa fa-check"></i><b>A.9</b> Supervised ML I</a>
-<ul>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#comparison-of-lm-and-knn"><i class="fa fa-check"></i>Comparison of LM and KNN</a></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#the-role-of-picking-a-hyperparameter-1"><i class="fa fa-check"></i>The role of picking a hyperparameter</a></li>
-</ul></li>
+<li class="chapter" data-level="A.8" data-path="solutions.html"><a href="solutions.html#regression-and-classification"><i class="fa fa-check"></i><b>A.8</b> Regression and Classification</a></li>
+<li class="chapter" data-level="A.9" data-path="solutions.html"><a href="solutions.html#supervised-ml-i"><i class="fa fa-check"></i><b>A.9</b> Supervised ML I</a></li>
 <li class="chapter" data-level="A.10" data-path="solutions.html"><a href="solutions.html#supervised-ml-ii"><i class="fa fa-check"></i><b>A.10</b> Supervised ML II</a>
 <ul>
 <li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#cross-validation-by-hand-1"><i class="fa fa-check"></i>Cross-validation by hand</a></li>
-<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#testing-the-generalisability-of-a-model"><i class="fa fa-check"></i>Testing the generalisability of a model</a></li>
+<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#cross-validation-vs.-test-error-1"><i class="fa fa-check"></i>Cross-validation vs. test error</a></li>
 </ul></li>
-<li class="chapter" data-level="A.11" data-path="solutions.html"><a href="solutions.html#random-forests"><i class="fa fa-check"></i><b>A.11</b> Random Forests</a></li>
+<li class="chapter" data-level="A.11" data-path="solutions.html"><a href="solutions.html#random-forest"><i class="fa fa-check"></i><b>A.11</b> Random Forest</a>
+<ul>
+<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#fitting-a-random-forest-1"><i class="fa fa-check"></i>Fitting a Random Forest</a></li>
+<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#hyperparameter-tuning-1"><i class="fa fa-check"></i>Hyperparameter tuning</a></li>
+<li class="chapter" data-level="" data-path="solutions.html"><a href="solutions.html#model-performance-1"><i class="fa fa-check"></i>Model performance</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>B</b> References</a>
 <ul>
@@ -452,14 +466,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">Applied Geodata Science</h1>
-<p class="author"><em>Benjamin Stocker (lead), Koen Hufkens (contributing), Pepa Arán (contributing), Pascal Schneider (contributing)</em></p>
-<p class="date"><em>2023-02-23</em></p>
+<p class="author"><em>Benjamin Stocker, Koen Hufkens, Pepa Arán, and Pascal Schneider</em></p>
+<p class="date"><em>2023-02-27</em></p>
 </div>
 <div id="overview" class="section level1 unnumbered hasAnchor">
 <h1>Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="about-this-book" class="section level2 unnumbered hasAnchor">
 <h2>About this book<a href="index.html#about-this-book" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="floatting">
+<p><img src="figures/agds_logo.png" width="40%" style="float:right; padding:20px" style="display: block; margin: auto 0 auto auto;" /></p>
 <p>This book serves as the basis for the series of courses in <em>Applied Geodata Science</em>, taught at the Institute of Geography, University of Bern. The starting point of this book were the tutorials edited by Benjamin Stocker, Loïc Pellissier, and Joshua Payne for the course <em>Environmental Systems Data Science</em> (D-USYS, ETH Zürich). The present book was written as a collaborative effort led by <a href="https://geco-group.org/author/benjamin-stocker/">Benjamin Stocker</a>, with contributions by <a href="https://geco-group.org/author/pepa-aran/">Pepa Arán</a> and <a href="https://geco-group.org/author/koen-hufkens/">Koen Hufkens</a>, and exercises by <a href="https://geco-group.org/author/pascal-schneider/">Pascal Schneider</a>.</p>
+</div>
 <p>The target of this book are people interested in applying data science methods for research. Methods, example data sets, and prediction challenges are chosen to make the book most relatable to scientists and students in Geography and Environmental Sciences. No prior knowledge of coding is required. Respective essentials are briefly introduced as primers. The focus of this book is not on the theoretical basis of the methods. Other “classical” statistics courses serve this purpose. Instead, this book introduces essential concepts, methods, and tools for applied data science in Geography and Environmental Sciences with an emphasis on covering a wide breadth. It is written with a hands-on approach using the R programming language and should enable an intuitive understanding of concepts with only a minimal reliance on mathematical language. Worked examples are provided for typical steps of data science applications in Geography and Environmental Sciences. The aim of this book is to teach the diverse set of skills needed as a basis for data-intensive research in academia and outside.</p>
 <p>We also use this book as a reference and on-boarding resource for group members of <a href="https://geco-group.org/">Geocomputation and Earth Observation (GECO)</a>, at the Institute of Geography, University of Bern.</p>
 <p><br></p>
